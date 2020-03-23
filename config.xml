@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget
+        id="cordova.plugins.diagnostic.example"
+        version="6.2.0"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Cook Today</name>
+    <description>
+        App para decidir que comer hoy
+    </description>
+    <author email="EMAIL" href="gabrielguardiola1999@gmail.com">
+        hola
+    </author>
+ 
+    <content src="index.html" />
+    <access origin="*" />
+
+    <icon src="images/android-desktop-beta.png"/>
+    
+  
+    <preference name="Fullscreen" value="false" />
+    <preference name="phonegap-version" value="cli-9.0.0" /> <!-- Phonegap Build only -->
+
+    <plugin name="cordova-plugin-whitelist" version="*" />
+    <plugin name="cordova-plugin-device" version="*" />
+    <plugin name="cordova-custom-config" version="*" />
+    <plugin name="cordova-plugin-geolocation" version="2.1.0" />
+    <plugin name="cordova-plugin-camera" version="2.1.0" />
+    <plugin name="cordova-plugin-device-motion" spec="1.2.3" />
+    <plugin name="https://github.com/wildabeast/BarcodeScanner.git" /> 
+    <plugin name="cordova-plugin-splashscreen" version ="5.0.3" />
+    <plugin name="cordova.plugins.diagnostic" version="*" />
+    <!--<plugin spec="https://github.com/dpa99c/cordova-diagnostic-plugin.git#dev" source="git" />-->
+    <platform name="android">
+        <preference name="Fullscreen" value="false" />    
+        <!-- <splash src="splash.png" />    -->
+        <preference name="SplashMaintainAspectRatio" value="false"/>
+        <splash src="images/ldpi.png" density="port-ldpi" />
+        <splash src="images/mdpi.png" density="port-mdpi" />
+        <splash src="images/hdpi.png" density="port-hdpi" />
+        <splash src="images/xhdpi.png" density="port-xhdpi" />>
+        <splash src="images/portrait-xxhdpi.png" density="port-xxhdpi" />
+        <splash src="images/landscape-xxhdpi.png" density="land-xxhdpi" />
+        <splash src="images/xxxhdpi.png" density="xxxhdpi" />      
+        <plugin name="cordova-plugin-file" version="*" />
+
+        <preference name="android-build-tool" value="gradle" /> <!-- Phonegap Build only -->
+        
+        <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-targetSdkVersion" value="23" />
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.BLUETOOTH" />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+            <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+            <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+            <uses-permission android:name="android.hardware.sensor.accelerometer" android:required="true" />  
+        </config-file>
+    </platform> 
+    
+    <preference name="SplashScreenDelay" value="5000" />  
+    <preference name="FadeSplashScreen" value="false" />    
+    <preference name="ShowSplashScreenSpinner" value="false" />    
+</widget>
