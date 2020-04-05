@@ -1,7 +1,7 @@
 //seccion mi nevera
 class minevera {
     //metodo selectores: este method llama a la lista ingredientes_list que contiene todos los ingredientes.
-    selectores(ingredientes_list) {
+    selectores(ingredientes_list_const) {
         /*
         declaramos la constante contenedorSelectores que recoge:
                         
@@ -16,12 +16,12 @@ class minevera {
         //a la constante autoSelector que es el formulario, le añadimos atributo id form-selector
         autoSelector.setAttribute("id","form-selector");        
         //recorremos un bucle for mientras i sea menor o igual que la longitud de la lista de ingredientes.
-        for (var i = 0; i <= ingredientes_list.length -1; i++){
+        for (var i = 0; i < ingredientes_list_const.length -1; i++){
             //a autoSelector que es el elemento form le inyectamos el HTML de la lista por cada step del bucle.
             autoSelector.innerHTML += `
-            <label class="mdl-chip" name="ingrediente_checkbox" for="${ingredientes_list[i]}">
-                <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
-                <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text">${ingredientes_list[i]}</span>
+            <label class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
+                <input style="visibility: hidden" type="checkbox" id="${ingredientes_list_const[i]}" class="mdl-checkbox__input">
+                <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
             </label>
             `;
 
@@ -32,7 +32,7 @@ class minevera {
     // este metodo se encarga de controlar el flujo del resultado de los selectores. Se llama con la variable ingredientes_checked.
     // INGREDIENTES_CHECKED = esta variable se rellena con los ingredientes marcados por el usuario a través del evento DOM sobre los selectores del metetodo
     //selectores()
-    mostrar_seleccionados(ingredientes_checked){
+    mostrar_seleccionados(ingredientes_checked_split,spliteado){
         /*
         se declara la constante contenedorResultado que recoge el div donde se van a printear o se han printeado los ingredientes_checked:
                 
@@ -67,9 +67,23 @@ class minevera {
 
         //tanto si borra como si no, va a crear el parrafo con el atributo id ingrediente_result con la constante muestraResultado
         //este parrafo va a tener la variable ingredientes_checked que es la lista de ingredientes marcadas por el usuario (explicado en el apartado DOM)
-        const muestraResultado = document.createElement('p');
+        if (spliteado == false){
+            //var ingredientes_checked_split = ingredientes_checked.split(";")
+            console.log("aaa")
+        }
+        //ingredientes_checked_split.pop("")  
+        console.log(ingredientes_checked_split)
+
+        const muestraResultado = document.createElement('div');
         muestraResultado.setAttribute("id", "ingrediente_result");
-        muestraResultado.innerHTML = ingredientes_checked;
+        for (var i = 0; i <= ingredientes_checked_split.length -1; i++){
+            muestraResultado.innerHTML += `
+            <span onclick="ingrediente_delete('${ingredientes_checked_split[i]}')"class="mdl-chip mdl-chip--deletable">
+                <span class="mdl-chip__text">${ingredientes_checked_split[i]}</span>
+                <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+            </span>
+            `;
+        }
         //a contenedorResultado le añadimos le hijo muestraResultado que es el <p> con la los ingredientes con id ingrediente_result
         contenedorResultado.appendChild(muestraResultado);
 
@@ -82,19 +96,18 @@ class minevera {
 ////APARTADO DOM////
 //WIP
 //lista que tiene todos los ingredientes. Esto necesita mas desarrollo porque tiene que pasarse por python webscrapping
-ingredientes_list = ['Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos',
+
+const ingredientes_list_const = ['Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos',
 'Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos'
-
-
-
-
 ]
+
+ingredientes_list = ingredientes_list_const.slice()
 
 //hace una nueva clase
 const ui = new minevera();
 
 //llama al metodo selectores con la lista de ingredientes para que nos haga los selectores checkbox
-ui.selectores(ingredientes_list);
+ui.selectores(ingredientes_list_const);
 
 ////BORRADOR////
 /*selecciona el elemento con id borrador:
@@ -132,16 +145,68 @@ document.getElementById('borrador').addEventListener('submit',function(e){
 
     //}
     //limpiamos la lista de ingredientes seleccionados
-    ingredientes_checked = ""
+    ingredientes_checked = []
     const contenedorSelectores = document.getElementById("form-selector");
     contenedorSelectores.remove("form-selector")
     contenedorSelectores.innerHTML = ""
-    ui.selectores(ingredientes_list);
+
+    const contenedorBuscador = document.getElementById("indexof");
+    contenedorBuscador.value = ""
+
+    const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+
+    ingredientes_list = ingredientes_list_const.slice()
+    ui.selectores(ingredientes_list_const);
     e.preventDefault(); 
     //evitamos que el evento submit se comporte por defecto (es decir, que haga reload de la pagina)
 })
 
+function ingrediente_click(id_ingrediente_check){
 
+    ingredientes_list_pop = ingredientes_list
+    for( var i = 0; i < ingredientes_list_pop.length; i++){
+            if ( ingredientes_list_pop[i] === id_ingrediente_check) {
+            ingredientes_list_pop.splice(i, 1); 
+        }
+    }
+    console.log(id_ingrediente_check)
+    ingredientes_checked.push(id_ingrediente_check)
+    console.log(ingredientes_checked)
+    ui.mostrar_seleccionados(ingredientes_checked,false);
+
+    const contenedorBuscador = document.getElementById("indexof");
+    contenedorBuscador.value = ""
+    const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+    const contenedorSelectores = document.getElementById("form-selector");
+    contenedorSelectores.remove("form-selector")
+    contenedorSelectores.innerHTML = ""
+    ui.selectores(ingredientes_list_pop);
+
+}
+
+function ingrediente_delete(ingrediente_aborrar){
+
+    //var ingredientes_checked_split = ingredientes_checked.slice()
+    
+    for (var i = 0; i <= ingredientes_checked.length -1; i++){
+        console.log("a")
+        if (ingrediente_aborrar === ingredientes_checked[i]){
+            garbage_ingredientes = ingredientes_checked.splice(i,1)
+        }
+
+    }
+    //const contenedorResultado_chip = document.getElementById("resultado");
+   // contenedorResultado_chip.remove("ingrediente_result")
+  //  contenedorResultado_chip.innerHTML = ""
+    console.log(ingrediente_aborrar)
+    console.log(ingredientes_checked)
+    ui.mostrar_seleccionados(ingredientes_checked, true);
+
+}
 
 /////BOTON AÑADIR/////
 /*
@@ -156,37 +221,12 @@ recoge el evento submit al cual se le da una función cuando es ejecutado.
 La función recoge cada elemento checked y la guarda en una string
 */ 
 document.getElementById('agregar').addEventListener('submit',function(e){
-    //declara la variable ingrediente que es igual al formulario del documento (ingredientes checkbox)
-    //IMPORTANTE: el numero index determina el elemento formulario orden si hay 3 forms en el html seria 0,1,2
-    var ingrediente = document.forms[3];
-    //iniciamos bucle que mientras i sea menor a la longitud de los ingredientes checkbox
-    for (var i = 0; i < ingrediente.length; i++) {
-    // si el ingrediente esta checked, devuelve true. 
 
-      if (ingrediente[i].checked) {
-
-         //si la lista de ingredientes_checked (si existe) tiene ya el mismo ingrediente, no lo agrega
-        if (ingredientes_checked.includes(ingrediente[i].id)){
-           //pass 
-
-        }
-        //si de lo contrario no lo tiene, añade a la variable ingredientes_checked el nuevo ingrediente
-        else{
-            ingredientes_checked = ingredientes_checked + ingrediente[i].id + " ";
-  
-            
-        }
-      }
-    }
-    //por ultimo llama al metodo mostrar_seleccionados para mostrarlo por pantalla
-    ui.mostrar_seleccionados(ingredientes_checked);
-    //de nuevo evita que el evento sea natural y no haga reload al darle al submit
-    e.preventDefault();
 
 });
 
 //declara la variable ingredientes_checked vacia 
-var ingredientes_checked = "";
+var ingredientes_checked = [];
 //declara constante buscador que contiene el elemento con el id=indexof.
 
 ////BUSCADOR EN TIEMPO REAL////
@@ -236,7 +276,7 @@ buscador.addEventListener('keyup',function(e){
         if (ingrediente_select.indexOf(ingrediente_buscado)!== -1){
             //imprimimos y sumamos al formulario
             contenedorSelectores.innerHTML += `
-            <label class="mdl-chip" name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
+            <label class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
                 <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
             </label>
@@ -247,9 +287,4 @@ buscador.addEventListener('keyup',function(e){
 
     }
 })
-
-
-
-
-
 
