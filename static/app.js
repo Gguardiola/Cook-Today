@@ -16,7 +16,7 @@ class minevera {
         //a la constante autoSelector que es el formulario, le añadimos atributo id form-selector
         autoSelector.setAttribute("id","form-selector");        
         //recorremos un bucle for mientras i sea menor o igual que la longitud de la lista de ingredientes.
-        for (var i = 0; i < ingredientes_list_const.length -1; i++){
+        for (var i = 0; i <= ingredientes_list_const.length -1; i++){
             //a autoSelector que es el elemento form le inyectamos el HTML de la lista por cada step del bucle.
             autoSelector.innerHTML += `
             <label class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
@@ -32,7 +32,7 @@ class minevera {
     // este metodo se encarga de controlar el flujo del resultado de los selectores. Se llama con la variable ingredientes_checked.
     // INGREDIENTES_CHECKED = esta variable se rellena con los ingredientes marcados por el usuario a través del evento DOM sobre los selectores del metetodo
     //selectores()
-    mostrar_seleccionados(ingredientes_checked_split,spliteado){
+    mostrar_seleccionados(ingredientes_checked_split){
         /*
         se declara la constante contenedorResultado que recoge el div donde se van a printear o se han printeado los ingredientes_checked:
                 
@@ -67,12 +67,8 @@ class minevera {
 
         //tanto si borra como si no, va a crear el parrafo con el atributo id ingrediente_result con la constante muestraResultado
         //este parrafo va a tener la variable ingredientes_checked que es la lista de ingredientes marcadas por el usuario (explicado en el apartado DOM)
-        if (spliteado == false){
-            //var ingredientes_checked_split = ingredientes_checked.split(";")
-            console.log("aaa")
-        }
+
         //ingredientes_checked_split.pop("")  
-        console.log(ingredientes_checked_split)
 
         const muestraResultado = document.createElement('div');
         muestraResultado.setAttribute("id", "ingrediente_result");
@@ -97,9 +93,7 @@ class minevera {
 //WIP
 //lista que tiene todos los ingredientes. Esto necesita mas desarrollo porque tiene que pasarse por python webscrapping
 
-const ingredientes_list_const = ['Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos',
-'Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos'
-]
+const ingredientes_list_const = ['Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Huevos','Mostaza','Mayonesa','Pan de sandwich','Pechuga','Tomate']
 
 ingredientes_list = ingredientes_list_const.slice()
 
@@ -171,10 +165,9 @@ function ingrediente_click(id_ingrediente_check){
             ingredientes_list_pop.splice(i, 1); 
         }
     }
-    console.log(id_ingrediente_check)
+
     ingredientes_checked.push(id_ingrediente_check)
-    console.log(ingredientes_checked)
-    ui.mostrar_seleccionados(ingredientes_checked,false);
+    ui.mostrar_seleccionados(ingredientes_checked);
 
     const contenedorBuscador = document.getElementById("indexof");
     contenedorBuscador.value = ""
@@ -184,6 +177,7 @@ function ingrediente_click(id_ingrediente_check){
     const contenedorSelectores = document.getElementById("form-selector");
     contenedorSelectores.remove("form-selector")
     contenedorSelectores.innerHTML = ""
+    console.log(ingredientes_list_pop)
     ui.selectores(ingredientes_list_pop);
 
 }
@@ -193,7 +187,6 @@ function ingrediente_delete(ingrediente_aborrar){
     //var ingredientes_checked_split = ingredientes_checked.slice()
     
     for (var i = 0; i <= ingredientes_checked.length -1; i++){
-        console.log("a")
         if (ingrediente_aborrar === ingredientes_checked[i]){
             garbage_ingredientes = ingredientes_checked.splice(i,1)
         }
@@ -202,10 +195,21 @@ function ingrediente_delete(ingrediente_aborrar){
     //const contenedorResultado_chip = document.getElementById("resultado");
    // contenedorResultado_chip.remove("ingrediente_result")
   //  contenedorResultado_chip.innerHTML = ""
-    console.log(ingrediente_aborrar)
-    console.log(ingredientes_checked)
-    ui.mostrar_seleccionados(ingredientes_checked, true);
 
+    ui.mostrar_seleccionados(ingredientes_checked);
+
+    const contenedorSelectores_renew = document.getElementById("form-selector")
+    const autoSelector_renew = document.createElement('label');
+    autoSelector_renew.setAttribute("class","mdl-chip")
+    autoSelector_renew.setAttribute("onclick",`ingrediente_click('${ingrediente_aborrar}')`)
+    autoSelector_renew.setAttribute("name","ingrediente_checkbox")
+    autoSelector_renew.setAttribute("for",`${ingrediente_aborrar}`)
+    autoSelector_renew.innerHTML += `
+        <input style="visibility: hidden" type="checkbox" id="${ingrediente_aborrar}" class="mdl-checkbox__input">
+        <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text">${ingrediente_aborrar}</span>
+    `;
+    ingredientes_list.unshift(ingrediente_aborrar)
+    contenedorSelectores_renew.appendChild(autoSelector_renew);
 }
 
 /////BOTON AÑADIR/////
