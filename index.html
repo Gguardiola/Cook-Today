@@ -158,7 +158,7 @@
         <div class="mdl-layout__tab-panel" id="minevera">
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div class="mdl-cell mdl-cell--12-col">
-              <h4>Mi nevera</h4>
+
                 <form class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone" id="buscador">
                   <div id="container-buscador" class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="indexof">
@@ -166,26 +166,46 @@
                   </div>
                   <br>          
                 </form>
-                <div class="mdl-grid" >  
-                  <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="agregar">
-                    <input type='submit' style = "display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'>                
-                  </form>
-                  <div class="mdl-cell mdl-cell--1-col"></div>
-                
-                  <form class="mdl-cell mdl-cell--1-col" id="borrador">
-                    <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='Limpiar'>
-                  </form>                      
+                <div id='resultado'>
                 </div>
+
+                <div class="mdl-grid" >  
 
                 <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000x;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
                     <div id="selectores">
                     </div>                
                 </div>
         
-                <div id='resultado'>
-                </div>
+                <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="agregar">
+                  <input type='submit' style = "display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'>                
+                </form>
+                <div class="mdl-cell mdl-cell--1-col"></div>
+              
+                <form class="mdl-cell mdl-cell--1-col" id="borrador">
+                  <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='Limpiar'>
+                </form>                      
+              </div>
+
 
               </div>
+              <div class=" mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">Sandwitch vegetal</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  Elaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo.
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Ver ingredientes
+                  </a>
+                </div>
+                <div class="mdl-card__menu">
+                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">share</i>
+                  </button>
+                </div>
+              </div>              
           </section>
         </div>
 
