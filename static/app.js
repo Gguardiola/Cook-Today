@@ -19,9 +19,9 @@ class minevera {
         for (var i = 0; i <= ingredientes_list_const.length -1; i++){
             //a autoSelector que es el elemento form le inyectamos el HTML de la lista por cada step del bucle.
             autoSelector.innerHTML += `
-            <label class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
+            <label style="margin:2px" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list_const[i]}" class="mdl-checkbox__input">
-                <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
+                <span style="font-size:17px;font-family:roboto;margin-left:-19px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
             </label>
             `;
 
@@ -75,7 +75,7 @@ class minevera {
         for (var i = 0; i <= ingredientes_checked_split.length -1; i++){
             muestraResultado.innerHTML += `
             <span onclick="ingrediente_delete('${ingredientes_checked_split[i]}')"class="mdl-chip mdl-chip--deletable">
-                <span class="mdl-chip__text">${ingredientes_checked_split[i]}</span>
+                <span style="font-size:17px;font-family:roboto" class="mdl-chip__text">${ingredientes_checked_split[i]}</span>
                 <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
             </span>
             `;
@@ -201,16 +201,33 @@ function ingrediente_delete(ingrediente_aborrar){
     const contenedorSelectores_renew = document.getElementById("form-selector")
     const autoSelector_renew = document.createElement('label');
     autoSelector_renew.setAttribute("class","mdl-chip")
+    autoSelector_renew.setAttribute("style","margin:2px")
     autoSelector_renew.setAttribute("onclick",`ingrediente_click('${ingrediente_aborrar}')`)
     autoSelector_renew.setAttribute("name","ingrediente_checkbox")
     autoSelector_renew.setAttribute("for",`${ingrediente_aborrar}`)
     autoSelector_renew.innerHTML += `
         <input style="visibility: hidden" type="checkbox" id="${ingrediente_aborrar}" class="mdl-checkbox__input">
-        <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text">${ingrediente_aborrar}</span>
+        <span style="font-size:17px;font-family:roboto;margin-left:-19px" class="mdl-chip__text">${ingrediente_aborrar}</span>
     `;
     ingredientes_list.unshift(ingrediente_aborrar)
     contenedorSelectores_renew.appendChild(autoSelector_renew);
 }
+
+const button = document.querySelector("#copiar-boton")
+const input = document.querySelector("#comida-ficha-container")
+
+button.addEventListener("click",function(){
+    console.log("copado")
+    var codigoACopiar = document.getElementById('copiar');
+    console.log(codigoACopiar)
+    var seleccion = document.createRange();
+    seleccion.selectNodeContents(codigoACopiar);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(seleccion);
+    var res = document.execCommand('copy');
+    window.getSelection().removeRange(seleccion);
+
+})
 
 /////BOTON AÑADIR/////
 /*

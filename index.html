@@ -166,15 +166,17 @@
                   </div>
                   <br>          
                 </form>
-                <div id='resultado'>
-                </div>
 
-                <div class="mdl-grid" >  
 
-                <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000x;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="mdl-grid">  
+
+                <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
                     <div id="selectores">
-                    </div>                
+                    </div> 
+                                                    
                 </div>
+                <div style= "overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--1-col" id='resultado'>
+                </div>  
         
                 <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="agregar">
                   <input type='submit' style = "display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'>                
@@ -186,13 +188,13 @@
                 </form>                      
               </div>
 
-
+<br><br><br>
               </div>
-              <div class=" mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__title">
+              <div id="comida-ficha-container" class=" mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">              
+                <div id="comida-ficha" class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Sandwitch vegetal</h2>
                 </div>
-                <div class="mdl-card__supporting-text">
+                <div id ="desc" class="mdl-card__supporting-text">
                   Elaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo.
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
@@ -201,16 +203,32 @@
                   </a>
                 </div>
                 <div class="mdl-card__menu">
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">share</i>
-                  </button>
-                </div>
-              </div>              
+                  <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" type="button"><i class="material-icons">share</i></button>
+                  <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action " type="button"></button>
+                  </div>   
+                </div>             
+              </div>  
+              <p id="copiar" style="color:white">Hoy voy a comer Sandwitch Vegetal! Elaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo. </p>                                        
           </section>
         </div>
 
       </main>
     </div>
+    <script>
+      (function() {
+        'use strict';
+        window['counter'] = 0;
+        var snackbarContainer = document.querySelector('#copiar-boton-container');
+        var showToastButton = document.querySelector('#copiar-boton');
+        showToastButton.addEventListener('click', function() {
+          'use strict';
+          var data = {message: 'Comida añadida al portapapeles!'};
+          snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        });
+      }());
+    </script>    
     <script src="static/material.min.js"></script>
     <script src="static/app.js"></script>
   </body>
