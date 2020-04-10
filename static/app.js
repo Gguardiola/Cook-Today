@@ -1,5 +1,6 @@
 //seccion mi nevera
 class minevera {
+
     //metodo selectores: este method llama a la lista ingredientes_list que contiene todos los ingredientes.
     selectores(ingredientes_list_const) {
         /*
@@ -21,7 +22,7 @@ class minevera {
             autoSelector.innerHTML += `
             <label style="margin:2px" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list_const[i]}" class="mdl-checkbox__input">
-                <span style="font-size:17px;font-family:roboto;margin-left:-19px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
+                <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
             </label>
             `;
 
@@ -85,23 +86,148 @@ class minevera {
 
     
     }
+
+    mostrar_comidas(ingredientes_checked,comidas){
+        var mostrar_comidas_final = []
+        //var comidas_sinorden = []
+        //var contador_orden = []
+        console.log("agregar")
+
+        for (var i = 0;i <= comidas.length -1;i++){
+            var cont_coincidencias = 0
+            for (var x=0;x <= ingredientes_checked.length -1;x++){
+                if (comidas[i].ingredientes.includes(ingredientes_checked[x])){
+                    cont_coincidencias += 1
+
+                }
+
+            }
+            if (cont_coincidencias >0){
+            //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                mostrar_comidas_final.push(comidas[i].nombre)
+
+            }
+            var cont_coincidencias = 0
+        }
+        
+        const contenedorResultadoComidas = document.getElementById("resultado-comida");
+        contenedorResultadoComidas.innerHTML = ""
+
+
+        const contenedorComidaFicha = document.getElementById("resultado-comida"); 
+        const ComidaFicha = document.createElement('div');
+        ComidaFicha.setAttribute("class","mdl-grid")
+        ComidaFicha.setAttribute("id", "resultado-comida-container");
+        
+        var ingredienteComidas = []
+        for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+            
+            for (var x = 0; x < comidas.length;x++ ){
+                if (comidas[x].nombre.includes(mostrar_comidas_final[i])){
+                    
+                    ingredienteComidas.push(comidas[x].ingredientes)
+                    console.log(ingredienteComidas)
+                }
+            }
+        }
+        const comidaFichaTitle = document.createElement('h4');
+        comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:`
+        contenedorComidaFicha.appendChild(comidaFichaTitle)
+
+        for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+
+            ComidaFicha.innerHTML += `
+            <div id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+            <div id="comida-ficha" class="mdl-card__title">
+                <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+            </div>
+            <div id ="desc" style = "font-size:16px;  text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+            <div class="mdl-card__actions mdl-card--border">
+            <a  onclick="popupingredientes('${ingredienteComidas[i]}',${i})" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Ver ingredientes
+            </a>
+            </div>
+            <div class="mdl-card__menu"> 
+              <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+              <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action " type="button"></button>
+              </div>   
+            </div>             
+            </div> 
+
+            <dialog id="ingredientespopup_id" class="mdl-dialog">
+            <h4 align=center>Ingredientes:</h4>
+            <div class="mdl-dialog__content">
+              <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%">
+            
+              </p>
+            </div>
+            <div align=center class="mdl-dialog__actions">
+              <button type="button" class="mdl-button close">Cerrar</button>
+            </div>
+          </dialog>            
+
+
+            <p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white">${mostrar_comidas_final[i]}</p>   
+            
+            <dialog id="addfavoritosDialog" class="mdl-dialog">
+            <h4 align=center>Añadido a favoritos!</h4>
+            <div  class="mdl-dialog__actions">
+              <button align=center type="button" class="mdl-button close">Cerrar</button>
+            </div>
+          </dialog>      
+
+            </div>
+            `;
+        }
+        contenedorComidaFicha.appendChild(ComidaFicha);
+
+        console.log(mostrar_comidas_final)
+        
+        
+    }
    
  
 }
 
 ////APARTADO DOM////
 //WIP
-//lista que tiene todos los ingredientes. Esto necesita mas desarrollo porque tiene que pasarse por python webscrapping
 
-const ingredientes_list_const = ['Aceite de oliva','Espinacas','Berengena','Pepino','Garbanzos','Huevos','Mostaza','Mayonesa','Pan de sandwich','Pechuga','Tomate']
+var l = localStorage
+favoritosCheck = l.getItem("favoritos")
+
+if (favoritosCheck == null){
+    l.setItem("favoritos", JSON.stringify([]))
+}
+//lista que tiene todos los ingredientes. Esto necesita mas desarrollo porque tiene que pasarse por python webscrapping
+var ingredientes_list_const = []
+
+for (var i = 0;i <= comidas.length -1;i++){
+    var ingredientes_append = comidas[i].ingredientes
+
+    for (var x = 0; x <= ingredientes_append.length -1;x++){
+        if (ingredientes_list_const.includes(ingredientes_append[x])){
+                //pass
+        } 
+        else{
+            ingredientes_list_const.push(ingredientes_append[x])
+        }
+    }
+    console.log(ingredientes_list_const)
+}
+
+
 
 ingredientes_list = ingredientes_list_const.slice()
+ 
 
 //hace una nueva clase
 const ui = new minevera();
 
 //llama al metodo selectores con la lista de ingredientes para que nos haga los selectores checkbox
 ui.selectores(ingredientes_list_const);
+
 
 ////BORRADOR////
 /*selecciona el elemento con id borrador:
@@ -150,6 +276,9 @@ document.getElementById('borrador').addEventListener('submit',function(e){
     const contenedorBuscadorDiv = document.getElementById("container-buscador");
     contenedorBuscadorDiv.classList.remove("is-dirty")
 
+    const contenedorResultadoComidas = document.getElementById("resultado-comida");
+    contenedorResultadoComidas.innerHTML = ""
+
 
     ingredientes_list = ingredientes_list_const.slice()
     ui.selectores(ingredientes_list_const);
@@ -193,8 +322,8 @@ function ingrediente_delete(ingrediente_aborrar){
 
     }
     //const contenedorResultado_chip = document.getElementById("resultado");
-   // contenedorResultado_chip.remove("ingrediente_result")
-  //  contenedorResultado_chip.innerHTML = ""
+    // contenedorResultado_chip.remove("ingrediente_result")
+    //  contenedorResultado_chip.innerHTML = ""
 
     ui.mostrar_seleccionados(ingredientes_checked);
 
@@ -213,21 +342,85 @@ function ingrediente_delete(ingrediente_aborrar){
     contenedorSelectores_renew.appendChild(autoSelector_renew);
 }
 
-const button = document.querySelector("#copiar-boton")
-const input = document.querySelector("#comida-ficha-container")
+function popupingredientes(ingredienteComidas,indice){
+    var ingredientesActualpopup = ingredienteComidas.split(",")
+    console.log(ingredientesActualpopup)
+    const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainer").item(indice)
+    ingredientesActualMostrar = document.createElement("ul")
+    ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
+    for(var i = 0; i < ingredientesActualpopup.length;i++){       
+        ingredientesActualMostrar.innerHTML += `
+        <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          ${ingredientesActualpopup[i]}
+        </span>
+      </li>  
+        `
+        
+    }
 
-button.addEventListener("click",function(){
-    console.log("copado")
-    var codigoACopiar = document.getElementById('copiar');
-    console.log(codigoACopiar)
-    var seleccion = document.createRange();
-    seleccion.selectNodeContents(codigoACopiar);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(seleccion);
-    var res = document.execCommand('copy');
-    window.getSelection().removeRange(seleccion);
+    ingredientesContainer.appendChild(ingredientesActualMostrar)
 
-})
+    var dialog = document.querySelectorAll('#ingredientespopup_id').item(indice);
+    console.log(dialog)
+    var showDialogButton = document.querySelectorAll('#show-dialog').item(indice);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+    
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+      dialog.close();
+      e.preventDefault()
+    });
+
+
+}
+
+
+function addFavoritos(indice){
+
+    var comida_fav = document.querySelectorAll("#addfavoritosLabel").item(indice).innerHTML
+    console.log(comida_fav)
+    
+    favoritosParse = JSON.parse(l.getItem("favoritos"))
+    console.log(favoritosParse)
+    if(favoritosParse.includes(comida_fav)){
+        //pass
+        var dialog = document.querySelectorAll('#addfavoritosDialogFail').item(indice);
+        console.log(dialog)
+        
+        if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+        
+        dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+        });
+    }
+    else{
+        favoritosParse.push(comida_fav)
+        l.setItem("favoritos", JSON.stringify(favoritosParse))   
+        favoritosParse = JSON.parse(l.getItem("favoritos"))
+        console.log(favoritosParse)
+    
+
+        var dialog = document.querySelectorAll('#addfavoritosDialog').item(indice);
+        console.log(dialog)
+        
+        if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+        
+        dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+        });
+    }
+} 
 
 /////BOTON AÑADIR/////
 /*
@@ -241,8 +434,10 @@ Recoge el elemento form con id add que contiene los inputs con los que va a inte
 recoge el evento submit al cual se le da una función cuando es ejecutado.
 La función recoge cada elemento checked y la guarda en una string
 */ 
-document.getElementById('agregar').addEventListener('submit',function(e){
+document.getElementById('buscar').addEventListener('click',function(e){
 
+    ui.mostrar_comidas(ingredientes_checked,comidas)
+    //e.preventDefault()
 
 });
 
@@ -299,7 +494,7 @@ buscador.addEventListener('keyup',function(e){
             contenedorSelectores.innerHTML += `
             <label class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
-                <span style="font-size:17px;font-family:roboto;margin-left:-17px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
+                <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
             </label>
             
             `;
@@ -308,4 +503,6 @@ buscador.addEventListener('keyup',function(e){
 
     }
 })
+
+
 

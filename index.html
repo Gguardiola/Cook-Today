@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="description" content="App que te dice que comer hoy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0 ">
     <title>CookToday</title>
 
@@ -36,10 +36,25 @@
       margin-bottom: 40px;
       z-index: 900;
     }
+
+    body {
+      -webkit-user-select: none;
+        -moz-user-select: -moz-none;
+          -ms-user-select: none;
+              user-select: none;
+    }
+
+    #copiar {
+      -webkit-user-select: auto;
+        -moz-user-select: -moz-auto;
+          -ms-user-select: auto;
+              user-select: auto;
+
+    }    
     </style>
 
   </head>
-  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+  <body class="mdl-demo mdl-color--white-100 mdl-color-text--grey-700 mdl-base">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
@@ -52,7 +67,7 @@
           <a href="#overview" class="mdl-layout__tab is-active">Comida del día</a>
           <a href="#minevera" class="mdl-layout__tab">Mi nevera</a>
           <a href="#features" class="mdl-layout__tab">Favoritos</a>
-          <a href="#features" class="mdl-layout__tab">Comidas</a>
+          <a href="#comidas" class="mdl-layout__tab">Comidas</a>
         
         </div>
       </header>
@@ -155,6 +170,8 @@
             </div>
           </section>
         </div>
+
+
         <div class="mdl-layout__tab-panel" id="minevera">
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div class="mdl-cell mdl-cell--12-col">
@@ -170,66 +187,43 @@
 
                 <div class="mdl-grid">  
 
-                <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
-                    <div id="selectores">
-                    </div> 
-                                                    
-                </div>
-                <div style= "overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--1-col" id='resultado'>
-                </div>  
-        
-                <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="agregar">
-                  <input type='submit' style = "display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'>                
-                </form>
-                <div class="mdl-cell mdl-cell--1-col"></div>
-              
-                <form class="mdl-cell mdl-cell--1-col" id="borrador">
-                  <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='Limpiar'>
-                </form>                      
-              </div>
+                  <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
+                      <div id="selectores">
+                      </div> 
+                                                      
+                  </div>
+                  <div style= "overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;margin-bottom:20px;border-bottom: 2px solid #8bc34a;" class="mdl-cell mdl-cell--1-col" id='resultado'>
+                  </div>  
+                  <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
+                    <a style="text-decoration:none;display: inline;padding:10px;padding-left:15px;padding-right:15px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">BUSCAR</a>                  
+                    <!-- <a style="text-decoration:none" href="#comidas"><input type='submit' style ="display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'></a> -->
+                  </form>
+                  <div class="mdl-cell mdl-cell--1-col"></div>
+                                    
+                  <form class="mdl-cell mdl-cell--1-col" id="borrador">
+                    <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='Limpiar'>
+                  </form>  
 
-<br><br><br>
-              </div>
-              <div id="comida-ficha-container" class=" mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">              
-                <div id="comida-ficha" class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">Sandwitch vegetal</h2>
                 </div>
-                <div id ="desc" class="mdl-card__supporting-text">
-                  Elaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo.
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                    Ver ingredientes
-                  </a>
-                </div>
-                <div class="mdl-card__menu">
-                  <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" type="button"><i class="material-icons">share</i></button>
-                  <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action " type="button"></button>
-                  </div>   
-                </div>             
+              
+              <div id="resultado-comida" class="mdl-grid">
               </div>  
-              <p id="copiar" style="color:white">Hoy voy a comer Sandwitch Vegetal! Elaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo. </p>                                        
+
+              <script>
+
+              </script>                 
+                     
+            </div>
+
           </section>
         </div>
-
       </main>
     </div>
-    <script>
-      (function() {
-        'use strict';
-        window['counter'] = 0;
-        var snackbarContainer = document.querySelector('#copiar-boton-container');
-        var showToastButton = document.querySelector('#copiar-boton');
-        showToastButton.addEventListener('click', function() {
-          'use strict';
-          var data = {message: 'Comida añadida al portapapeles!'};
-          snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        });
-      }());
-    </script>    
+    <script src='static/a076d05399.js'></script>
     <script src="static/material.min.js"></script>
+    <script src="static/comidas.js"></script>   
     <script src="static/app.js"></script>
+
+ 
   </body>
 </html>
