@@ -44,13 +44,15 @@
               user-select: none;
     }
 
-    #copiar {
+    #copiarForm {
       -webkit-user-select: auto;
         -moz-user-select: -moz-auto;
           -ms-user-select: auto;
               user-select: auto;
 
-    }    
+    } 
+    
+       
     </style>
 
   </head>
@@ -173,6 +175,7 @@
 
 
         <div class="mdl-layout__tab-panel" id="minevera">
+
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div class="mdl-cell mdl-cell--12-col">
 
@@ -194,15 +197,15 @@
                   </div>
                   <div style= "overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;margin-bottom:20px;border-bottom: 2px solid #8bc34a;" class="mdl-cell mdl-cell--1-col" id='resultado'>
                   </div>  
-                  <form style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
-                    <a style="text-decoration:none;display: inline;padding:10px;padding-left:15px;padding-right:15px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">BUSCAR</a>                  
+                  <div style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
+                    <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">BUSCAR</a>                  
                     <!-- <a style="text-decoration:none" href="#comidas"><input type='submit' style ="display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'></a> -->
-                  </form>
+                  </div>
                   <div class="mdl-cell mdl-cell--1-col"></div>
                                     
-                  <form class="mdl-cell mdl-cell--1-col" id="borrador">
-                    <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='Limpiar'>
-                  </form>  
+                  <div class="mdl-cell mdl-cell--1-col" id="borrador">
+                    <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">LIMPIAR</a>                  
+                  </div>  
 
                 </div>
               

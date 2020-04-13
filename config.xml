@@ -30,6 +30,9 @@
     <plugin name="cordova-plugin-device-motion" spec="1.2.3" />
     <plugin name="https://github.com/wildabeast/BarcodeScanner.git" /> 
     <plugin name="cordova-plugin-splashscreen" version ="5.0.3" />
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.InAppBrowser" />
+    </feature>
     <plugin name="cordova.plugins.diagnostic" version="*" />
     <!--<plugin spec="https://github.com/dpa99c/cordova-diagnostic-plugin.git#dev" source="git" />-->
     <platform name="android">
