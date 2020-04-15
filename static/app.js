@@ -115,6 +115,7 @@ class minevera {
 
 
         const contenedorComidaFicha = document.getElementById("resultado-comida"); 
+
         const ComidaFicha = document.createElement('div');
         ComidaFicha.setAttribute("class","mdl-grid")
         ComidaFicha.setAttribute("id", "resultado-comida-container");
@@ -126,16 +127,25 @@ class minevera {
                 if (comidas[x].nombre.includes(mostrar_comidas_final[i])){
                     
                     ingredienteComidas.push(comidas[x].ingredientes)
-                    console.log(ingredienteComidas)
                 }
             }
         }
-
         if (mostrar_comidas_final.length > 0){
             const comidaFichaTitle = document.createElement('h4');
-            comidaFichaTitle.setAttribute("style","display:block")
-            comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:`
+            comidaFichaTitle.setAttribute("style","display:block;margin-bottom:60px")
+            comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:<br>`
             contenedorComidaFicha.appendChild(comidaFichaTitle)
+
+            const volverPrincipio = document.createElement('div');
+            volverPrincipio.setAttribute("id","volverPrincipio")
+            volverPrincipio.setAttribute("style","top:90%;position: -webkit-sticky;position: sticky;z-index: 2;margin-left:80%")
+            volverPrincipio.innerHTML = `
+            <a style="margin-top:-100%;background-color:#8bc34a" href="#minevera" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons">keyboard_arrow_up</i>
+            </a>
+            `
+            
+            contenedorComidaFicha.appendChild(volverPrincipio)  
         }
 
         else if (mostrar_comidas_final == 0){
@@ -146,68 +156,71 @@ class minevera {
         }
 
         for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+            console.log("bucle")
+            if (mostrar_comidas_final[i] == undefined){
 
+                break 
+
+            } 
             ComidaFicha.innerHTML += `<br>
-            <div id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
-            <div id="comida-ficha" class="mdl-card__title">
-                <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
-            </div>
-            <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
-            <div class="mdl-card__actions mdl-card--border">
-            <a  onclick="popupingredientes('${ingredienteComidas[i]}',${i})" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Ver ingredientes
-            </a>
-            </div>
-            <div class="mdl-card__menu"> 
-              <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
-              <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
-                <div class="mdl-snackbar__text"></div>
-                <button class="mdl-snackbar__action " type="button"></button>
-              </div>   
-            </div>             
-            </div> 
+                <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+                <div id="comida-ficha" class="mdl-card__title">
+                    <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                </div>
+                <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                <div class="mdl-card__actions mdl-card--border">
+                <a  onclick="popupingredientes('${ingredienteComidas[i]}',${i})" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Ver ingredientes
+                </a>
+                </div>
+                <div class="mdl-card__menu"> 
+                <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+                <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action " type="button"></button>
+                </div>   
+                </div>             
+                </div> 
 
-            <dialog id="ingredientespopup_id" class="mdl-dialog">
-            <h4 style="color:#616161" align=center>Ingredientes:</h4>
-            <div class="mdl-dialog__content">
-              <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%">
+                <dialog id="ingredientespopup_id" class="mdl-dialog">
+                <h4 style="color:#616161" align=center>Ingredientes:</h4>
+                <div class="mdl-dialog__content">
+                <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                </div>
+                <div align=center class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+            </dialog>            
+
+
+                <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                
+                <dialog id="addfavoritosDialog" class="mdl-dialog">
+                <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                <div style="margin-right:90px" class="mdl-dialog__actions">
+                <button align=center type="button" class="mdl-button close">Cerrar</button>
+                </div>
+            </dialog> 
             
-              </p>
-            </div>
-            <div align=center class="mdl-dialog__actions">
-              <button type="button" class="mdl-button close">Cerrar</button>
-            </div>
-          </dialog>            
-
-
-            <p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white">${mostrar_comidas_final[i]}</p>   
+            <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+            <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
             
-            <dialog id="addfavoritosDialog" class="mdl-dialog">
-            <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
             <div style="margin-right:90px" class="mdl-dialog__actions">
-              <button align=center type="button" class="mdl-button close">Cerrar</button>
+                <button type="button" class="mdl-button close">Cerrar</button>
             </div>
-          </dialog> 
-          
-          <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-          <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-          
-          <div style="margin-right:90px" class="mdl-dialog__actions">
-            <button type="button" class="mdl-button close">Cerrar</button>
-          </div>
-        </dialog>            
+            </dialog>            
 
-            </div>
-            `;
+                </div>
+                `;
         }
+
         contenedorComidaFicha.appendChild(ComidaFicha);
-
-
 
         const feedbackbutton = document.createElement('div');
         feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
-        var feedbackText = 
-        feedbackbutton.innerHTML = `<a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Ves que faltan comidas o has encontrado algún error?</a>
+        feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
+        feedbackbutton.setAttribute("id","feedbackButtonContainer")
+        feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
         
         <dialog id="feedbackContainer" class="mdl-dialog">
         <h5 align=center style="color:#616161" align=center>Feedback</h5>
@@ -219,16 +232,20 @@ class minevera {
 
         <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
         </p>
-      </div>
-        <div style="margin-right:90px" class="mdl-dialog__actions">
-          <button type="button" class="mdl-button close">Cerrar</button>
         </div>
-      </dialog>  
+        <div style="margin-right:90px" class="mdl-dialog__actions">
+            <button type="button" class="mdl-button close">Cerrar</button>
+        </div>
+        </dialog>  
         
         
         `
-        contenedorComidaFicha.appendChild(feedbackbutton)
-        console.log(mostrar_comidas_final)
+        contenedorComidaFicha.appendChild(feedbackbutton)                 
+
+
+
+
+        console.log("fin")
         
         
     }
@@ -497,6 +514,7 @@ function copiarFormFeedback(){
     window.getSelection().removeRange(seleccion);
 
 }
+
 /////BOTON AÑADIR/////
 /*
 Recoge el elemento form con id add que contiene los inputs con los que va a interactuar el usuario
