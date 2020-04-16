@@ -40,7 +40,6 @@ var comidas = [
         "ingredientes":[" Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"," Pan de sandwich"," Pepino"," Pechuga"," Mayonesa"],
         "desc":"aaaaElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
-
     {
         "nombre":"Ensaladddda Cesar",
         "ingredientes":[" Pepino"," Pechuga"," Mayonesa"," Lechuga"],

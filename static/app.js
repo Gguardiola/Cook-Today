@@ -87,81 +87,88 @@ class minevera {
     
     }
 
-    mostrar_comidas(ingredientes_checked,comidas){
-        var mostrar_comidas_final = []
+    mostrar_comidas(ingredientes_checked,comidas,checkloadmore){
         //var comidas_sinorden = []
         //var contador_orden = []
         console.log("agregar")
+        if (checkloadmore == false){
+            l.setItem("comidas_load",JSON.stringify(0))
 
-        for (var i = 0;i <= comidas.length -1;i++){
-            var cont_coincidencias = 0
-            for (var x=0;x <= ingredientes_checked.length -1;x++){
-                if (comidas[i].ingredientes.includes(ingredientes_checked[x])){
-                    cont_coincidencias += 1
+            var mostrar_comidas_final = []
+
+
+            for (var i = 0;i <= comidas.length -1;i++){
+                var cont_coincidencias = 0
+                for (var x=0;x <= ingredientes_checked.length -1;x++){
+                    if (comidas[i].ingredientes.includes(ingredientes_checked[x])){
+                        cont_coincidencias += 1
+
+                    }
 
                 }
+                if (cont_coincidencias >0){
+                //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                    mostrar_comidas_final.push(comidas[i].nombre)
 
+                }
+                var cont_coincidencias = 0
             }
-            if (cont_coincidencias >0){
-            //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
-                mostrar_comidas_final.push(comidas[i].nombre)
+            
+            const contenedorResultadoComidas = document.getElementById("resultado-comida");
+            contenedorResultadoComidas.innerHTML = ""
 
+
+            const contenedorComidaFicha = document.getElementById("resultado-comida"); 
+
+            if (mostrar_comidas_final.length > 0){
+                const comidaFichaTitle = document.createElement('h4');
+                comidaFichaTitle.setAttribute("style","display:block;margin-bottom:60px")
+                comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:<br>`
+                contenedorComidaFicha.appendChild(comidaFichaTitle)
+
+                const volverPrincipio = document.createElement('div');
+                volverPrincipio.setAttribute("id","volverPrincipio")
+                volverPrincipio.setAttribute("style","top:90%;position: -webkit-sticky;position: sticky;z-index: 2;margin-left:80%;margin-bottom:15%")
+                volverPrincipio.innerHTML = `
+                <a style="margin-top:-100%;background-color:#8bc34a" href="#minevera" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                <i class="material-icons">keyboard_arrow_up</i>
+                </a>
+                `
+                
+                contenedorComidaFicha.appendChild(volverPrincipio)  
             }
-            var cont_coincidencias = 0
+
+            else if (mostrar_comidas_final == 0){
+                const comidaFichaTitle = document.createElement('h4');
+                comidaFichaTitle.setAttribute("style","display:block")  
+                comidaFichaTitle.innerHTML = `No hay resultados`
+                contenedorComidaFicha.appendChild(comidaFichaTitle)
+            }
+
+            l.setItem("mostrar_comidas_finalSave",JSON.stringify(mostrar_comidas_final))
+           // l.setItem("ingredienteComidasSave",JSON.stringify(ingredienteComidas))
+            console.log(cargado)
+            //console.log(loadMore)            
         }
-        
-        const contenedorResultadoComidas = document.getElementById("resultado-comida");
-        contenedorResultadoComidas.innerHTML = ""
-
-
-        const contenedorComidaFicha = document.getElementById("resultado-comida"); 
-
+        console.log("aaaaaaaaaaaaaaaaaaaa")
+        const contenedorComidaFicha = document.getElementById("resultado-comida");         
         const ComidaFicha = document.createElement('div');
         ComidaFicha.setAttribute("class","mdl-grid")
         ComidaFicha.setAttribute("id", "resultado-comida-container");
-        
-        var ingredienteComidas = []
-        for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
-            
-            for (var x = 0; x < comidas.length;x++ ){
-                if (comidas[x].nombre.includes(mostrar_comidas_final[i])){
-                    
-                    ingredienteComidas.push(comidas[x].ingredientes)
-                }
-            }
-        }
-        if (mostrar_comidas_final.length > 0){
-            const comidaFichaTitle = document.createElement('h4');
-            comidaFichaTitle.setAttribute("style","display:block;margin-bottom:60px")
-            comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:<br>`
-            contenedorComidaFicha.appendChild(comidaFichaTitle)
+        console.log(ComidaFicha)
 
-            const volverPrincipio = document.createElement('div');
-            volverPrincipio.setAttribute("id","volverPrincipio")
-            volverPrincipio.setAttribute("style","top:90%;position: -webkit-sticky;position: sticky;z-index: 2;margin-left:80%")
-            volverPrincipio.innerHTML = `
-            <a style="margin-top:-100%;background-color:#8bc34a" href="#minevera" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-            <i class="material-icons">keyboard_arrow_up</i>
-            </a>
-            `
-            
-            contenedorComidaFicha.appendChild(volverPrincipio)  
-        }
 
-        else if (mostrar_comidas_final == 0){
-            const comidaFichaTitle = document.createElement('h4');
-            comidaFichaTitle.setAttribute("style","display:block")  
-            comidaFichaTitle.innerHTML = `No hay resultados`
-            contenedorComidaFicha.appendChild(comidaFichaTitle)
-        }
+        var cargado = JSON.parse(l.getItem("comidas_load"))
+        var mostrar_comidas_final = JSON.parse(l.getItem("mostrar_comidas_finalSave"))
 
-        for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+        for (var i = cargado; i <= cargado + 10; i++){
             console.log("bucle")
             if (mostrar_comidas_final[i] == undefined){
 
                 break 
 
             } 
+            
             ComidaFicha.innerHTML += `<br>
                 <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
                 <div id="comida-ficha" class="mdl-card__title">
@@ -169,7 +176,7 @@ class minevera {
                 </div>
                 <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
                 <div class="mdl-card__actions mdl-card--border">
-                <a  onclick="popupingredientes('${ingredienteComidas[i]}',${i})" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a onclick="popupingredientes('${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 Ver ingredientes
                 </a>
                 </div>
@@ -216,32 +223,76 @@ class minevera {
 
         contenedorComidaFicha.appendChild(ComidaFicha);
 
-        const feedbackbutton = document.createElement('div');
-        feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
-        feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
-        feedbackbutton.setAttribute("id","feedbackButtonContainer")
-        feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
-        
-        <dialog id="feedbackContainer" class="mdl-dialog">
-        <h5 align=center style="color:#616161" align=center>Feedback</h5>
-        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-        <p>
-        Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
+        if (checkloadmore == false){
 
-        <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>
+            document.getElementById("loadMore").style.visibility = "visible"
+            const feedbackbutton = document.createElement('div');
+            feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
+            feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
+            feedbackbutton.setAttribute("id","feedbackButtonContainer")
+            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            
+            <dialog id="feedbackContainer" class="mdl-dialog">
+            <h5 align=center style="color:#616161" align=center>Feedback</h5>
+            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+            <p>
+            Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
 
-        <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
-        </p>
-        </div>
-        <div style="margin-right:90px" class="mdl-dialog__actions">
-            <button type="button" class="mdl-button close">Cerrar</button>
-        </div>
-        </dialog>  
-        
-        
-        `
-        contenedorComidaFicha.appendChild(feedbackbutton)                 
+            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>
 
+            <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
+            </p>
+            </div>
+            <div style="margin-right:90px" class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close">Cerrar</button>
+            </div>
+            </dialog>  
+            
+            
+            `
+            contenedorComidaFicha.appendChild(feedbackbutton)   
+            
+
+
+        }
+
+        else if (checkloadmore == true){
+            console.log("check")
+            cargado = JSON.parse(l.getItem("comidas_load"))
+            l.setItem("comidas_load",JSON.stringify(cargado+10))
+            console.log(cargado)
+
+            var removeFeedbackButton = document.getElementById("feedbackButtonContainer")
+            removeFeedbackButton.parentNode.removeChild(removeFeedbackButton)
+
+
+            var feedbackbutton = document.createElement('div');
+            feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
+            feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
+            feedbackbutton.setAttribute("id","feedbackButtonContainer")
+            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            
+            <dialog id="feedbackContainer" class="mdl-dialog">
+            <h5 align=center style="color:#616161" align=center>Feedback</h5>
+            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+            <p>
+            Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
+
+            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>
+
+            <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
+            </p>
+            </div>
+            <div style="margin-right:90px" class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close">Cerrar</button>
+            </div>
+            </dialog>  
+            
+            
+            `
+            contenedorComidaFicha.appendChild(feedbackbutton)          
+
+        }
 
 
 
@@ -262,6 +313,10 @@ favoritosCheck = l.getItem("favoritos")
 if (favoritosCheck == null){
     l.setItem("favoritos", JSON.stringify([]))
 }
+
+l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
+l.setItem("ingredienteComidasSave",JSON.stringify([]))
+
 //lista que tiene todos los ingredientes. Esto necesita mas desarrollo porque tiene que pasarse por python webscrapping
 var ingredientes_list_const = []
 
@@ -291,6 +346,13 @@ const ui = new minevera();
 ui.selectores(ingredientes_list_const);
 
 
+document.getElementById("loadMoreContainer").addEventListener("click",function(e){
+
+    console.log("a")
+    ui.mostrar_comidas(ingredientes_checked,comidas,true)
+
+
+})
 ////BORRADOR////
 /*selecciona el elemento con id borrador:
         
@@ -341,6 +403,8 @@ document.getElementById('borrador').addEventListener('click',function(e){
     const contenedorResultadoComidas = document.getElementById("resultado-comida");
     contenedorResultadoComidas.innerHTML = ""
 
+    l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
+    document.getElementById("loadMore").style.visibility = "hidden"
 
     ingredientes_list = ingredientes_list_const.slice()
     ui.selectores(ingredientes_list_const);
@@ -404,11 +468,24 @@ function ingrediente_delete(ingrediente_aborrar){
     contenedorSelectores_renew.appendChild(autoSelector_renew);
 }
 
-function popupingredientes(ingredienteComidas,indice){
-    var ingredientesActualpopup = ingredienteComidas.split(",")
+function popupingredientes(mostrar_comidas_final,ComidaClickIngredientes,indice){
+    mostrar_comidas_final = mostrar_comidas_final.split(",")
+    var ingredienteComidas = []
+    for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+        
+        for (var x = 0; x < comidas.length;x++ ){
+            if (comidas[x].nombre.includes(ComidaClickIngredientes)){
+                
+                ingredienteComidas.push(comidas[x].ingredientes)
+            }
+        }
+    }
+
+    var ingredientesActualpopup = ingredienteComidas[0]
     console.log(ingredientesActualpopup)
     const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainer").item(indice)
     ingredientesActualMostrar = document.createElement("ul")
+    ingredientesActualMostrar.setAttribute("id","ingredientesMostrados")
     ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
     for(var i = 0; i < ingredientesActualpopup.length;i++){       
         ingredientesActualMostrar.innerHTML += `
@@ -432,8 +509,16 @@ function popupingredientes(ingredienteComidas,indice){
     dialog.showModal();
     
     dialog.querySelector('.close').addEventListener('click', function(e) {
-      dialog.close();
-      e.preventDefault()
+        try{
+            var borrarIngredientesActual = document.getElementById("ingredientesMostrados")
+            borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
+        } catch (TypeError){
+            //pass
+
+        }
+
+        dialog.close();
+        e.preventDefault()
     });
 
 
@@ -529,7 +614,7 @@ La función recoge cada elemento checked y la guarda en una string
 */ 
 document.getElementById('buscar').addEventListener('click',function(e){
 
-    ui.mostrar_comidas(ingredientes_checked,comidas)
+    ui.mostrar_comidas(ingredientes_checked,comidas,false)
     //e.preventDefault()
 
 });
