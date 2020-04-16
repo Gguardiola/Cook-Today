@@ -92,10 +92,11 @@ class minevera {
         //var contador_orden = []
         console.log("agregar")
         if (checkloadmore == false){
+            
             l.setItem("comidas_load",JSON.stringify(0))
 
             var mostrar_comidas_final = []
-
+            var hiddenLoadMore = false
 
             for (var i = 0;i <= comidas.length -1;i++){
                 var cont_coincidencias = 0
@@ -116,16 +117,16 @@ class minevera {
             
             const contenedorResultadoComidas = document.getElementById("resultado-comida");
             contenedorResultadoComidas.innerHTML = ""
-
+            contenedorResultadoComidas.style.marginTop = "37px"
 
             const contenedorComidaFicha = document.getElementById("resultado-comida"); 
 
             if (mostrar_comidas_final.length > 0){
                 const comidaFichaTitle = document.createElement('h4');
-                comidaFichaTitle.setAttribute("style","display:block;margin-bottom:60px")
-                comidaFichaTitle.innerHTML = `Hoy puedes hacer de comer:<br>`
+                comidaFichaTitle.setAttribute("style","display:block;margin-bottom:30px")
+                comidaFichaTitle.innerHTML = `${mostrar_comidas_final.length -1} comidas encontradas:<br>`
                 contenedorComidaFicha.appendChild(comidaFichaTitle)
-
+                
                 const volverPrincipio = document.createElement('div');
                 volverPrincipio.setAttribute("id","volverPrincipio")
                 volverPrincipio.setAttribute("style","top:90%;position: -webkit-sticky;position: sticky;z-index: 2;margin-left:80%;margin-bottom:15%")
@@ -143,12 +144,15 @@ class minevera {
                 comidaFichaTitle.setAttribute("style","display:block")  
                 comidaFichaTitle.innerHTML = `No hay resultados`
                 contenedorComidaFicha.appendChild(comidaFichaTitle)
+                hiddenLoadMore = true
             }
 
             l.setItem("mostrar_comidas_finalSave",JSON.stringify(mostrar_comidas_final))
            // l.setItem("ingredienteComidasSave",JSON.stringify(ingredienteComidas))
             console.log(cargado)
             //console.log(loadMore)            
+
+    
         }
         console.log("aaaaaaaaaaaaaaaaaaaa")
         const contenedorComidaFicha = document.getElementById("resultado-comida");         
@@ -157,75 +161,79 @@ class minevera {
         ComidaFicha.setAttribute("id", "resultado-comida-container");
         console.log(ComidaFicha)
 
-
         var cargado = JSON.parse(l.getItem("comidas_load"))
         var mostrar_comidas_final = JSON.parse(l.getItem("mostrar_comidas_finalSave"))
 
-        for (var i = cargado; i <= cargado + 10; i++){
-            console.log("bucle")
-            if (mostrar_comidas_final[i] == undefined){
+        if (cargado < mostrar_comidas_final.length){
+            for (var i = cargado; i <= cargado + 9; i++){
+                console.log("bucle")
+                if (mostrar_comidas_final[i] == undefined){
 
-                break 
+                    break 
 
-            } 
-            
-            ComidaFicha.innerHTML += `<br>
-                <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
-                <div id="comida-ficha" class="mdl-card__title">
-                    <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
-                </div>
-                <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
-                <div class="mdl-card__actions mdl-card--border">
-                <a onclick="popupingredientes('${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Ver ingredientes
-                </a>
-                </div>
-                <div class="mdl-card__menu"> 
-                <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
-                <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action " type="button"></button>
-                </div>   
-                </div>             
-                </div> 
-
-                <dialog id="ingredientespopup_id" class="mdl-dialog">
-                <h4 style="color:#616161" align=center>Ingredientes:</h4>
-                <div class="mdl-dialog__content">
-                <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-                </div>
-                <div align=center class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close">Cerrar</button>
-                </div>
-            </dialog>            
-
-
-                <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                } 
                 
-                <dialog id="addfavoritosDialog" class="mdl-dialog">
-                <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                ComidaFicha.innerHTML += `<br>
+                    <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+                    <div id="comida-ficha" class="mdl-card__title">
+                        <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                    </div>
+                    <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                    <div class="mdl-card__actions mdl-card--border">
+                    <a onclick="popupingredientes('${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Ver ingredientes
+                    </a>
+                    </div>
+                    <div class="mdl-card__menu"> 
+                    <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+                    <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                        <div class="mdl-snackbar__text"></div>
+                        <button class="mdl-snackbar__action " type="button"></button>
+                    </div>   
+                    </div>             
+                    </div> 
+
+                    <dialog id="ingredientespopup_id" class="mdl-dialog">
+                    <h4 style="color:#616161" align=center>Ingredientes:</h4>
+                    <div class="mdl-dialog__content">
+                    <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                    </div>
+                    <div align=center class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                    </div>
+                </dialog>            
+
+
+                    <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                    
+                    <dialog id="addfavoritosDialog" class="mdl-dialog">
+                    <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                    <div style="margin-right:90px" class="mdl-dialog__actions">
+                    <button align=center type="button" class="mdl-button close">Cerrar</button>
+                    </div>
+                </dialog> 
+                
+                <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+                <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                
                 <div style="margin-right:90px" class="mdl-dialog__actions">
-                <button align=center type="button" class="mdl-button close">Cerrar</button>
+                    <button type="button" class="mdl-button close">Cerrar</button>
                 </div>
-            </dialog> 
-            
-            <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-            <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-            
-            <div style="margin-right:90px" class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close">Cerrar</button>
-            </div>
-            </dialog>            
+                </dialog>            
 
-                </div>
-                `;
+                    </div>
+                    `;
+            }
+            
+            contenedorComidaFicha.appendChild(ComidaFicha);
         }
-
-        contenedorComidaFicha.appendChild(ComidaFicha);
-
         if (checkloadmore == false){
+            cargado = JSON.parse(l.getItem("comidas_load"))
+            l.setItem("comidas_load",JSON.stringify(cargado+10))
 
-            document.getElementById("loadMore").style.visibility = "visible"
+            if (hiddenLoadMore == false){
+                document.getElementById("loadMore").style.visibility = "visible"
+            }
             const feedbackbutton = document.createElement('div');
             feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
@@ -237,9 +245,7 @@ class minevera {
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-
-            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>
-
+            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -262,6 +268,11 @@ class minevera {
             l.setItem("comidas_load",JSON.stringify(cargado+10))
             console.log(cargado)
 
+            if (cargado >= mostrar_comidas_final.length){
+                document.getElementById("loadMore").style.visibility = "hidden"
+            }
+
+
             var removeFeedbackButton = document.getElementById("feedbackButtonContainer")
             removeFeedbackButton.parentNode.removeChild(removeFeedbackButton)
 
@@ -277,9 +288,7 @@ class minevera {
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-
-            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>
-
+            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -292,12 +301,7 @@ class minevera {
             `
             contenedorComidaFicha.appendChild(feedbackbutton)          
 
-        }
-
-
-
-        console.log("fin")
-        
+        }     
         
     }
    
@@ -405,7 +409,7 @@ document.getElementById('borrador').addEventListener('click',function(e){
 
     l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
     document.getElementById("loadMore").style.visibility = "hidden"
-
+    contenedorResultadoComidas.style.marginTop = "0px"
     ingredientes_list = ingredientes_list_const.slice()
     ui.selectores(ingredientes_list_const);
     e.preventDefault(); 
@@ -462,7 +466,7 @@ function ingrediente_delete(ingrediente_aborrar){
     autoSelector_renew.setAttribute("for",`${ingrediente_aborrar}`)
     autoSelector_renew.innerHTML += `
         <input style="visibility: hidden" type="checkbox" id="${ingrediente_aborrar}" class="mdl-checkbox__input">
-        <span style="font-size:17px;font-family:roboto;margin-left:-19px" class="mdl-chip__text">${ingrediente_aborrar}</span>
+        <span style="font-size:17px;font-family:roboto;margin-left:-19px;margin-top:-5px"" class="mdl-chip__text">${ingrediente_aborrar}</span>
     `;
     ingredientes_list.unshift(ingrediente_aborrar)
     contenedorSelectores_renew.appendChild(autoSelector_renew);
@@ -598,6 +602,8 @@ function copiarFormFeedback(){
     var res = document.execCommand('copy');
     window.getSelection().removeRange(seleccion);
 
+    alert("Copiado al portapapeles!")
+
 }
 
 /////BOTON AÑADIR/////
@@ -682,5 +688,20 @@ buscador.addEventListener('keyup',function(e){
     }
 })
 
+const favdump = document.getElementById("favdump")
+console.log(favdump)
+favoritos = JSON.parse(l.getItem("favoritos"))
+var favhtml = ""
+favdump.innerHTML = `${favoritos}`
 
+document.getElementById("favreload").addEventListener("click",function(e){
+
+const favdump = document.getElementById("favdump")
+console.log(favdump)
+favoritos = JSON.parse(l.getItem("favoritos"))
+var favhtml = ""
+favdump.innerHTML = `${favoritos}`
+
+
+})
 

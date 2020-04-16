@@ -41,7 +41,7 @@ var comidas = [
         "desc":"aaaaElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
     {
-        "nombre":"Ensaladddda Cesar",
+        "nombre":"aaaaaa",
         "ingredientes":[" Pepino"," Pechuga"," Mayonesa"," Lechuga"],
         "desc":"bbbbbElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
@@ -77,7 +77,7 @@ var comidas = [
     },
 
     {
-        "nombre":"Ensaladgdsaa Cesar",
+        "nombre":"fin",
         "ingredientes":[" Pepino"," Pechuga"," Mayonesa"," Lechuga"],
         "desc":"bbbbbElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
@@ -113,7 +113,7 @@ var comidas = [
     },
 
     {
-        "nombre":"Ensaladwegwea Cesar",
+        "nombre":"final final Cesar",
         "ingredientes":[" Pepino"," Pechuga"," Mayonesa"," Lechuga"],
         "desc":"bbbbbElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
@@ -123,5 +123,11 @@ var comidas = [
         "ingredientes":[" Garbanzos"," Pastilla de caldo"," Tocino"," Cebolla"," Tomate"," Ajo"," Apio"," Morcilla"],
         "desc":"ccccElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
+
+    {
+        "nombre":"picklerick",
+        "ingredientes":["rickinillo"],
+        "desc":"aaaaaaaaa"
+    }
 
 ]

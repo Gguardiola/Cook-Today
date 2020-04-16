@@ -68,7 +68,7 @@
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
           <a href="#overview" class="mdl-layout__tab is-active">Comida del día</a>
           <a href="#minevera" class="mdl-layout__tab">Mi nevera</a>
-          <a href="#features" class="mdl-layout__tab">Favoritos</a>
+          <a href="#favoritos" class="mdl-layout__tab">Favoritos</a>
           <a href="#comidas" class="mdl-layout__tab">Comidas</a>
         
         </div>
@@ -177,8 +177,8 @@
         <div class="mdl-layout__tab-panel" id="minevera">
 
           <section class="section--center mdl-grid mdl-grid--no-spacing">
-            <div class="mdl-cell mdl-cell--12-col">
-
+            <div style="margin-top:-35px" id="minevera-container" class="mdl-cell mdl-cell--12-col">
+              
                 <form class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone" id="buscador">
                   <div id="container-buscador" class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="indexof">
@@ -217,8 +217,14 @@
                 </button>
               </div>
             </div>
-
           </section>
+        </div>
+
+        <div class="mdl-layout__tab-panel" id="favoritos">        
+        <section class="section--center mdl-grid mdl-grid--no-spacing">
+          <div id="favdump"></div>
+          <button id="favreload">reload</button>
+        </section>
         </div>
       </main>
     </div>
