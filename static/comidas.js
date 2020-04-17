@@ -10,7 +10,11 @@ var comidas = [
         "ingredientes":[" Pepino"," Pechuga"," Mayonesa"," Lechuga"],
         "desc":"bbbbbElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
-
+    {
+        "nombre":"Potaje rpueba garbanso",
+        "ingredientes":[" Garbanzos"],
+        "desc":"ccccElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
+    },
     {
         "nombre":"Potaje de garbanso",
         "ingredientes":[" Garbanzos"," Pastilla de caldo"," Tocino"," Cebolla"," Tomate"," Ajo"," Apio"," Morcilla"],

@@ -196,17 +196,49 @@
                                                       
                   </div>
                   <div style= "overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;margin-bottom:20px;border-bottom: 2px solid #8bc34a;" class="mdl-cell mdl-cell--1-col" id='resultado'>
-                  </div>  
-                  <div style="margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
-                    <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">BUSCAR</a>                  
-                    <!-- <a style="text-decoration:none" href="#comidas"><input type='submit' style ="display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'></a> -->
-                  </div>
-                  <div class="mdl-cell mdl-cell--1-col"></div>
-                                    
-                  <div class="mdl-cell mdl-cell--1-col" id="borrador">
-                    <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">LIMPIAR</a>                  
-                  </div>  
+                  </div> 
+                  <div class="mdl-cell mdl-cell--4-col-phone">
+                    <div style="float:left">
+                       
+                      <label id="advancedSearch" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                        <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                        
+                        <span class="mdl-switch__label">Búsqueda avanzada</span>
 
+                      </label>
+                                 
+                    </div>
+                    <i id="show-dialog-searchInfo" onclick="advancedSearchInfoDialog()" style="float:right" class="material-icons">help_outline</i>
+
+                    <dialog id="advancedSearchDialog" class="mdl-dialog">
+                      <h5 align=center style="color:#616161" align=center>Búsqueda Avanzada:</h5>
+                      <div class="mdl-dialog__content">
+                        <p style="text-align: justify;text-justify: inter-word;">
+                          Por defecto CookToday muestra sólo las comidas que tienen todos los ingredientes que has seleccionado.
+                          Marcando esta opción mostrará las comidas que tienen igual o más de la mitad de los ingredientes que has seleccionado.
+                          <br>
+                          <br>
+                          En definitiva, marca esta opción si lo que quieres son ideas para comer y ver que ingredientes te pueden faltar!
+                        
+                          
+                        </p>
+                      </div>
+                      <div class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                  </dialog>
+                  </div>
+                    
+                    <div style="display:inline-block;margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
+                      <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">BUSCAR</a>                  
+                      <!-- <a style="text-decoration:none" href="#comidas"><input type='submit' style ="display: inline" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value='Buscar'></a> -->
+                    </div>
+                    
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                                      
+                    <div style="display:inline" class="mdl-cell mdl-cell--1-col" id="borrador">
+                      <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">LIMPIAR</a>                  
+                    </div>  
                 </div>
               
               <div id="resultado-comida" class="mdl-grid">

@@ -90,14 +90,17 @@ class minevera {
     mostrar_comidas(ingredientes_checked,comidas,checkloadmore){
         //var comidas_sinorden = []
         //var contador_orden = []
+        
         console.log("agregar")
         if (checkloadmore == false){
             
             l.setItem("comidas_load",JSON.stringify(0))
-
+            
             var mostrar_comidas_final = []
+            var faltanIngredientesCheck = []
             var hiddenLoadMore = false
 
+            
             for (var i = 0;i <= comidas.length -1;i++){
                 var cont_coincidencias = 0
                 for (var x=0;x <= ingredientes_checked.length -1;x++){
@@ -107,13 +110,43 @@ class minevera {
                     }
 
                 }
-                if (cont_coincidencias >0){
-                //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
-                    mostrar_comidas_final.push(comidas[i].nombre)
 
+                const advancedSearchCheck = document.getElementById("advancedSearch")
+                if (advancedSearchCheck.classList.contains("is-checked")){
+                    console.log("advanced search")
+                    if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                        mostrar_comidas_final.push(comidas[i].nombre)
+
+                        if (cont_coincidencias  == comidas[i].ingredientes.length){
+                            faltanIngredientesCheck.push(true)
+        
+                        }
+                        else {
+                            console.log(false)
+                            faltanIngredientesCheck.push(false)
+        
+                        }
+                    }
+                }
+
+                else{
+                    if (cont_coincidencias == comidas[i].ingredientes.length){
+                        mostrar_comidas_final.push(comidas[i].nombre)
+
+                        if (cont_coincidencias  == comidas[i].ingredientes.length){
+                            faltanIngredientesCheck.push(true)
+        
+                        }
+                        else {
+                            console.log(false)
+                            faltanIngredientesCheck.push(false)
+        
+                        }
+                    }
                 }
                 var cont_coincidencias = 0
             }
+
             
             const contenedorResultadoComidas = document.getElementById("resultado-comida");
             contenedorResultadoComidas.innerHTML = ""
@@ -124,7 +157,14 @@ class minevera {
             if (mostrar_comidas_final.length > 0){
                 const comidaFichaTitle = document.createElement('h4');
                 comidaFichaTitle.setAttribute("style","display:block;margin-bottom:30px")
-                comidaFichaTitle.innerHTML = `${mostrar_comidas_final.length -1} comidas encontradas:<br>`
+
+                if (mostrar_comidas_final.length == 1){
+                    comidaFichaTitle.innerHTML = `1 comida encontrada:<br>`
+
+                }
+                else{
+                    comidaFichaTitle.innerHTML = `${mostrar_comidas_final.length -1} comidas encontradas:<br>`
+                }
                 contenedorComidaFicha.appendChild(comidaFichaTitle)
                 
                 const volverPrincipio = document.createElement('div');
@@ -142,7 +182,7 @@ class minevera {
             else if (mostrar_comidas_final == 0){
                 const comidaFichaTitle = document.createElement('h4');
                 comidaFichaTitle.setAttribute("style","display:block")  
-                comidaFichaTitle.innerHTML = `No hay resultados`
+                comidaFichaTitle.innerHTML = `No hay resultados, prueba a poner más ingredientes!`
                 contenedorComidaFicha.appendChild(comidaFichaTitle)
                 hiddenLoadMore = true
             }
@@ -163,7 +203,7 @@ class minevera {
 
         var cargado = JSON.parse(l.getItem("comidas_load"))
         var mostrar_comidas_final = JSON.parse(l.getItem("mostrar_comidas_finalSave"))
-
+        console.log(faltanIngredientesCheck)
         if (cargado < mostrar_comidas_final.length){
             for (var i = cargado; i <= cargado + 9; i++){
                 console.log("bucle")
@@ -172,57 +212,113 @@ class minevera {
                     break 
 
                 } 
-                
-                ComidaFicha.innerHTML += `<br>
-                    <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
-                    <div id="comida-ficha" class="mdl-card__title">
-                        <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
-                    </div>
-                    <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
-                    <div class="mdl-card__actions mdl-card--border">
-                    <a onclick="popupingredientes('${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                    Ver ingredientes
-                    </a>
-                    </div>
-                    <div class="mdl-card__menu"> 
-                    <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
-                    <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
-                        <div class="mdl-snackbar__text"></div>
-                        <button class="mdl-snackbar__action " type="button"></button>
-                    </div>   
-                    </div>             
-                    </div> 
+                if (faltanIngredientesCheck[i] == false){
+                    ComidaFicha.innerHTML += `<br>
+                        <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+                        <div id="comida-ficha" class="mdl-card__title">
+                            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                        </div>
+                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div class="mdl-card__actions mdl-card--border">
+                        <a  style="display:inline" onclick="popupingredientes('${ingredientes_checked}','${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Ver ingredientes
+                        <span ><i style="margin-bottom:3px;color:#d8573b" class='material-icons'>error_outline</i></span>
+                        </a>
+                        </div>
+                        <div class="mdl-card__menu"> 
+                        <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+                        <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action " type="button"></button>
+                        </div>   
+                        </div>             
+                        </div> 
 
-                    <dialog id="ingredientespopup_id" class="mdl-dialog">
-                    <h4 style="color:#616161" align=center>Ingredientes:</h4>
-                    <div class="mdl-dialog__content">
-                    <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-                    </div>
-                    <div align=center class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close">Cerrar</button>
-                    </div>
-                </dialog>            
+                        <dialog id="ingredientespopup_id" class="mdl-dialog">
+                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
+                        <div id="dialogContainer" class="mdl-dialog__content">
+                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                        </div>
+                        <div align=center class="mdl-dialog__actions">
+                            <button type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog>            
 
 
-                    <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                        
+                        <dialog id="addfavoritosDialog" class="mdl-dialog">
+                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div style="margin-right:90px" class="mdl-dialog__actions">
+                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog> 
                     
-                    <dialog id="addfavoritosDialog" class="mdl-dialog">
-                    <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                    
                     <div style="margin-right:90px" class="mdl-dialog__actions">
-                    <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        <button type="button" class="mdl-button close">Cerrar</button>
                     </div>
-                </dialog> 
-                
-                <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-                <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                
-                <div style="margin-right:90px" class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close">Cerrar</button>
-                </div>
-                </dialog>            
+                    </dialog>            
 
+                        </div>
+                        `;
+                }
+                else if(faltanIngredientesCheck[i] == true){
+                    ComidaFicha.innerHTML += `<br>
+                        <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+                        <div id="comida-ficha" class="mdl-card__title">
+                            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                        </div>
+                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div class="mdl-card__actions mdl-card--border">
+                        <a  style="display:inline" onclick="popupingredientes('${ingredientes_checked}','${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Ver ingredientes
+                        
+                        </a>
+                        </div>
+                        <div class="mdl-card__menu"> 
+                        <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+                        <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action " type="button"></button>
+                        </div>   
+                        </div>             
+                        </div> 
+
+                        <dialog id="ingredientespopup_id" class="mdl-dialog">
+                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
+                        <div id="dialogContainer" class="mdl-dialog__content">
+                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                        </div>
+                        <div align=center class="mdl-dialog__actions">
+                            <button type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog>            
+
+
+                        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
+                        
+                        <dialog id="addfavoritosDialog" class="mdl-dialog">
+                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div style="margin-right:90px" class="mdl-dialog__actions">
+                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog> 
+                    
+                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                    
+                    <div style="margin-right:90px" class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button close">Cerrar</button>
                     </div>
-                    `;
+                    </dialog>            
+
+                        </div>
+                        `;
+
+                }
             }
             
             contenedorComidaFicha.appendChild(ComidaFicha);
@@ -472,37 +568,64 @@ function ingrediente_delete(ingrediente_aborrar){
     contenedorSelectores_renew.appendChild(autoSelector_renew);
 }
 
-function popupingredientes(mostrar_comidas_final,ComidaClickIngredientes,indice){
+function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClickIngredientes,indice){
+    ingredientes_checked = ingredientes_checked.split(",")
+    console.log(ingredientes_checked)
     mostrar_comidas_final = mostrar_comidas_final.split(",")
     var ingredienteComidas = []
     for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
         
         for (var x = 0; x < comidas.length;x++ ){
             if (comidas[x].nombre.includes(ComidaClickIngredientes)){
-                
                 ingredienteComidas.push(comidas[x].ingredientes)
             }
         }
     }
-
+    
     var ingredientesActualpopup = ingredienteComidas[0]
     console.log(ingredientesActualpopup)
+
+
+
+    var coincidencias_ingredientes = 0
+    for (var i = 0;i <= ingredientes_checked.length -1; i++){
+        console.log("aa")        
+        if (ingredientesActualpopup.includes(ingredientes_checked[i])){
+            coincidencias_ingredientes = coincidencias_ingredientes + 1
+
+        }
+
+    }
+    console.log(coincidencias_ingredientes)
+    console.log(ingredientesActualpopup.length)
+  
     const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainer").item(indice)
     ingredientesActualMostrar = document.createElement("ul")
     ingredientesActualMostrar.setAttribute("id","ingredientesMostrados")
     ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
-    for(var i = 0; i < ingredientesActualpopup.length;i++){       
-        ingredientesActualMostrar.innerHTML += `
-        <li class="mdl-list__item">
-        <span class="mdl-list__item-primary-content">
-          ${ingredientesActualpopup[i]}
-        </span>
-      </li>  
-        `
+    for(var i = 0; i < ingredientesActualpopup.length;i++){ 
+        if (ingredientes_checked.includes(ingredientesActualpopup[i])){      
+            ingredientesActualMostrar.innerHTML += `
+            <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                ${ingredientesActualpopup[i]}
+            </span>
+            </li>  
+            `
+        }
+        else{
+            ingredientesActualMostrar.innerHTML += `
+            <li class="mdl-list__item">
+            <span style="color:#d8573b" class="mdl-list__item-primary-content">
+                ${ingredientesActualpopup[i]}
+            </span>
+            </li>  
+            ` 
+        }
         
     }
-
-    ingredientesContainer.appendChild(ingredientesActualMostrar)
+    
+    ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
     var dialog = document.querySelectorAll('#ingredientespopup_id').item(indice);
     console.log(dialog)
@@ -606,6 +729,23 @@ function copiarFormFeedback(){
 
 }
 
+function advancedSearchInfoDialog(){
+
+    var dialog = document.querySelector('#advancedSearchDialog');
+    
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+      dialog.close();
+      e.preventDefault()
+    });
+
+
+}
+
 /////BOTON AÑADIR/////
 /*
 Recoge el elemento form con id add que contiene los inputs con los que va a interactuar el usuario
@@ -704,4 +844,5 @@ favdump.innerHTML = `${favoritos}`
 
 
 })
+
 
