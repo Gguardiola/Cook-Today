@@ -181,13 +181,17 @@ document.getElementById('borrador').addEventListener('click',function(e){
 
     const contenedorResultadoComidas = document.getElementById("resultado-comida");
     contenedorResultadoComidas.innerHTML = ""
+    contenedorResultadoComidas.style.marginTop = "0px"
+    
 
     //vaciamos las keys del localstorage que se han usado para mostrar las comidas
     l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
     l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
     //escondemos el boton de cargar más
     document.getElementById("loadMore").style.visibility = "hidden"
-    contenedorResultadoComidas.style.marginTop = "0px"
+    //contenedorResultadoComidas.style.marginTop = "0px"
+    document.getElementById("loadMore").style.height = "0px"
+    document.getElementById("loadMoreContainer").style.height = "0px"
 
     //volvemos a duplicar ingredientes_list de la lista original
     ingredientes_list = ingredientes_list_const.slice()

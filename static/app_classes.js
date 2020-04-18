@@ -364,11 +364,14 @@ class minevera {
             //si hiddenloadmore esta en false quiere decir que hay resultados, por lo tanto hace el boton "cargar mas" visible
             if (hiddenLoadMore == false){
                 document.getElementById("loadMore").style.visibility = "visible"
+                document.getElementById("loadMore").style.height = "initial"
+                document.getElementById("loadMoreContainer").style.height = "initial"                
             }
 
             //crea el boton de FEEDBACK
             const feedbackbutton = document.createElement('div');
-            feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
+            feedbackbutton.setAttribute("align","center")
+           feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
             feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
@@ -378,7 +381,7 @@ class minevera {
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -405,6 +408,9 @@ class minevera {
             //si cargado es mayor al total de comidas, deja de mostrar el boton de cargar mas (ha llegado al final)
             if (cargado >= mostrar_comidas_final.length){
                 document.getElementById("loadMore").style.visibility = "hidden"
+                document.getElementById("loadMore").style.height = "0px"
+                document.getElementById("loadMoreContainer").style.height = "0px"
+                contenedorComidaFicha.style.marginTop = "0px"
             }
 
             //quitamos el feedback anterior y le insertamos el nuevo
@@ -413,7 +419,8 @@ class minevera {
 
 
             var feedbackbutton = document.createElement('div');
-            feedbackbutton.setAttribute("style","display:inline-block;margin-left:2px;opacity: 0.6")
+            feedbackbutton.setAttribute("align","center")            
+            feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
             feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
@@ -423,7 +430,7 @@ class minevera {
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-            <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>

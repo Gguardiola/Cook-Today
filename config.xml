@@ -9,7 +9,7 @@
     <description>
         App para decidir que comer hoy
     </description>
-    <author email="EMAIL" href="gabrielguardiola1999@gmail.com">
+    <author email="EMAIL" href="gx3studios@gmail.com">
         hola
     </author>
  
@@ -54,8 +54,6 @@
         <preference name="android-targetSdkVersion" value="28" />
 
         <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
     </platform> 
     
