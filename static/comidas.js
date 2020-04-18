@@ -11,7 +11,7 @@ var comidas = [
         "desc":"bbbbbElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
     {
-        "nombre":"Potaje rpueba garbanso",
+        "nombre":"Potaje dde garbanso",
         "ingredientes":[" Garbanzos"],
         "desc":"ccccElaborado por los dioses del Olimpo, el sandwitch vegetal a servido para unir pueblos y comunidades en todo el mundo."
     },
