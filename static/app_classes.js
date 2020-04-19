@@ -1,3 +1,108 @@
+class comidaDia {
+
+    generarFicha(){
+        var mostrar_comidas_final = []
+        for (var i = 0; i <= comidas.length -1; i++){
+            mostrar_comidas_final.push(comidas[i].nombre)
+        }
+        var dia_hoy = JSON.parse(l.getItem("dia_hoy"))
+        console.log(dia_hoy)
+
+        if (dia_hoy == null){
+            var d = new Date()
+            var n = d.getDate()
+            l.setItem("dia_hoy",JSON.stringify(0))
+        }
+        
+        var dia_hoy = JSON.parse(l.getItem("dia_hoy"))
+        var d2 = new Date()
+        var cambioDiaCheck = d2.getDate() 
+
+        if (dia_hoy == cambioDiaCheck){
+            console.log("mismo dia")
+            console.log(ComidaDeldia)
+        }
+        
+        else{
+            var nuevaComidadeldiaRandom = Math.floor((Math.random() * mostrar_comidas_final.length) + 1);
+
+            var ComidaDeldia = comidas[nuevaComidadeldiaRandom].nombre
+            console.log(ComidaDeldia)
+
+            l.setItem("comidaDelDia",ComidaDeldia)
+
+        }
+
+        var ComidaDelDiaDefinitiva = l.getItem("comidaDelDia")
+        
+        const contenedorComidaDiaFicha = document.getElementById("container_comidaDia");         
+        const ComidaDiaFicha = document.createElement('div');
+        ComidaDiaFicha.setAttribute("id", "resultado-comida-dia");
+        
+        ComidaDiaFicha.innerHTML += `<br>
+        <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+        <div id="comida-ficha" class="mdl-card__title">
+            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${ComidaDelDiaDefinitiva}</h2>
+        </div>
+        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+        <div class="mdl-card__actions mdl-card--border">
+        <a  style="display:inline" onclick="popupingredientes()"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        Ver ingredientes
+        <span ><i style="margin-bottom:3px;color:#d8573b" class='material-icons'>error_outline</i></span>
+        </a>
+        </div>
+        <div class="mdl-card__menu"> 
+        <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+        <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action " type="button"></button>
+        </div>   
+        </div>             
+        </div> 
+
+        <dialog id="ingredientespopup_id" class="mdl-dialog">
+        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
+        <div id="dialogContainer" class="mdl-dialog__content">
+        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+        </div>
+        <div align=center class="mdl-dialog__actions">
+            <button type="button" class="mdl-button close">Cerrar</button>
+        </div>
+    </dialog>            
+
+
+        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${ComidaDelDiaDefinitiva}" style="color:white;">${ComidaDelDiaDefinitiva}</p></div>
+        
+        <dialog id="addfavoritosDialog" class="mdl-dialog">
+        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+        <div style="margin-right:90px" class="mdl-dialog__actions">
+        <button align=center type="button" class="mdl-button close">Cerrar</button>
+        </div>
+    </dialog> 
+    
+    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+    
+    <div style="margin-right:90px" class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Cerrar</button>
+    </div>
+    </dialog>            
+
+        </div>
+        `;
+
+        contenedorComidaDiaFicha.appendChild(ComidaDiaFicha)
+
+
+    }
+
+
+}
+
+
+
+
+
 ////CLASE DE LA SECCIÓN MI NEVERA////
 class minevera {
 
@@ -374,7 +479,7 @@ class minevera {
            feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
-            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
             
             <dialog id="feedbackContainer" class="mdl-dialog">
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
@@ -404,6 +509,7 @@ class minevera {
             console.log("check")
             cargado = JSON.parse(l.getItem("comidas_load"))
             l.setItem("comidas_load",JSON.stringify(cargado+10))
+
             console.log(cargado)
             //si cargado es mayor al total de comidas, deja de mostrar el boton de cargar mas (ha llegado al final)
             if (cargado >= mostrar_comidas_final.length){
@@ -423,7 +529,7 @@ class minevera {
             feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
-            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert()' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
             
             <dialog id="feedbackContainer" class="mdl-dialog">
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
@@ -448,4 +554,78 @@ class minevera {
     }
    
  
+}
+
+class favoritos {
+
+    mostrar_favoritos(reload){
+        var favoritos = JSON.parse(l.getItem("favoritos"))
+        console.log(favoritos)
+
+        if (reload == true){
+
+            const favoritosFichasBorrar = document.getElementById("favoritosContainer")
+            const borrarFavoritosContainer = document.getElementById("favoritosGrid")
+            borrarFavoritosContainer.removeChild(favoritosFichasBorrar)
+
+            const favoritosContainerReload = document.createElement("div")
+            favoritosContainerReload.setAttribute("id","favoritosContainer")
+            favoritosContainerReload.setAttribute("class","mdl-cell mdl-cell--12-col")
+            document.getElementById("favoritosGrid").appendChild(favoritosContainerReload)
+        }
+
+        const favoritosContainer = document.getElementById("favoritosContainer")
+        const mostrarFavoritosFicha = document.createElement("div")
+        mostrarFavoritosFicha.setAttribute("id","favoritosFichasContainer")
+
+        if (favoritos.length == 0){
+            mostrarFavoritosFicha.innerHTML = `<h4 align=center>No tienes favoritos.</h4>`
+
+        }
+        for (var i = 0; i <= favoritos.length -1;i++){
+            mostrarFavoritosFicha.innerHTML += `<br>
+            <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+            <div id="comida-ficha" class="mdl-card__title">
+                <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${favoritos[i]}</h2>
+            </div>
+            <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+            <div class="mdl-card__actions mdl-card--border">
+            <a  style="display:inline" onclick="popupingredientesFavoritos('${favoritos[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Ver ingredientes
+            
+            </a>
+            </div>
+            <div class="mdl-card__menu"> 
+            <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "removeFavoritos(${i})" type="button"><i class='material-icons'>delete_outline</i></button>
+            <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action " type="button"></button>
+            </div>   
+            </div>             
+            </div>    
+            <dialog id="ingredientespopup_idFav" class="mdl-dialog">
+                <h4 id ="ingredientesDialogTitleFav" style="color:#616161" align=center>Ingredientes:</h4>
+                <div id="dialogContainerFav" class="mdl-dialog__content">
+                <p id="ingredientesFichaContainerFav" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                </div>
+                <div align=center class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+            </dialog>     
+            <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="removefavoritosLabel" name="${favoritos[i]}" style="color:white;">${favoritos[i]}</p></div>
+
+            `
+
+
+        }
+
+        favoritosContainer.appendChild(mostrarFavoritosFicha)
+
+
+
+
+
+    }
+
+
 }

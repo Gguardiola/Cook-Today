@@ -149,6 +149,65 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
 
 }
 
+function popupingredientesFavoritos(ComidaClickIngredientes,indice){
+
+    for (var i = 0; i <= comidas.length -1; i++){
+        mostrar_comidas_final.push(comidas[i].nombre)
+    }
+
+    var ingredienteComidas = []
+    for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+        
+        for (var x = 0; x < comidas.length;x++ ){
+            if (comidas[x].nombre.includes(ComidaClickIngredientes)){
+                ingredienteComidas.push(comidas[x].ingredientes)
+            }
+        }
+    }
+    
+    var ingredientesActualpopup = ingredienteComidas[0]
+    console.log(ingredientesActualpopup)
+
+    const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainerFav").item(indice)
+    ingredientesActualMostrar = document.createElement("ul")
+    ingredientesActualMostrar.setAttribute("id","ingredientesMostradosFav")
+    ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
+    for(var i = 0; i < ingredientesActualpopup.length;i++){ 
+          
+            ingredientesActualMostrar.innerHTML += `
+            <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                ${ingredientesActualpopup[i]}
+            </span>
+            </li>  
+            `        
+    }
+    
+    ingredientesContainer.appendChild(ingredientesActualMostrar)        
+
+    var dialog = document.querySelectorAll('#ingredientespopup_idFav').item(indice);
+    console.log(dialog)
+    var showDialogButton = document.querySelectorAll('#show-dialogFav').item(indice);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+    
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        try{
+            var borrarIngredientesActual = document.getElementById("ingredientesMostradosFav")
+            borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
+        } catch (TypeError){
+            //pass
+
+        }
+
+        dialog.close();
+        e.preventDefault()
+    });
+
+
+}
 //esta funcion se activa cuando se le da a la estrella de cada ficha
 
 //mediance el indice (posicion de la ficha) recoge el parrafo oculto que hay debajo de cada ficha que contine el nombre de la comida
@@ -198,12 +257,41 @@ function addFavoritos(indice){
     }
 } 
 
+function removeFavoritos(indice){
+
+    var favoritosParseNew = []
+    var comida_fav = document.querySelectorAll("#removefavoritosLabel").item(indice).innerHTML
+    console.log(comida_fav)
+    
+    favoritosParse = JSON.parse(l.getItem("favoritos"))
+    console.log(favoritosParse)
+
+    for(var i = 0;i <= favoritosParse.length -1;i++){
+        console.log("aaaa")
+        if(favoritosParse[i] == comida_fav){
+            favoritosParse.splice(i,1)
+        }
+        else{
+            //
+
+        }
+    }
+    console.log(favoritosParseNew)
+    l.setItem("favoritos",JSON.stringify(favoritosParse))
+
+
+    fav.mostrar_favoritos(true)
+}
 //esta function se llama cuando se hace click en el feedback de abajo del todo
-function FeedbackAlert() {
+function FeedbackAlert(origenNevera) {
 
-    var dialog = document.querySelectorAll('#feedbackContainer').item(0);
-    console.log(dialog)
+    if(origenNevera == true){
+        var dialog = document.querySelectorAll('#feedbackContainer').item(0);
+    }
 
+    else{
+        var dialog = document.querySelectorAll('#feedbackContainerFav').item(0);
+    }
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }

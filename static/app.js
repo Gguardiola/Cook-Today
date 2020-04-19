@@ -56,8 +56,13 @@ const ui = new minevera();
 ui.selectores(ingredientes_list_const);
 
 
+const fav = new favoritos(false);
 
+fav.mostrar_favoritos()
 
+const comdia = new comidaDia()
+
+comdia.generarFicha()
 
 
 
@@ -77,6 +82,14 @@ ui.selectores(ingredientes_list_const);
 //tambien se va a pasar a ui.mostrar_comidas para buscar las comidas que tengan los ingredientes seleccionados
 //mas detalles en app_classes.ks minevera.mostrar_comidas
 var ingredientes_checked = [];
+
+
+document.getElementById("favoritosTab").addEventListener("click",function(e){
+
+    fav.mostrar_favoritos(true)
+
+
+})
 
 
 ////BUSCADOR EN TIEMPO REAL////
@@ -215,22 +228,7 @@ document.getElementById("loadMoreContainer").addEventListener("click",function(e
 
 
 
-//debug
-const favdump = document.getElementById("favdump")
-console.log(favdump)
-favoritos = JSON.parse(l.getItem("favoritos"))
-var favhtml = ""
-favdump.innerHTML = `${favoritos}`
-
-document.getElementById("favreload").addEventListener("click",function(e){
-
-const favdump = document.getElementById("favdump")
-console.log(favdump)
-favoritos = JSON.parse(l.getItem("favoritos"))
-var favhtml = ""
-favdump.innerHTML = `${favoritos}`
 
 
-})
 
 
