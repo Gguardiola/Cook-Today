@@ -150,7 +150,7 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
 }
 
 function popupingredientesFavoritos(ComidaClickIngredientes,indice){
-
+    var mostrar_comidas_final = []
     for (var i = 0; i <= comidas.length -1; i++){
         mostrar_comidas_final.push(comidas[i].nombre)
     }

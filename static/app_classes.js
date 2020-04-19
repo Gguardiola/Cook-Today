@@ -40,30 +40,30 @@ class comidaDia {
         ComidaDiaFicha.setAttribute("id", "resultado-comida-dia");
         
         ComidaDiaFicha.innerHTML += `<br>
-        <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
-        <div id="comida-ficha" class="mdl-card__title">
+        <div style="margin-left:2%" id = "comidaDia-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+        <div id="comidaDia-ficha" class="mdl-card__title">
             <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${ComidaDelDiaDefinitiva}</h2>
         </div>
-        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+        <div id ="descDia" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
         <div class="mdl-card__actions mdl-card--border">
-        <a  style="display:inline" onclick="popupingredientes()"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <a  style="display:inline" onclick="popupingredientesDia()"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
         Ver ingredientes
         <span ><i style="margin-bottom:3px;color:#d8573b" class='material-icons'>error_outline</i></span>
         </a>
         </div>
         <div class="mdl-card__menu"> 
-        <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
-        <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+        <button id ="copiar-botonDia" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritosDia(${i})" type="button"><i class='material-icons'>star</i></button>
+        <div  id = "copiar-botonDia-container" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action " type="button"></button>
         </div>   
         </div>             
         </div> 
 
-        <dialog id="ingredientespopup_id" class="mdl-dialog">
-        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
-        <div id="dialogContainer" class="mdl-dialog__content">
-        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+        <dialog id="ingredientespopup_idDia" class="mdl-dialog">
+        <h4 id ="ingredientesDialogTitleDia" style="color:#616161" align=center>Ingredientes:</h4>
+        <div id="dialogContainerDia" class="mdl-dialog__content">
+        <p id="ingredientesFichaContainerDia" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
         </div>
         <div align=center class="mdl-dialog__actions">
             <button type="button" class="mdl-button close">Cerrar</button>
@@ -73,14 +73,14 @@ class comidaDia {
 
         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${ComidaDelDiaDefinitiva}" style="color:white;">${ComidaDelDiaDefinitiva}</p></div>
         
-        <dialog id="addfavoritosDialog" class="mdl-dialog">
+        <dialog id="addfavoritosDialogDia" class="mdl-dialog">
         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
         <div style="margin-right:90px" class="mdl-dialog__actions">
         <button align=center type="button" class="mdl-button close">Cerrar</button>
         </div>
     </dialog> 
     
-    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+    <dialog id="addfavoritosDialogFailDia" class="mdl-dialog">
     <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
     
     <div style="margin-right:90px" class="mdl-dialog__actions">
