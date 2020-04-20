@@ -30,6 +30,7 @@ class comidaDia {
             console.log(ComidaDeldia)
 
             l.setItem("comidaDelDia",ComidaDeldia)
+            l.setItem("dia_hoy",JSON.stringify(cambioDiaCheck))
 
         }
 
@@ -71,7 +72,7 @@ class comidaDia {
     </dialog>            
 
 
-        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${ComidaDelDiaDefinitiva}" style="color:white;">${ComidaDelDiaDefinitiva}</p></div>
+        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabelFav" name="${ComidaDelDiaDefinitiva}" style="color:white;">${ComidaDelDiaDefinitiva}</p></div>
         
         <dialog id="addfavoritosDialogDia" class="mdl-dialog">
         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
