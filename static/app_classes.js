@@ -19,7 +19,7 @@ class comidaDia {
         var cambioDiaCheck = d2.getDate() 
 
         if (dia_hoy == cambioDiaCheck){
-            console.log("mismo dia")
+            console.log("mismoa dia")
             console.log(ComidaDeldia)
         }
         
