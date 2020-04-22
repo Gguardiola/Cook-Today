@@ -2,15 +2,10 @@
 //Esta funcion recoge el ingrediente seleccionado, lo añade a ingredientes checked y pasa la lista para mostrar la etiqueta borrable del ingrediente
 
 function ingrediente_click(id_ingrediente_check){
-
-    ingredientes_list_pop = ingredientes_list
-    for( var i = 0; i < ingredientes_list_pop.length; i++){
-            if ( ingredientes_list_pop[i] === id_ingrediente_check) {
-            ingredientes_list_pop.splice(i, 1); 
-        }
+   
+    if (!ingredientes_checked.includes(id_ingrediente_check)){
+        ingredientes_checked.push(id_ingrediente_check)
     }
-
-    ingredientes_checked.push(id_ingrediente_check)
     ui.mostrar_seleccionados(ingredientes_checked);
 
     const contenedorBuscador = document.getElementById("indexof");
@@ -18,11 +13,23 @@ function ingrediente_click(id_ingrediente_check){
     const contenedorBuscadorDiv = document.getElementById("container-buscador");
     contenedorBuscadorDiv.classList.remove("is-dirty")
 
-    const contenedorSelectores = document.getElementById("form-selector");
-    contenedorSelectores.remove("form-selector")
-    contenedorSelectores.innerHTML = ""
-    console.log(ingredientes_list_pop)
-    ui.selectores(ingredientes_list_pop);
+    for (var i = 0;i<= ingredientes_list_const.length -1; i++){
+
+        var ingredientes_check_container = document.querySelectorAll("#ingrediente_check").item(i)
+        try{
+            console.log(ingredientes_check_container)
+            if (ingredientes_check_container.htmlFor.includes(id_ingrediente_check)){
+                console.log(ingredientes_check_container)
+                ingredientes_check_container.style.backgroundColor = "#8bc34a"
+            }
+        } catch (TypeError){
+            break
+
+
+        }
+
+    }
+
 
 }
 
@@ -208,6 +215,67 @@ function popupingredientesFavoritos(ComidaClickIngredientes,indice){
 
 
 }
+
+function popupingredientesDia(ComidaClickIngredientes){
+    var mostrar_comidas_final = []
+    for (var i = 0; i <= comidas.length -1; i++){
+        mostrar_comidas_final.push(comidas[i].nombre)
+    }
+
+    var ingredienteComidas = []
+    for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+        
+        for (var x = 0; x < comidas.length;x++ ){
+            if (comidas[x].nombre.includes(ComidaClickIngredientes)){
+                ingredienteComidas.push(comidas[x].ingredientes)
+            }
+        }
+    }
+    
+    var ingredientesActualpopup = ingredienteComidas[0]
+    console.log(ingredientesActualpopup)
+
+    const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainerDia").item(0)
+    ingredientesActualMostrar = document.createElement("ul")
+    ingredientesActualMostrar.setAttribute("id","ingredientesMostradosDia")
+    ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
+    for(var i = 0; i < ingredientesActualpopup.length;i++){ 
+          
+            ingredientesActualMostrar.innerHTML += `
+            <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                ${ingredientesActualpopup[i]}
+            </span>
+            </li>  
+            `        
+    }
+    
+    ingredientesContainer.appendChild(ingredientesActualMostrar)        
+
+    var dialog = document.querySelectorAll('#ingredientespopup_idDia').item(0);
+    console.log(dialog)
+    var showDialogButton = document.querySelectorAll('#show-dialogDia').item(0);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+    
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        try{
+            var borrarIngredientesActual = document.getElementById("ingredientesMostradosDia")
+            borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
+        } catch (TypeError){
+            //pass
+
+        }
+
+        dialog.close();
+        e.preventDefault()
+    });
+
+
+}
+
 //esta funcion se activa cuando se le da a la estrella de cada ficha
 
 //mediance el indice (posicion de la ficha) recoge el parrafo oculto que hay debajo de cada ficha que contine el nombre de la comida
@@ -243,6 +311,48 @@ function addFavoritos(indice){
     
 
         var dialog = document.querySelectorAll('#addfavoritosDialog').item(indice);
+        console.log(dialog)
+        
+        if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+        
+        dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+        });
+    }
+} 
+
+function addFavoritosDia(){
+
+    var comida_fav = document.querySelectorAll("#addfavoritosLabelDia").item(0).innerHTML
+    console.log(comida_fav)
+    
+    favoritosParse = JSON.parse(l.getItem("favoritos"))
+    console.log(favoritosParse)
+    if(favoritosParse.includes(comida_fav)){
+        //pass
+        var dialog = document.querySelectorAll('#addfavoritosDialogFailDia').item(0);
+        console.log(dialog)
+        
+        if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+        
+        dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+        });
+    }
+    else{
+        favoritosParse.push(comida_fav)
+        l.setItem("favoritos", JSON.stringify(favoritosParse))   
+    
+
+        var dialog = document.querySelectorAll('#addfavoritosDialogDia').item(0);
         console.log(dialog)
         
         if (! dialog.showModal) {

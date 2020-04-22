@@ -69,7 +69,7 @@
           <a href="#comidadeldia" class="mdl-layout__tab is-active">Comida del día</a>
           <a href="#minevera" class="mdl-layout__tab">Mi nevera</a>
           <a id ="favoritosTab" href="#favoritos" class="mdl-layout__tab">Favoritos</a>
-          <a href="#comidas" class="mdl-layout__tab">Comidas</a>
+          <a href="#despensa" class="mdl-layout__tab">Despensa</a>
           <a href="#comidas" class="mdl-layout__tab"><i style="margin-top:18px" class="material-icons">help_outline</i></a>
         
         </div>
@@ -79,11 +79,14 @@
           
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div style="margin-top:-35px" id="comidadia-container" class="mdl-cell mdl-cell--12-col">
-              <div id="container_comidaDia" >
+              <h4 align=center>Hoy te recomendamos:<h4>
+              <div align=center id="container_comidaDia" >
               
               
               </div>
+                      
             </div>
+              
           </section>
         </div>
 
@@ -125,7 +128,7 @@
                     <i id="show-dialog-searchInfo" onclick="advancedSearchInfoDialog()" style="float:right" class="material-icons">help_outline</i>
 
                     <dialog id="advancedSearchDialog" class="mdl-dialog">
-                      <h5 align=center style="color:#616161" align=center>Búsqueda Avanzada:</h5>
+                      <h5 align=center style="color:#616161" align=center>Búsqueda Avanzada</h5>
                       <div class="mdl-dialog__content">
                         <p style="text-align: justify;text-justify: inter-word;">
                           Por defecto CookToday muestra sólo las comidas que tienen todos los ingredientes que has seleccionado.
@@ -151,7 +154,7 @@
                     <div class="mdl-cell mdl-cell--1-col"></div>
                                       
                     <div style="display:inline" class="mdl-cell mdl-cell--1-col" id="borrador">
-                      <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">LIMPIAR</a>                  
+                      <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" class="mdl-button mdl-js-button mdl-button--raised">LIMPIAR</a>                  
                     </div>  
                 </div>
               
@@ -200,6 +203,39 @@
             </strong></strong>
           </div>          
         </div>
+
+        <div class="mdl-layout__tab-panel" id="despensa">
+          
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div style="margin-top:-35px" id="comidadia-container" class="mdl-cell mdl-cell--12-col">
+              <div align=center id="container_despensa" >
+              <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+                <header class="mdl-layout__header mdl-layout__header--transparent">
+                  <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">Despensa</span>
+
+                  </div>
+                </header>
+                <div class="mdl-layout__drawer">
+                  <span class="mdl-layout-title">Despensa</span>
+                  <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Ensaladas</a>
+                    <a class="mdl-navigation__link" href="">Sopas, pures...</a>
+                    <a class="mdl-navigation__link" href="">Carnes</a>
+                    <a class="mdl-navigation__link" href="">Pescados</a>
+                    <a class="mdl-navigation__link" href="">Arroces y pastas</a>
+                    <a class="mdl-navigation__link" href="">Bocadillos, pizzas...</a>    
+                   <a class="mdl-navigation__link" href="">Misceláneo</a>                  
+                  </nav>
+                </div>          
+              
+              </div>
+                      
+            </div>
+              
+          </section>
+        </div>      
       </main>
     </div>
     <script src="static/material.min.js"></script>

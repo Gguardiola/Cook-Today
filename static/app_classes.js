@@ -19,7 +19,7 @@ class comidaDia {
         var cambioDiaCheck = d2.getDate() 
 
         if (dia_hoy == cambioDiaCheck){
-            console.log("mismoa dia")
+            console.log("mismo dia")
             console.log(ComidaDeldia)
         }
         
@@ -41,19 +41,18 @@ class comidaDia {
         ComidaDiaFicha.setAttribute("id", "resultado-comida-dia");
         
         ComidaDiaFicha.innerHTML += `<br>
-        <div style="margin-left:2%" id = "comidaDia-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+        <div style="margin-left:2%;" id = "comidaDia-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--4dp" >
         <div id="comidaDia-ficha" class="mdl-card__title">
             <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${ComidaDelDiaDefinitiva}</h2>
         </div>
         <div id ="descDia" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
-        <div class="mdl-card__actions mdl-card--border">
-        <a  style="display:inline" onclick="popupingredientesDia()"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <div style="background-color:#779f3e;border-top:2px solid #779f3e" class="mdl-card__actions mdl-card--border">
+        <a  style="display:inline;color:#464942;" onclick="popupingredientesDia('${ComidaDelDiaDefinitiva}')"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
         Ver ingredientes
-        <span ><i style="margin-bottom:3px;color:#d8573b" class='material-icons'>error_outline</i></span>
         </a>
         </div>
         <div class="mdl-card__menu"> 
-        <button id ="copiar-botonDia" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritosDia(${i})" type="button"><i class='material-icons'>star</i></button>
+        <button id ="copiar-botonDia" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritosDia()" type="button"><i class='material-icons'>star</i></button>
         <div  id = "copiar-botonDia-container" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action " type="button"></button>
@@ -62,7 +61,7 @@ class comidaDia {
         </div> 
 
         <dialog id="ingredientespopup_idDia" class="mdl-dialog">
-        <h4 id ="ingredientesDialogTitleDia" style="color:#616161" align=center>Ingredientes:</h4>
+        <h4 id ="ingredientesDialogTitleDia" style="color:#616161" align=center>Ingredientes</h4>
         <div id="dialogContainerDia" class="mdl-dialog__content">
         <p id="ingredientesFichaContainerDia" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
         </div>
@@ -109,7 +108,8 @@ class minevera {
 
     ///METODO DE CREACIÓN DE LAS ETIQUETAS DE INGREDIENTES (SELECTORES)///
     selectores(ingredientes_list_const) {
-
+        var cargado = JSON.parse(l.getItem("selectores_load"))
+        
         //recogemos el div con id selectores que es donde va a generar las etiquetas con ingredientes
         const contenedorSelectores = document.getElementById("selectores");
         //creamos el elemento form que es donde va a generar los ingredientes
@@ -118,16 +118,24 @@ class minevera {
         autoSelector.setAttribute("id","form-selector");        
         //recorremos un bucle for mientras i sea menor o igual que la longitud de la lista de ingredientes totales.
         //va a generar un HTML con cada ingrediente en forma de etiqueta
-        for (var i = 0; i <= ingredientes_list_const.length -1; i++){
+        for (var i = cargado; i <= cargado +19; i++){
+           if (ingredientes_list_const[i] == undefined){
+
+               break
+
+            }
+            
             autoSelector.innerHTML += `
-            <label style="margin:2px" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
+            <label id="ingrediente_check" style="margin:2px" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list_const[i]}" class="mdl-checkbox__input">
                 <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
             </label>
             `;
 
+
         }      
         //una vez termina el bucle, va a insertar el html en el div con id selectores
+        l.setItem("selectores_load",JSON.stringify(cargado+20))
         contenedorSelectores.appendChild(autoSelector);
     }
 
@@ -138,6 +146,7 @@ class minevera {
     //es llamado por la funcion ingrediente_delete() y ingrediente_click() 
     //mas detalles en onclick_functions.js
     mostrar_seleccionados(ingredientes_checked_split){
+        console.log(ingredientes_checked_split)
 
         //se recoge el div donde vamos a meter los ingredientes seleccionados
         const contenedorResultado = document.getElementById("resultado");   
@@ -370,7 +379,7 @@ class minevera {
                         </div> 
 
                         <dialog id="ingredientespopup_id" class="mdl-dialog">
-                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
+                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
                         <div id="dialogContainer" class="mdl-dialog__content">
                         <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
                         </div>
@@ -424,7 +433,7 @@ class minevera {
                         </div> 
 
                         <dialog id="ingredientespopup_id" class="mdl-dialog">
-                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes:</h4>
+                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
                         <div id="dialogContainer" class="mdl-dialog__content">
                         <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
                         </div>
@@ -605,7 +614,7 @@ class favoritos {
             </div>             
             </div>    
             <dialog id="ingredientespopup_idFav" class="mdl-dialog">
-                <h4 id ="ingredientesDialogTitleFav" style="color:#616161" align=center>Ingredientes:</h4>
+                <h4 id ="ingredientesDialogTitleFav" style="color:#616161" align=center>Ingredientes</h4>
                 <div id="dialogContainerFav" class="mdl-dialog__content">
                 <p id="ingredientesFichaContainerFav" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
                 </div>

@@ -17,6 +17,7 @@ if (favoritosCheck == null){
 l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
 l.setItem("ingredienteComidasSave",JSON.stringify([]))
 l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
+l.setItem("selectores_load",JSON.stringify(0))
 //al iniciar el programa genera la variable con lista vacia donde van a ir los ingredientes.
 //esta lista la va a rellenar a partir del JSON dentro de comidas.js
 //realmente diria que mas que JSON simplemente es un objeto con listas pero vamos a llamarlo JSON
@@ -133,6 +134,7 @@ buscador.addEventListener('keyup',function(e){
     contenedorSelectores.innerHTML = '';
     //recogemos el valor que se introduce en el input text y lo pasamos a minusculas
     const ingrediente_buscado = buscador.value.toLowerCase();
+
     //recorremos la lista de ingredientes que habiamos duplicado de ingredientes_list_const en busca de ingredientes que coincidan
     for (var i = 0; i <= ingredientes_list.length -1; i++){
         //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
@@ -140,17 +142,41 @@ buscador.addEventListener('keyup',function(e){
         //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
         if (ingrediente_select.indexOf(ingrediente_buscado)!== -1){
             //imprimimos y sumamos al formulario
-            contenedorSelectores.innerHTML += `
-            <label class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
-                <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
-                <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
-            </label>
-            
-            `;
+
+
+
+            ////////////////////////////////////
+            if (ingredientes_checked.includes(ingrediente_buscado)){
+                console.log(ingrediente_buscado)
+                contenedorSelectores.innerHTML += `
+                <label style="background-color:#8bc34a" id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
+                    <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
+                    <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
+                </label>
+                
+                `;
+
+            }
+            else{
+                console.log(ingrediente_buscado)
+                contenedorSelectores.innerHTML += `
+                <label id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
+                    <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
+                    <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
+                </label>
+                
+                `;
+
+
+            }
 
         }
 
     }
+
+    
+
+
 })
 
 /////BOTON AÑADIR/////
@@ -181,9 +207,9 @@ document.getElementById('borrador').addEventListener('click',function(e){
     //vaciamos los resultados del HTML
     document.getElementById('resultado').innerHTML = "";
     ingredientes_checked = []
-    const contenedorSelectores = document.getElementById("form-selector");
-    contenedorSelectores.remove("form-selector")
+    const contenedorSelectores = document.getElementById("selectores");
     contenedorSelectores.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
 
     //borramos el contenido del input de la busqueda en tiempo real
     const contenedorBuscador = document.getElementById("indexof");
@@ -200,6 +226,7 @@ document.getElementById('borrador').addEventListener('click',function(e){
     //vaciamos las keys del localstorage que se han usado para mostrar las comidas
     l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
     l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
+    l.setItem("selectores_load",JSON.stringify(0))
     //escondemos el boton de cargar más
     document.getElementById("loadMore").style.visibility = "hidden"
     //contenedorResultadoComidas.style.marginTop = "0px"
@@ -226,6 +253,26 @@ document.getElementById("loadMoreContainer").addEventListener("click",function(e
 
 })
 
+
+
+var containerEtiquetas = document.querySelector('#container_ingredientes');
+
+// Add 20 items.
+var nextItem = 1;
+var loadMore = function() {
+  for (var i = 0; i < 20; i++) {
+    var item = document.createElement('li');
+    item.innerText = 'Item ' + nextItem++;
+    listElm.appendChild(item);
+  }
+}
+
+// Detect when scrolled to bottom.
+containerEtiquetas.addEventListener('scroll', function() {
+  if (containerEtiquetas.scrollTop + containerEtiquetas.clientHeight >= containerEtiquetas.scrollHeight) {
+    ui.selectores(ingredientes_list_const)
+  }
+});
 
 
 
