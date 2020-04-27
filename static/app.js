@@ -1,4 +1,3 @@
-
 //WIP
 
 //declaramos l como localStorage para acceder a el mas facil (escribir l es mejor que localStorage todo el rato)
@@ -114,6 +113,12 @@ indexof en html:
 buscador.addEventListener('keyup',function(e){
     //declara la constante contenedorSelectores con el elemento con id form-selector.
     //que es el elemento html con todas las checksbox de los ingredientes generados por ui.selectores.
+    const contenedorSelectoresClean = document.getElementById("selectores");
+    contenedorSelectoresClean.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
+    l.setItem("selectores_load",JSON.stringify(0))
+    ui.selectores(ingredientes_list_const);
+
     const contenedorSelectores = document.getElementById("form-selector");
     /*
     contenedorSelectores en HTML despues de haberse generado por ui.selectores:
@@ -136,29 +141,16 @@ buscador.addEventListener('keyup',function(e){
     const ingrediente_buscado = buscador.value.toLowerCase();
 
     //recorremos la lista de ingredientes que habiamos duplicado de ingredientes_list_const en busca de ingredientes que coincidan
-    for (var i = 0; i <= ingredientes_list.length -1; i++){
-        //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
-        ingrediente_select = ingredientes_list[i].toLowerCase();
-        //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
-        if (ingrediente_select.indexOf(ingrediente_buscado)!== -1){
-            //imprimimos y sumamos al formulario
+    console.log(buscador.value.length)
+    if(buscador.value.length > 0){
+        for (var i = 0; i <= ingredientes_list.length -1; i++){
+            //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
+            ingrediente_select = ingredientes_list[i].toLowerCase();
+            //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
+            if (ingrediente_select.indexOf(ingrediente_buscado)!== -1){
+                //imprimimos y sumamos al formulario
 
 
-
-            ////////////////////////////////////
-            if (ingredientes_checked.includes(ingrediente_buscado)){
-                console.log(ingrediente_buscado)
-                contenedorSelectores.innerHTML += `
-                <label style="background-color:#8bc34a" id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
-                    <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
-                    <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
-                </label>
-                
-                `;
-
-            }
-            else{
-                console.log(ingrediente_buscado)
                 contenedorSelectores.innerHTML += `
                 <label id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
                     <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
@@ -171,10 +163,30 @@ buscador.addEventListener('keyup',function(e){
             }
 
         }
+    }
+    else{
+        for (var i = 0; i <= 19; i++){
+            //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
+            ingrediente_select = ingredientes_list[i].toLowerCase();
+            //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
+            if (ingrediente_select.indexOf(ingrediente_buscado)!== -1){
+                //imprimimos y sumamos al formulario
+
+
+                contenedorSelectores.innerHTML += `
+                <label id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingredientes_list[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list[i]}">            
+                    <input style="visibility: hidden" type="checkbox" id="${ingredientes_list[i]}" class="mdl-checkbox__input">
+                    <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingredientes_list[i]}</span>
+                </label>
+                
+                `;
+
+
+            }
+
+        }       
 
     }
-
-    
 
 
 })
@@ -183,6 +195,12 @@ buscador.addEventListener('keyup',function(e){
 
 //ejecuta el metodo de minevera mostrar_comidas cuando se hace click sobre el botón con id buscar
 document.getElementById('buscar').addEventListener('click',function(e){
+
+    //escondemos el boton de cargar más
+    document.getElementById("loadMore").style.visibility = "hidden"
+    //contenedorResultadoComidas.style.marginTop = "0px"
+    document.getElementById("loadMore").style.height = "0px"
+    document.getElementById("loadMoreContainer").style.height = "0px"    
     //este metodo va a recoger los ingredientes seleccionados y va a ver los que coinciden.
     //despues los va a mostrar por fichas.
     //este metodo recoge ingredientes_checked (explicado anteriormente)
@@ -256,16 +274,6 @@ document.getElementById("loadMoreContainer").addEventListener("click",function(e
 
 
 var containerEtiquetas = document.querySelector('#container_ingredientes');
-
-// Add 20 items.
-var nextItem = 1;
-var loadMore = function() {
-  for (var i = 0; i < 20; i++) {
-    var item = document.createElement('li');
-    item.innerText = 'Item ' + nextItem++;
-    listElm.appendChild(item);
-  }
-}
 
 // Detect when scrolled to bottom.
 containerEtiquetas.addEventListener('scroll', function() {

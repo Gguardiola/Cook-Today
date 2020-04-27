@@ -23,17 +23,9 @@
     <preference name="phonegap-version" value="cli-9.0.0" /> <!-- Phonegap Build only -->
 
     <plugin name="cordova-plugin-whitelist" version="*" />
-    <plugin name="cordova-plugin-device" version="*" />
     <plugin name="cordova-custom-config" version="*" />
-    <plugin name="cordova-plugin-geolocation" version="2.1.0" />
-    <plugin name="cordova-plugin-camera" version="2.1.0" />
-    <plugin name="cordova-plugin-device-motion" spec="1.2.3" />
-    <plugin name="https://github.com/wildabeast/BarcodeScanner.git" /> 
     <plugin name="cordova-plugin-splashscreen" version ="5.0.3" />
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.InAppBrowser" />
-    </feature>
-    <plugin name="cordova.plugins.diagnostic" version="*" />
+
     <!--<plugin spec="https://github.com/dpa99c/cordova-diagnostic-plugin.git#dev" source="git" />-->
     <platform name="android">
         <preference name="Fullscreen" value="false" />    
@@ -51,7 +43,7 @@
         <preference name="android-build-tool" value="gradle" /> <!-- Phonegap Build only -->
         
         <preference name="android-minSdkVersion" value="19" />
-        <preference name="android-targetSdkVersion" value="28" />
+        <preference name="android-targetSdkVersion" value="29" />
 
         <config-file target="AndroidManifest.xml" parent="/*">
         </config-file>

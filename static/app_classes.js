@@ -41,9 +41,9 @@ class comidaDia {
         ComidaDiaFicha.setAttribute("id", "resultado-comida-dia");
         
         ComidaDiaFicha.innerHTML += `<br>
-        <div style="margin-left:2%;" id = "comidaDia-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--4dp" >
+        <div align=left style="margin-left:2%;" id = "comidaDia-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card" >
         <div id="comidaDia-ficha" class="mdl-card__title">
-            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${ComidaDelDiaDefinitiva}</h2>
+            <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6" >${ComidaDelDiaDefinitiva}</h4>
         </div>
         <div id ="descDia" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
         <div style="background-color:#779f3e;border-top:2px solid #779f3e" class="mdl-card__actions mdl-card--border">
@@ -71,7 +71,7 @@ class comidaDia {
     </dialog>            
 
 
-        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabelDia" name="${ComidaDelDiaDefinitiva}" style="color:white;">${ComidaDelDiaDefinitiva}</p></div>
+        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabelDia" name="${ComidaDelDiaDefinitiva}" style="color:#cfde47">${ComidaDelDiaDefinitiva}</p></div>
         
         <dialog id="addfavoritosDialogDia" class="mdl-dialog">
         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
@@ -146,7 +146,6 @@ class minevera {
     //es llamado por la funcion ingrediente_delete() y ingrediente_click() 
     //mas detalles en onclick_functions.js
     mostrar_seleccionados(ingredientes_checked_split){
-        console.log(ingredientes_checked_split)
 
         //se recoge el div donde vamos a meter los ingredientes seleccionados
         const contenedorResultado = document.getElementById("resultado");   
@@ -188,7 +187,7 @@ class minevera {
         }
 
         contenedorResultado.appendChild(muestraResultado);
-
+        //setInterval(updateScroll,0);
     
     }
 
@@ -360,7 +359,7 @@ class minevera {
                     ComidaFicha.innerHTML += `<br>
                         <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
                         <div id="comida-ficha" class="mdl-card__title">
-                            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                            <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_final[i]}</h4>
                         </div>
                         <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
                         <div class="mdl-card__actions mdl-card--border">
@@ -414,7 +413,7 @@ class minevera {
                     ComidaFicha.innerHTML += `<br>
                         <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
                         <div id="comida-ficha" class="mdl-card__title">
-                            <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${mostrar_comidas_final[i]}</h2>
+                            <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_final[i]}</h4>
                         </div>
                         <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
                         <div class="mdl-card__actions mdl-card--border">
@@ -596,7 +595,7 @@ class favoritos {
             mostrarFavoritosFicha.innerHTML += `<br>
             <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
             <div id="comida-ficha" class="mdl-card__title">
-                <h2 style="overflow-wrap: anywhere;" class="mdl-card__title-text">${favoritos[i]}</h2>
+                <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${favoritos[i]}</h4>
             </div>
             <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
             <div class="mdl-card__actions mdl-card--border">

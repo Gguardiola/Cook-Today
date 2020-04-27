@@ -5,34 +5,25 @@ function ingrediente_click(id_ingrediente_check){
    
     if (!ingredientes_checked.includes(id_ingrediente_check)){
         ingredientes_checked.push(id_ingrediente_check)
+
     }
+
     ui.mostrar_seleccionados(ingredientes_checked);
 
     const contenedorBuscador = document.getElementById("indexof");
     contenedorBuscador.value = ""
     const contenedorBuscadorDiv = document.getElementById("container-buscador");
     contenedorBuscadorDiv.classList.remove("is-dirty")
-
-    for (var i = 0;i<= ingredientes_list_const.length -1; i++){
-
-        var ingredientes_check_container = document.querySelectorAll("#ingrediente_check").item(i)
-        try{
-            console.log(ingredientes_check_container)
-            if (ingredientes_check_container.htmlFor.includes(id_ingrediente_check)){
-                console.log(ingredientes_check_container)
-                ingredientes_check_container.style.backgroundColor = "#8bc34a"
-            }
-        } catch (TypeError){
-            break
-
-
-        }
-
-    }
-
+    //const contenedorSelectoresClean = document.getElementById("selectores");
+    //contenedorSelectoresClean.innerHTML = ""
+    //l.setItem("selectores_load",JSON.stringify(0))
+    //ui.selectores(ingredientes_list_const);
 
 }
-
+function updateScroll(){
+    var element = document.getElementById("resultado");
+    element.scrollTop = element.scrollHeight;
+}
 
 //esta funcion hace que cuando se hace click en un ingrediente anteriormente seleccionado,
 //se borre de ese bloque y vuelva al bloque de selectores
@@ -52,21 +43,8 @@ function ingrediente_delete(ingrediente_aborrar){
 
     ui.mostrar_seleccionados(ingredientes_checked);
 
-    const contenedorSelectores_renew = document.getElementById("form-selector")
-    const autoSelector_renew = document.createElement('label');
-    autoSelector_renew.setAttribute("class","mdl-chip")
-    autoSelector_renew.setAttribute("style","margin:2px")
-    autoSelector_renew.setAttribute("onclick",`ingrediente_click('${ingrediente_aborrar}')`)
-    autoSelector_renew.setAttribute("name","ingrediente_checkbox")
-    autoSelector_renew.setAttribute("for",`${ingrediente_aborrar}`)
-    autoSelector_renew.innerHTML += `
-        <input style="visibility: hidden" type="checkbox" id="${ingrediente_aborrar}" class="mdl-checkbox__input">
-        <span style="font-size:17px;font-family:roboto;margin-left:-19px;margin-top:-5px"" class="mdl-chip__text">${ingrediente_aborrar}</span>
-    `;
-    ingredientes_list.unshift(ingrediente_aborrar)
-    contenedorSelectores_renew.appendChild(autoSelector_renew);
-}
 
+}
 //esta lista muestra una ventana cuando se le da a "ver ingredientes" en la ficha de cada comida.
 //recoge los ingredientes checkeados, la lista total de comidas que coinciden con los ingredientes, la comida donde se ha hecho click y -
 //el indice que es la posicion de la ficha
@@ -448,6 +426,22 @@ function advancedSearchInfoDialog(){
 
 }
 
+function ingredienteRepeatDialog() {
+
+    var dialog = document.querySelector('#ingredienteRepeatDialog');
+    
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+      dialog.close();
+      e.preventDefault()
+    });
+
+
+}
 
 
 
