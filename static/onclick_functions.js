@@ -17,7 +17,11 @@ function ingrediente_click(id_ingrediente_check){
     //const contenedorSelectoresClean = document.getElementById("selectores");
     //contenedorSelectoresClean.innerHTML = ""
     //l.setItem("selectores_load",JSON.stringify(0))
-    //ui.selectores(ingredientes_list_const);
+    const contenedorSelectoresClean = document.getElementById("selectores");
+    contenedorSelectoresClean.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
+    l.setItem("selectores_load",JSON.stringify(0))
+    ui.selectores(ingredientes_list_const);
 
 }
 function updateScroll(){

@@ -22,7 +22,8 @@ l.setItem("selectores_load",JSON.stringify(0))
 //realmente diria que mas que JSON simplemente es un objeto con listas pero vamos a llamarlo JSON
 var ingredientes_list_const = []
 
-//BUCLE QUE RECOGE LOS INGREDIENTES
+//BUCLE QUE RECOGE LOS INGREDIENTES//
+
 //esto lo remarco porque es importante.
 //este bucle recorre cada comida dentro de comidas.js (dentro hay una variable comidas con cada elemento/comida)
 for (var i = 0;i <= comidas.length -1;i++){
@@ -33,7 +34,13 @@ for (var i = 0;i <= comidas.length -1;i++){
         //si el ingrediente ya esta, no lo introduce
         if (ingredientes_list_const.includes(ingredientes_append[x])){
                 //pass
-        } 
+        }
+        else if(ingredientes_append[x] == undefined){
+            console.log("undefined!")
+            console.log(ingredientes_append[x])
+            //pass
+            
+        }
         else{
             ingredientes_list_const.push(ingredientes_append[x])
         }
@@ -165,7 +172,7 @@ buscador.addEventListener('keyup',function(e){
         }
     }
     else{
-        for (var i = 0; i <= 19; i++){
+        for (var i = 0; i <= 49; i++){
             //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
             ingrediente_select = ingredientes_list[i].toLowerCase();
             //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias

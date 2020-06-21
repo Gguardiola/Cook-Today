@@ -118,7 +118,7 @@ class minevera {
         autoSelector.setAttribute("id","form-selector");        
         //recorremos un bucle for mientras i sea menor o igual que la longitud de la lista de ingredientes totales.
         //va a generar un HTML con cada ingrediente en forma de etiqueta
-        for (var i = cargado; i <= cargado +19; i++){
+        for (var i = cargado; i <= cargado +49; i++){
            if (ingredientes_list_const[i] == undefined){
 
                break
@@ -135,7 +135,7 @@ class minevera {
 
         }      
         //una vez termina el bucle, va a insertar el html en el div con id selectores
-        l.setItem("selectores_load",JSON.stringify(cargado+20))
+        l.setItem("selectores_load",JSON.stringify(cargado+50))
         contenedorSelectores.appendChild(autoSelector);
     }
 
@@ -240,7 +240,20 @@ class minevera {
                 const advancedSearchCheck = document.getElementById("advancedSearch")
                 if (advancedSearchCheck.classList.contains("is-checked")){
                     console.log("advanced search")
-                    if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                    //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                    if (cont_coincidencias == comidas[i].ingredientes.length){
+                        mostrar_comidas_final.push(comidas[i].nombre)
+
+                        if (cont_coincidencias  == comidas[i].ingredientes.length){
+                            faltanIngredientesCheck.push(true)
+        
+                        }
+                        else {
+                            faltanIngredientesCheck.push(false)
+        
+                        }
+                    }                        
+                    if (cont_coincidencias >= 3){
                         mostrar_comidas_final.push(comidas[i].nombre)
 
                         if (cont_coincidencias  == comidas[i].ingredientes.length){
