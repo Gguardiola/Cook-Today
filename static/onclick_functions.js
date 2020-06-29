@@ -10,18 +10,18 @@ function ingrediente_click(id_ingrediente_check){
 
     ui.mostrar_seleccionados(ingredientes_checked);
 
-    const contenedorBuscador = document.getElementById("indexof");
-    contenedorBuscador.value = ""
-    const contenedorBuscadorDiv = document.getElementById("container-buscador");
-    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+    //WIP ESTO BORRA EL INDEX OF Y REINICIA LOS SELECTORES//
+    //const contenedorBuscador = document.getElementById("indexof");
+    //contenedorBuscador.value = ""
+    //const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    //contenedorBuscadorDiv.classList.remove("is-dirty")
+
     //const contenedorSelectoresClean = document.getElementById("selectores");
     //contenedorSelectoresClean.innerHTML = ""
+    //document.getElementById("selectores").scrollTop = 0
     //l.setItem("selectores_load",JSON.stringify(0))
-    const contenedorSelectoresClean = document.getElementById("selectores");
-    contenedorSelectoresClean.innerHTML = ""
-    document.getElementById("selectores").scrollTop = 0
-    l.setItem("selectores_load",JSON.stringify(0))
-    ui.selectores(ingredientes_list_const);
+    //ui.selectores(ingredientes_list_const);
 
 }
 function updateScroll(){
@@ -56,6 +56,7 @@ function ingrediente_delete(ingrediente_aborrar){
 //primero busca la comida que hemos seleccionado en la lista mostrar_comidas_final
 //despues busca todos los ingredientes en esa comida, si alguno falta lo mostrara en ROJO
 function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClickIngredientes,indice){
+
     ingredientes_checked = ingredientes_checked.split(",")
     console.log(ingredientes_checked)
     mostrar_comidas_final = mostrar_comidas_final.split(",")
@@ -76,7 +77,7 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
 
     var coincidencias_ingredientes = 0
     for (var i = 0;i <= ingredientes_checked.length -1; i++){
-        console.log("aa")        
+   
         if (ingredientesActualpopup.includes(ingredientes_checked[i])){
             coincidencias_ingredientes = coincidencias_ingredientes + 1
 
@@ -90,7 +91,9 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
     ingredientesActualMostrar = document.createElement("ul")
     ingredientesActualMostrar.setAttribute("id","ingredientesMostrados")
     ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
+
     for(var i = 0; i < ingredientesActualpopup.length;i++){ 
+
         if (ingredientes_checked.includes(ingredientesActualpopup[i])){      
             ingredientesActualMostrar.innerHTML += `
             <li class="mdl-list__item">
@@ -258,6 +261,66 @@ function popupingredientesDia(ComidaClickIngredientes){
 
 }
 
+function popupingredientesDespensa(ComidaClickIngredientes){
+    var mostrar_comidas_final = []
+    for (var i = 0; i <= comidas.length -1; i++){
+        mostrar_comidas_final.push(comidas[i].nombre)
+    }
+
+    var ingredienteComidas = []
+    for (var i = 0; i <= mostrar_comidas_final.length -1; i++){
+        
+        for (var x = 0; x < comidas.length;x++ ){
+            if (comidas[x].nombre.includes(ComidaClickIngredientes)){
+                ingredienteComidas.push(comidas[x].ingredientes)
+            }
+        }
+    }
+    
+    var ingredientesActualpopup = ingredienteComidas[0]
+    console.log(ingredientesActualpopup)
+
+    const ingredientesContainer = document.querySelectorAll("#ingredientesFichaContainerDespensa").item(0)
+    ingredientesActualMostrar = document.createElement("ul")
+    ingredientesActualMostrar.setAttribute("id","ingredientesMostradosDespensa")
+    ingredientesActualMostrar.setAttribute("class","demo-list-item mdl-list")
+    for(var i = 0; i < ingredientesActualpopup.length;i++){ 
+          
+            ingredientesActualMostrar.innerHTML += `
+            <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                ${ingredientesActualpopup[i]}
+            </span>
+            </li>  
+            `        
+    }
+    
+    ingredientesContainer.appendChild(ingredientesActualMostrar)        
+
+    var dialog = document.querySelectorAll('#ingredientespopup_idDespensa').item(0);
+    console.log(dialog)
+    var showDialogButton = document.querySelectorAll('#show-dialogDespensa').item(0);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+    
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        try{
+            var borrarIngredientesActual = document.getElementById("ingredientesMostradosDespensa")
+            borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
+        } catch (TypeError){
+            //pass
+
+        }
+
+        dialog.close();
+        e.preventDefault()
+    });
+
+
+}
+
 //esta funcion se activa cuando se le da a la estrella de cada ficha
 
 //mediance el indice (posicion de la ficha) recoge el parrafo oculto que hay debajo de cada ficha que contine el nombre de la comida
@@ -288,7 +351,7 @@ function addFavoritos(indice){
         });
     }
     else{
-        favoritosParse.push(comida_fav)
+        favoritosParse.unshift(comida_fav)
         l.setItem("favoritos", JSON.stringify(favoritosParse))   
     
 
@@ -330,7 +393,7 @@ function addFavoritosDia(){
         });
     }
     else{
-        favoritosParse.push(comida_fav)
+        favoritosParse.unshift(comida_fav)
         l.setItem("favoritos", JSON.stringify(favoritosParse))   
     
 
@@ -381,8 +444,15 @@ function FeedbackAlert(origenNevera) {
         var dialog = document.querySelectorAll('#feedbackContainer').item(0);
     }
 
-    else{
+    else if(origenNevera == false){
         var dialog = document.querySelectorAll('#feedbackContainerFav').item(0);
+    }
+    else if(origenNevera == "despensa"){
+        var dialog = document.querySelectorAll('#feedbackContainerDespensa').item(0);  
+    }
+    else if(origenNevera == "acercade"){
+        var dialog = document.querySelectorAll('#feedbackContainerAcercade').item(0); 
+
     }
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -397,20 +467,8 @@ function FeedbackAlert(origenNevera) {
 }
 //esta funcion se llama cuando se hace click en eo enlace al formulario de feedback
 //copia el enlace al portapaples
-function copiarFormFeedback(){
-    console.log("copado")
-    var codigoACopiar = document.getElementById('copiarForm');
-    console.log(codigoACopiar)
-    var seleccion = document.createRange();
-    seleccion.selectNodeContents(codigoACopiar);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(seleccion);
-    var res = document.execCommand('copy');
-    window.getSelection().removeRange(seleccion);
 
-    alert("Copiado al portapapeles!")
 
-}
 //esta funcion se llama cuando se hace click en al interrogacion de busqueada avanzada
 //salta una ventana con información
 function advancedSearchInfoDialog(){
@@ -447,7 +505,86 @@ function ingredienteRepeatDialog() {
 
 }
 
+//botones categoria despensa
+function mostrarCategoria(categoria){
+    
+    const contenedorDespensaClean = document.getElementById("despensa-list");
+    contenedorDespensaClean.innerHTML = ""
+    document.getElementById("despensa-list").scrollTop = 0    
 
+    const volverBeacon = document.createElement("div")  
+    volverBeacon.setAttribute("id", "volverBeacon");
+    contenedorDespensaClean.appendChild(volverBeacon)
 
+    l.setItem("categoriaActual",categoria)
+    l.setItem("despensa_load",JSON.stringify(0))
+    l.setItem("despensa_break",false)
+    des.mostrar_categoria(categoria)
+
+}
+
+function acercadeDialog() {
+
+    var dialog = document.querySelectorAll('#acercadeContainerDialog').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
+
+function licenciasDialog() {
+
+    var dialog = document.querySelectorAll('#licenciasContainerDialog').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
+
+function privacyDialog() {
+
+    var dialog = document.querySelectorAll('#privacyContainerDialog').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
+
+function tosDialog() {
+
+    var dialog = document.querySelectorAll('#tosContainerDialog').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
 
 

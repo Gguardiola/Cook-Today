@@ -70,7 +70,7 @@
           <a href="#minevera" class="mdl-layout__tab">Mi nevera</a>
           <a id ="favoritosTab" href="#favoritos" class="mdl-layout__tab">Favoritos</a>
           <a href="#despensa" class="mdl-layout__tab">Despensa</a>
-          <a href="#comidas" class="mdl-layout__tab"><i style="margin-top:18px" class="material-icons">help_outline</i></a>
+          <a href="#acercade" class="mdl-layout__tab"><i style="margin-top:18px" class="material-icons">help_outline</i></a>
         
         </div>
       </header>
@@ -86,31 +86,8 @@
               </div>
                       
             </div>
-            <div style="margin-top:50px" class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-                <h4 class="mdl-cell mdl-cell--12-col">Consejos del día</h4>
-                <div class="">
-                </div>
-                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Lorem ipsum dolor sit amet</h5>
-                  Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                </div>
-                <div class="">
-                </div>
-                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Lorem ipsum dolor sit amet</h5>
-                  Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                </div>
-                <div class="">
-                </div>
-                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Lorem ipsum dolor sit amet</h5>
-                  Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                </div>
-              </div>
-              <div class="mdl-card__actions">
-                <a href="#" class="mdl-button">Read our features</a>
-              </div>
+            <div id="consejos-container" style="margin-top:50px" class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+
             </div>              
           </section>
         </div>
@@ -139,6 +116,7 @@
                   </div>
                   <div style= "display: flex;flex-direction: column-reverse;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;margin-bottom:20px;border-bottom: 2px solid #8bc34a;" class="mdl-cell mdl-cell--1-col" id='resultado'>
                   </div> 
+                  <!--
                   <div class="mdl-cell mdl-cell--4-col-phone">
                     <div style="float:left">
                        
@@ -169,7 +147,7 @@
                         <button type="button" class="mdl-button close">Cerrar</button>
                       </div>
                     </dialog>
-                  </div>
+                  </div> -->
                     
                     <div style="display:inline-block;margin-left:11%;"class="mdl-cell mdl-cell--1-col" id="buscar">
                       <a style="text-decoration:none;padding-top:5px;padding-bottom:5px" href="#resultado-comida" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">BUSCAR</a>                  
@@ -204,7 +182,7 @@
               Cargar más
           </button>
         </section>
-          <div align="center" style="opacity: 0.6" class="mdl-cell mdl-cell--6-col" id="feedbackButtonContainerFav">
+          <div style="opacity: 0.6" class="mdl-cell mdl-cell--6-col" id="feedbackButtonContainerFav">
             <br>
             <a onclick="FeedbackAlert(false)" style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
             
@@ -212,8 +190,8 @@
               <h5 align="center" style="color:#616161">Feedback</h5>
               <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
               <p>
-              Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-              </p><p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+              Copia el enlace inferior y después pegalo en tu navegador:<br>
+              </p><p id="copiarFormFav" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
               <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
               <p></p>
               </strong></strong></div><strong><strong>
@@ -232,39 +210,191 @@
         <div class="mdl-layout__tab-panel" id="despensa">
           
           <section class="section--center mdl-grid mdl-grid--no-spacing">
-            <div style="margin-top:-35px" id="comidadia-container" class="mdl-cell mdl-cell--12-col">
+            <div style="padding-top:-300px;margin-top:-35px" id="despensa-container" class="mdl-cell mdl-cell--12-col">
               <div align=center id="container_despensa" >
               <div class="demo-layout-transparent mdl-layout mdl-js-layout">
                 <header class="mdl-layout__header mdl-layout__header--transparent">
                   <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <span class="mdl-layout-title">Despensa</span>
-
+                    <span  class="mdl-layout-title">Despensa</span>
                   </div>
                 </header>
-                <div class="mdl-layout__drawer">
+                                  
+                <div id="menuDespensa" class="mdl-layout__drawer">
                   <span class="mdl-layout-title">Despensa</span>
                   <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="">Ensaladas</a>
-                    <a class="mdl-navigation__link" href="">Sopas, pures...</a>
-                    <a class="mdl-navigation__link" href="">Carnes</a>
-                    <a class="mdl-navigation__link" href="">Pescados</a>
-                    <a class="mdl-navigation__link" href="">Arroces y pastas</a>
-                    <a class="mdl-navigation__link" href="">Bocadillos, pizzas...</a>    
-                   <a class="mdl-navigation__link" href="">Misceláneo</a>                  
+                    <a onclick ="mostrarCategoria('Ensaladas')" class="mdl-navigation__link" href="#ensaladas">Ensaladas</a>
+                    <a onclick ="mostrarCategoria('Sopas')" class="mdl-navigation__link" href="#sopas">Sopas, pures...</a>
+                    <a onclick ="mostrarCategoria('Carnes')" class="mdl-navigation__link" href="#carnes">Carnes</a>
+                    <a onclick ="mostrarCategoria('Pescados')" class="mdl-navigation__link" href="#pescados">Pescados</a>
+                    <a onclick ="mostrarCategoria('Arroces')" class="mdl-navigation__link" href="#arroces">Arroces</a>
+                    <a onclick ="mostrarCategoria('Pastas')" class="mdl-navigation__link" href="#pastas">Pastas</a>
+                    <a onclick ="mostrarCategoria('Bocadillos')" class="mdl-navigation__link" href="#bocadillos">Bocadillos, pizzas...</a>    
+
                   </nav>
                 </div>          
-              
+
+                </div>
+                
+
               </div>
+
+              
+              <div style="margin-top:60px;border-top:2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;height:475px;" id="despensa-list"></div>
                       
             </div>
+            <div style="opacity: 0.6" class="mdl-cell mdl-cell--6-col" id="feedbackButtonContainerDespensa">
+              <br>
+              <a onclick="FeedbackAlert('despensa')" style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+              
+              <dialog id="feedbackContainerDespensa" class="mdl-dialog">
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                <p>
+                Copia el enlace inferior y después pegalo en tu navegador:<br>
+                </p><p id="copiarFormDespensa" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
+                <p></p>
+                </strong></strong></div><strong><strong>
+                <div style="margin-right:90px" class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+                </strong></strong>
+                
+              </dialog><strong><strong>  
+              
+              
+              </strong></strong>
+            </div>            
               
           </section>
-        </div>      
+        </div> 
+
+        <div class="mdl-layout__tab-panel" id="acercade">
+          
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div align=center style="height:400px;margin-top:-35px;background-color:#cfde47;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;" id="comidadia-container" class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+              <strong><h4>CookToday<h4></strong>
+              <strong><p>Versión beta-1.1.0</p></strong>
+              <div><img  src="images/android-desktop-beta.png" width="192px" height="192px"></div><br>
+              <strong><p>2020 Gx3 Studios - Gabriel Guardiola.</p></strong>
+            </div>
+            <div style="margin-top:20px" class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+              <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+
+                <tbody align=left>
+                  <tr>
+                    <td onclick="acercadeDialog()" style="text-align:center">Acerca de</td>
+
+                    <dialog id="acercadeContainerDialog" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">Acerca de</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                  
+                      <p style="text-align: justify;text-justify: inter-word;">
+                      aaaa
+                      
+                      </p>
+
+                      </div>
+                      <div style="margin-right:90px" class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      
+                      
+                    </dialog>    
+
+                  </tr>
+                  
+                  <tr>
+                    <td onclick="licenciasDialog()" style="text-align:center">Licencias</td>
+
+                    <dialog id="licenciasContainerDialog" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">Licencias</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                  
+                      <p style="text-align: justify;text-justify: inter-word;">
+                      aaaa
+                      
+                      </p>
+
+                      </div>
+                      <div style="margin-right:90px" class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      
+                      
+                    </dialog>                       
+                  </tr>
+                  <tr>
+                    <td onclick="privacyDialog()" style="text-align:center">Política de privacidad</td>
+
+                    <dialog id="privacyContainerDialog" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">Política de privacidad</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                  
+                      <p style="text-align: justify;text-justify: inter-word;">
+                      aaaa
+                      
+                      </p>
+
+                      </div>
+                      <div style="margin-right:90px" class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      
+                      
+                    </dialog>                       
+                  </tr>
+                  <tr>
+                    <td onclick="tosDialog()" style="text-align:center">TOS</td>
+
+                    <dialog id="tosContainerDialog" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">TOS</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                  
+                      <p style="text-align: justify;text-justify: inter-word;">
+                      aaaa
+                      
+                      </p>
+
+                      </div>
+                      <div style="margin-right:90px" class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      
+                      
+                    </dialog>                       
+                  </tr>
+                  <tr>
+                    <td onclick="FeedbackAlert('acercade')" style="text-align:center">Feedback</td>
+
+                    <dialog id="feedbackContainerAcercade" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">Feedback</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                      <p>
+                      Copia el enlace inferior y después pegalo en tu navegador:<br>
+                      </p><p id="copiarFormAcercade" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+                      <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
+                      <p></p>
+                      </strong></strong></div><strong><strong>
+                      <div style="margin-right:90px" class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      </strong></strong>
+                      
+                    </dialog><strong><strong>  
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>               
+          </section>
+        </div>             
       </main>
     </div>
     <script src="static/material.min.js"></script>
-    <script src="static/comidas.js"></script>   
+    <script src="static/comidas.js"></script>
+    <script src="static/consejos.js"></script>    
     <script src="static/onclick_functions.js"></script>  
     <script src="static/app_classes.js"></script> 
     <script src="static/app.js"></script>

@@ -96,6 +96,111 @@ class comidaDia {
 
     }
 
+    generarConsejos(){
+        var consejos_all = []
+
+        for (var i = 0; i <= consejos.length -1; i++){
+            consejos_all.push(consejos[i].consejo)
+        }
+        var dia_hoy = JSON.parse(l.getItem("dia_hoyCONSEJO"))
+        if (dia_hoy == null){
+            var d = new Date()
+            var n = d.getDate()
+            l.setItem("dia_hoyCONSEJO",JSON.stringify(0))
+        }
+        
+        var dia_hoy = JSON.parse(l.getItem("dia_hoyCONSEJO"))
+        var d2 = new Date()
+        var cambioDiaCheck = d2.getDate() 
+
+        if (dia_hoy == cambioDiaCheck){
+            console.log("mismo dia")
+        }
+        
+        else{
+            var consejos_list = []
+            for (var i=0; i <=2; i++){
+
+                var new_consejoRand = Math.floor((Math.random() * consejos_all.length) + 1);
+                var new_consejo = consejos[new_consejoRand].consejo
+                console.log(new_consejo)
+
+                while(consejos_list.includes(new_consejo)){
+
+                    var new_consejoRand = Math.floor((Math.random() * consejos_all.length) + 1);
+    
+                    var new_consejo = consejos[new_consejoRand].consejo                    
+
+                }
+                consejos_list.push(new_consejo)  
+            }
+
+            l.setItem("dia_hoyCONSEJO",cambioDiaCheck)
+            l.setItem("consejosDia",JSON.stringify(consejos_list))
+            
+        }
+        var consejos_list = JSON.parse(l.getItem("consejosDia"))
+        console.log(consejos_list)  
+
+        var consejos_desc = []
+        for(var i=0; i <= consejos_list.length -1;i++){
+
+            for(var x=0; i <= consejos.length -1;x++){
+                console.log(consejos_list[i])
+                console.log(consejos[x].consejo)
+                if(consejos_list[i] == consejos[x].consejo){
+
+                    consejos_desc.push(consejos[x].desc)
+                    break
+                }
+
+            }
+
+
+        }
+
+        console.log(consejos_desc)
+
+        const consejosContainer = document.getElementById("consejos-container")
+        const consejosResultado = document.createElement('div');
+        consejosResultado.setAttribute("class", "mdl-card__supporting-text mdl-grid mdl-grid--no-spacing");
+        
+        consejosResultado.innerHTML += `
+            <h4 class="mdl-cell mdl-cell--12-col">Consejos diarios</h4>
+            <div class="">
+            </div>
+            <div style="text-align:justify" class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+
+            <h5 style="text-align:left">${consejos_list[0]}</h5>
+            ${consejos_desc[0]}
+            <br>
+            <br>
+        
+            </div>
+        
+            <div class="">
+            </div>
+            <div style="text-align:justify" class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+            <br>
+
+            <h5 style="text-align:left">${consejos_list[1]}</h5>
+            ${consejos_desc[1]}
+            <br>
+            <br>
+        
+            </div>
+
+            <div class="">
+            </div>
+            <div style="text-align:justify" class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+            <br>
+            <h5 style="text-align:left">${consejos_list[2]}</h5>
+            ${consejos_desc[2]}
+            </div>       
+
+        `
+        consejosContainer.appendChild(consejosResultado)
+    }
 
 }
 
@@ -235,53 +340,34 @@ class minevera {
 
                 }
 
-                //si la busqueda avanzada esta checked, va a mostrar solo las comidas que tengan la mitae de coincidencias o más en ingredientes
-                //si faltan ingredientes, se va a añadir false a la lista de faltanIngredientesCheck, si estan todos los ingredientes, true
-                const advancedSearchCheck = document.getElementById("advancedSearch")
-                if (advancedSearchCheck.classList.contains("is-checked")){
-                    console.log("advanced search")
-                    //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
-                    if (cont_coincidencias == comidas[i].ingredientes.length){
-                        mostrar_comidas_final.push(comidas[i].nombre)
+            
+                //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
+                if (cont_coincidencias == comidas[i].ingredientes.length){
+                    mostrar_comidas_final.unshift(comidas[i].nombre)
 
-                        if (cont_coincidencias  == comidas[i].ingredientes.length){
-                            faltanIngredientesCheck.push(true)
-        
-                        }
-                        else {
-                            faltanIngredientesCheck.push(false)
-        
-                        }
-                    }                        
-                    if (cont_coincidencias >= 3){
-                        mostrar_comidas_final.push(comidas[i].nombre)
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck.unshift(false)
+    
+                    }
+                }                        
+                if (cont_coincidencias >= 3){
+                    mostrar_comidas_final.push(comidas[i].nombre)
 
-                        if (cont_coincidencias  == comidas[i].ingredientes.length){
-                            faltanIngredientesCheck.push(true)
-        
-                        }
-                        else {
-                            faltanIngredientesCheck.push(false)
-        
-                        }
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck.push(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck.push(false)
+    
                     }
                 }
+                
 
-                //si la busqueda avanzada no esta activada, hace lo mismo pero SOLO va a mostrar las comidas que coincidan TODOS los ingredientes
-                else{
-                    if (cont_coincidencias == comidas[i].ingredientes.length){
-                        mostrar_comidas_final.push(comidas[i].nombre)
-
-                        if (cont_coincidencias  == comidas[i].ingredientes.length){
-                            faltanIngredientesCheck.push(true)
-        
-                        }
-                        else {
-                            faltanIngredientesCheck.push(false)
-        
-                        }
-                    }
-                }
                 var cont_coincidencias = 0
             }
 
@@ -505,10 +591,10 @@ class minevera {
             
             <dialog id="feedbackContainer" class="mdl-dialog">
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
-            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+            <div align=left style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
-            Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            Copia el enlace inferior y después pegalo en tu navegador:<br>
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" ">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -557,8 +643,8 @@ class minevera {
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
-            Haz click en el enlace para COPIAR AL PORTAPAPELES:<br><br> (después pégalo en tu navegador para acceder):<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" onclick="copiarFormFeedback()">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            Copia el enlace inferior y después pegalo en tu navegador:<br>
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -648,6 +734,132 @@ class favoritos {
 
 
     }
+
+
+}
+
+class despensa {
+
+        mostrar_categoria(categoria){
+            //reinicia la despensa
+
+            var despensa_break = l.getItem("despensa_break")
+
+            var mostrar_comidas_categoria = []
+            //generamos la variable con la lista con la que se va a saber si faltan ingredientes o no
+            //esta variable sirve para la busqueda avanzada, si el elemento de esta lista que corresponde al la comida esta en false, mostrará una exclamación en su ficha!
+
+
+            
+            //BUCLE IMPORTANTE!!//
+            //BUSQUE QUE BUSCA LAS COMIDAS QUE COINICDEN CON LOS INGREDIENTES SELECCIONADOS!//
+            //este bucle recorre cada comida del JSON comidas.
+            //busca por cada lista de ingredientes de cada comida los ingredientes seleccionados
+            //si algun ingrediente seleccionado esta dentro de los ingredientes de la comida, el contador de coincidencias sube
+            //este contador de coincidencias sirve para determinar, dependiendo del modo de busqueda, si se va a mostrar o no
+            if (despensa_break == "false"){
+
+                for (var i = 0;i <= comidas.length -1;i++){
+            
+                    if (comidas[i].categoria == categoria){
+                        mostrar_comidas_categoria.push(comidas[i].nombre)
+                        
+
+                    }
+
+                }
+                const contenedorComidaCat = document.getElementById("despensa-list");         
+                const ComidaFichaCat = document.createElement('div');
+                ComidaFichaCat.setAttribute("class","mdl-grid")
+                ComidaFichaCat.setAttribute("id", "resultado-cat-container");
+              
+
+
+                var cargado = JSON.parse(l.getItem("despensa_load"))
+
+                if (cargado == 0){
+                    const volverPrincipio = document.createElement('div');
+                    volverPrincipio.setAttribute("id","volverPrincipio")
+                    volverPrincipio.setAttribute("style","top:90%;position: -webkit-sticky;position: sticky;z-index: 2;margin-left:80%;margin-bottom:15%")
+                    volverPrincipio.innerHTML = `
+                    <a style="margin-top:-100%;background-color:#8bc34a" href="#volverBeacon" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                    <i class="material-icons">keyboard_arrow_up</i>
+                    </a>
+                    `
+                    contenedorComidaCat.appendChild(volverPrincipio) 
+                }
+
+
+                for (var i = cargado;i <= cargado + 9; i++){
+          
+                    if (mostrar_comidas_categoria[i] == undefined){
+                        l.setItem("despensa_break",true)
+                        break
+        
+                    }
+
+                    ComidaFichaCat.innerHTML += `
+                        
+                        <div id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
+                        <div id="comida-ficha" class="mdl-card__title">
+                            <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_categoria[i]}</h4>
+                        </div>
+                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div class="mdl-card__actions mdl-card--border">
+                        <a  style="display:inline"  onclick="popupingredientesDespensa('${mostrar_comidas_categoria[i]}')" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Ver ingredientes
+                        
+                        </a>
+                        </div>
+                        <div class="mdl-card__menu"> 
+                        <button id ="copiar-boton" class="mdl-button mdl-button--icon mdl-js-button" onclick = "addFavoritos(${i})" type="button"><i class='material-icons'>star</i></button>
+                        <div  id = "copiar-boton-container" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action " type="button"></button>
+                        </div>   
+                        </div>             
+                        </div> 
+
+                        <dialog id="ingredientespopup_idDespensa" class="mdl-dialog">
+                        <h4 id ="ingredientesDialogTitleDespensa" style="color:#616161" align=center>Ingredientes</h4>
+                        <div id="dialogContainerDespensa" class="mdl-dialog__content">
+                        <p id="ingredientesFichaContainerDespensa" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+                        </div>
+                        <div align=center class="mdl-dialog__actions">
+                            <button type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog>            
+                
+                
+                        <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_categoria[i]}" style="color:white;">${mostrar_comidas_categoria[i]}</p></div>
+                        
+                        <dialog id="addfavoritosDialog" class="mdl-dialog">
+                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div style="margin-right:90px" class="mdl-dialog__actions">
+                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        </div>
+                    </dialog> 
+                    
+                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
+                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                    
+                    <div style="margin-right:90px" class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button close">Cerrar</button>
+                    </div>
+                    </dialog>          
+
+                    </div>
+                    
+                    `
+
+                }
+                l.setItem("despensa_load",JSON.stringify(cargado+10))
+                contenedorComidaCat.appendChild(ComidaFichaCat)
+                
+            }
+            
+        }
+
 
 
 }

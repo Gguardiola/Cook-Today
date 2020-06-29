@@ -17,6 +17,10 @@ l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
 l.setItem("ingredienteComidasSave",JSON.stringify([]))
 l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
 l.setItem("selectores_load",JSON.stringify(0))
+l.setItem("despensa_load",JSON.stringify(0))
+l.setItem("despensa_break",false)
+l.setItem("categoriaActual","startup")
+
 //al iniciar el programa genera la variable con lista vacia donde van a ir los ingredientes.
 //esta lista la va a rellenar a partir del JSON dentro de comidas.js
 //realmente diria que mas que JSON simplemente es un objeto con listas pero vamos a llamarlo JSON
@@ -67,11 +71,12 @@ const fav = new favoritos(false);
 
 fav.mostrar_favoritos()
 
-const comdia = new comidaDia()
+const comdia = new comidaDia();
 
 comdia.generarFicha()
+comdia.generarConsejos()
 
-
+const des = new despensa();
 
 
 ////APARTADO DOM////
@@ -97,6 +102,8 @@ document.getElementById("favoritosTab").addEventListener("click",function(e){
 
 
 })
+
+
 
 
 ////BUSCADOR EN TIEMPO REAL////
@@ -289,7 +296,15 @@ containerEtiquetas.addEventListener('scroll', function() {
   }
 });
 
+var containerDespensa = document.querySelector('#despensa-list');
 
+// Detect when scrolled to bottom.
+containerDespensa.addEventListener('scroll', function() {
+  var categoriaActual = l.getItem("categoriaActual")
+  if (containerDespensa.scrollTop + containerDespensa.clientHeight >= containerDespensa.scrollHeight) {
+    des.mostrar_categoria(categoriaActual)
+  }
+});
 
 
 
