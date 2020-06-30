@@ -1,7 +1,7 @@
 var comidas = [
 //prioritarias
-{'nombre':'Ensalada de pasta','ingredientes': ['espirales de pasta','requesón','piñones'],'categoria':'Ensaladas'},
 {'nombre': 'Espaguetis a la carbonara','ingredientes': ['espaguetis','nata','bacon','huevo','cebolla','queso parmesano'],'categoria': 'Pastas'},
+{'nombre':'Ensalada de pasta','ingredientes': ['espirales de pasta','queso de cabra','piñones','cebolla','mayonesa','tomate cereza'],'categoria':'Ensaladas'},
 {'nombre': 'Raviolis a la carbonara','ingredientes': ['raviolis','nata','jamón cocido','puerro','champiñones','cebollino','queso parmesano'],'categoria': 'Pastas'},
 {'nombre': 'Raviolis con tomate','ingredientes': ['raviolis','nata','tomate frito'],'categoria': 'Pastas'},
 {'nombre': 'Tallarines al pesto con mozzarella','ingredientes': ['tallarines','tomate cereza','queso mozzarella','piñones','queso parmesano'],'categoria': 'Pastas'},

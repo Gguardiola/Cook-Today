@@ -354,7 +354,7 @@ class minevera {
     
                     }
                 }                        
-                if (cont_coincidencias >= 3){
+                else if (cont_coincidencias >= 3){
                     mostrar_comidas_final.push(comidas[i].nombre)
 
                     if (cont_coincidencias  == comidas[i].ingredientes.length){
@@ -565,6 +565,7 @@ class minevera {
             }
             
             contenedorComidaFicha.appendChild(ComidaFicha);
+            console.log(mostrar_comidas_final)
         }
         //si en este punto checkloadmore es false, significa que se ha llegado hasta aqui por le boton de buscar.
         //por lo tanto va a hacer visible el boton "cargar mas"
@@ -587,7 +588,7 @@ class minevera {
            feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
-            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            feedbackbutton.innerHTML = `<br><div align=center><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
             
             <dialog id="feedbackContainer" class="mdl-dialog">
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
@@ -637,7 +638,7 @@ class minevera {
             feedbackbutton.setAttribute("style","opacity: 0.6")
             feedbackbutton.setAttribute("class","mdl-cell mdl-cell--6-col")
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
-            feedbackbutton.innerHTML = `<br><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a>
+            feedbackbutton.innerHTML = `<br><div align=center><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
             
             <dialog id="feedbackContainer" class="mdl-dialog">
             <h5 align=center style="color:#616161" align=center>Feedback</h5>
