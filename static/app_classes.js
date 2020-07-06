@@ -1,12 +1,15 @@
 class comidaDia {
 
     generarFicha(){
+
+        //Esta funcion recoge el json de las comidas. recoje la variable localstorage del dia actual, si el dia es null, pone el dia actual y recoge la variable otra vez
+        //si es la variable del dia localstorage no coincide con el dia actual, genera un random del 0 a la longitud total de las comidas y guarda la comida en otra variable localstorage
         var mostrar_comidas_final = []
         for (var i = 0; i <= comidas.length -1; i++){
             mostrar_comidas_final.push(comidas[i].nombre)
         }
         var dia_hoy = JSON.parse(l.getItem("dia_hoy"))
-        console.log(dia_hoy)
+        //console.log(dia_hoy)
 
         if (dia_hoy == null){
             var d = new Date()
@@ -35,6 +38,16 @@ class comidaDia {
         }
 
         var ComidaDelDiaDefinitiva = l.getItem("comidaDelDia")
+
+        for (var i = 0; i<= comidas.length -1;i++){
+            if (comidas[i].nombre == ComidaDelDiaDefinitiva){
+                var categoria = comidas[i].categoria
+                break
+
+
+            }
+
+        }
         
         const contenedorComidaDiaFicha = document.getElementById("container_comidaDia");         
         const ComidaDiaFicha = document.createElement('div');
@@ -45,7 +58,8 @@ class comidaDia {
         <div id="comidaDia-ficha" class="mdl-card__title">
             <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6" >${ComidaDelDiaDefinitiva}</h4>
         </div>
-        <div id ="descDia" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+        <div style="margin-top:-45px;margin-bottom:10px" align=center><img style="opacity:0.3" src="images/${categoria}-model1.png" width="192px"></div>
+        
         <div style="background-color:#779f3e;border-top:2px solid #779f3e" class="mdl-card__actions mdl-card--border">
         <a  style="display:inline;color:#464942;" onclick="popupingredientesDia('${ComidaDelDiaDefinitiva}')"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
         Ver ingredientes
@@ -74,7 +88,9 @@ class comidaDia {
         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabelDia" name="${ComidaDelDiaDefinitiva}" style="color:#cfde47">${ComidaDelDiaDefinitiva}</p></div>
         
         <dialog id="addfavoritosDialogDia" class="mdl-dialog">
+        
         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
         <div style="margin-right:90px" class="mdl-dialog__actions">
         <button align=center type="button" class="mdl-button close">Cerrar</button>
         </div>
@@ -82,7 +98,7 @@ class comidaDia {
     
     <dialog id="addfavoritosDialogFailDia" class="mdl-dialog">
     <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-    
+    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
     <div style="margin-right:90px" class="mdl-dialog__actions">
         <button type="button" class="mdl-button close">Cerrar</button>
     </div>
@@ -114,7 +130,7 @@ class comidaDia {
         var cambioDiaCheck = d2.getDate() 
 
         if (dia_hoy == cambioDiaCheck){
-            console.log("mismo dia")
+            console.log("mismo dia!")
         }
         
         else{
@@ -146,8 +162,8 @@ class comidaDia {
         for(var i=0; i <= consejos_list.length -1;i++){
 
             for(var x=0; i <= consejos.length -1;x++){
-                console.log(consejos_list[i])
-                console.log(consejos[x].consejo)
+                //console.log(consejos_list[i])
+                //console.log(consejos[x].consejo)
                 if(consejos_list[i] == consejos[x].consejo){
 
                     consejos_desc.push(consejos[x].desc)
@@ -159,7 +175,7 @@ class comidaDia {
 
         }
 
-        console.log(consejos_desc)
+        //console.log(consejos_desc)
 
         const consejosContainer = document.getElementById("consejos-container")
         const consejosResultado = document.createElement('div');
@@ -417,7 +433,7 @@ class minevera {
             l.setItem("mostrar_comidas_finalSave",JSON.stringify(mostrar_comidas_final))
             l.setItem("faltanIngredientesCheckSave",JSON.stringify(faltanIngredientesCheck))
            // l.setItem("ingredienteComidasSave",JSON.stringify(ingredienteComidas))
-            console.log(cargado)
+            //console.log(cargado)
             //console.log(loadMore)            
 
     
@@ -437,22 +453,45 @@ class minevera {
         //cargamos las listas de las comidas para poder mostrarlas
         var mostrar_comidas_final = JSON.parse(l.getItem("mostrar_comidas_finalSave"))
         var faltanIngredientesCheck = JSON.parse(l.getItem("faltanIngredientesCheckSave"))
-        console.log(faltanIngredientesCheck)
+        //console.log(faltanIngredientesCheck)
 
         //recorremos las comidas par ir generando las fichas
+
+        //ESTE BUCLE ES IMPORTANTE!!
+        //Este bucle relaciona cada ficha de comidas con su categoria para finalmente poder printear su imagen.
+        //VER LINEA 499~
+        var mostrar_categoria_imagen = []
+        for (var i = 0;i <= mostrar_comidas_final.length -1;i++){
+            
+            for (var x = 0; x<= comidas.length -1; x++){
+
+                if (mostrar_comidas_final[i] == comidas[x].nombre){
+
+                    mostrar_categoria_imagen.push(comidas[x].categoria)
+                    break
+
+                }
+
+
+            }
+
+        }
+        
+        
         if (cargado < mostrar_comidas_final.length){
 
             //cargado tiene 0 si es la primera vez que se ejecuta
             //si se ha hecho click en cargar más, cargado tendra un valor de 0+10 por cada vez que se le hace click
 
             for (var i = cargado; i <= cargado + 9; i++){
-                console.log("bucle")
+                
                 //si el valor es undefined significa que no hay mas comidas. rompemos el bucle
                 if (mostrar_comidas_final[i] == undefined){
 
                     break 
 
-                } 
+                }
+
                 //si la comida actual tiene como Check false, va a indicar que faltan ingredientes con la exclamacion
                 if (faltanIngredientesCheck[i] == false){
                     ComidaFicha.innerHTML += `<br>
@@ -460,7 +499,7 @@ class minevera {
                         <div id="comida-ficha" class="mdl-card__title">
                             <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_final[i]}</h4>
                         </div>
-                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div style="margin-top:-45px;margin-bottom:10px" align=center><img style="opacity:0.3" src="images/${mostrar_categoria_imagen[i]}-model1.png" width="192px"></div>
                         <div class="mdl-card__actions mdl-card--border">
                         <a  style="display:inline" onclick="popupingredientes('${ingredientes_checked}','${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         Ver ingredientes
@@ -491,6 +530,7 @@ class minevera {
                         
                         <dialog id="addfavoritosDialog" class="mdl-dialog">
                         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
                         <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button align=center type="button" class="mdl-button close">Cerrar</button>
                         </div>
@@ -498,7 +538,7 @@ class minevera {
                     
                     <dialog id="addfavoritosDialogFail" class="mdl-dialog">
                     <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    
+                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
                     <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button type="button" class="mdl-button close">Cerrar</button>
                     </div>
@@ -514,7 +554,7 @@ class minevera {
                         <div id="comida-ficha" class="mdl-card__title">
                             <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_final[i]}</h4>
                         </div>
-                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div style="margin-top:-45px;margin-bottom:10px" align=center><img style="opacity:0.3" src="images/${mostrar_categoria_imagen[i]}-model1.png" width="192px"></div>
                         <div class="mdl-card__actions mdl-card--border">
                         <a  style="display:inline" onclick="popupingredientes('${ingredientes_checked}','${mostrar_comidas_final}','${mostrar_comidas_final[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         Ver ingredientes
@@ -545,6 +585,7 @@ class minevera {
                         
                         <dialog id="addfavoritosDialog" class="mdl-dialog">
                         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
                         <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button align=center type="button" class="mdl-button close">Cerrar</button>
                         </div>
@@ -552,7 +593,7 @@ class minevera {
                     
                     <dialog id="addfavoritosDialogFail" class="mdl-dialog">
                     <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    
+                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
                     <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button type="button" class="mdl-button close">Cerrar</button>
                     </div>
@@ -595,7 +636,7 @@ class minevera {
             <div align=left style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Copia el enlace inferior y después pegalo en tu navegador:<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" ">https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" ">https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -615,11 +656,11 @@ class minevera {
         //si checkloadmore esta en true significa que se ha llamado el metodo desde el boton
         //en este caso seguira sumando 10 al cargado
         else if (checkloadmore == true){
-            console.log("check")
+            
             cargado = JSON.parse(l.getItem("comidas_load"))
             l.setItem("comidas_load",JSON.stringify(cargado+10))
 
-            console.log(cargado)
+            
             //si cargado es mayor al total de comidas, deja de mostrar el boton de cargar mas (ha llegado al final)
             if (cargado >= mostrar_comidas_final.length){
                 document.getElementById("loadMore").style.visibility = "hidden"
@@ -645,7 +686,7 @@ class minevera {
             <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
             <p>
             Copia el enlace inferior y después pegalo en tu navegador:<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
             <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
             </p>
             </div>
@@ -691,13 +732,32 @@ class favoritos {
             mostrarFavoritosFicha.innerHTML = `<h4 align=center>No tienes favoritos.</h4>`
 
         }
+
+        var mostrar_categoria_imagen = []
+        for (var i = 0;i <= favoritos.length -1;i++){
+            
+            for (var x = 0; x<= comidas.length -1; x++){
+
+                if (favoritos[i] == comidas[x].nombre){
+
+                    mostrar_categoria_imagen.push(comidas[x].categoria)
+                    break
+
+                }
+
+
+            }
+
+        }
+        
+        
         for (var i = 0; i <= favoritos.length -1;i++){
             mostrarFavoritosFicha.innerHTML += `<br>
             <div style="margin-left:2%" id = "comida-ficha-container" class="mdl-mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp" >
             <div id="comida-ficha" class="mdl-card__title">
                 <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${favoritos[i]}</h4>
             </div>
-            <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+            <div style="margin-top:-45px;margin-bottom:10px" align=center><img style="opacity:0.3" src="images/${mostrar_categoria_imagen[i]}-model1.png" width="192px"></div>
             <div class="mdl-card__actions mdl-card--border">
             <a  style="display:inline" onclick="popupingredientesFavoritos('${favoritos[i]}',${i})"  id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Ver ingredientes
@@ -750,6 +810,10 @@ class despensa {
             //generamos la variable con la lista con la que se va a saber si faltan ingredientes o no
             //esta variable sirve para la busqueda avanzada, si el elemento de esta lista que corresponde al la comida esta en false, mostrará una exclamación en su ficha!
 
+
+                
+                             
+                
 
             
             //BUCLE IMPORTANTE!!//
@@ -805,7 +869,8 @@ class despensa {
                         <div id="comida-ficha" class="mdl-card__title">
                             <h4 style="margin-top:40px;overflow-wrap: anywhere;opacity:0.6">${mostrar_comidas_categoria[i]}</h4>
                         </div>
-                        <div id ="desc" style = "font-size:16px;text-align: justify;text-justify: inter-word;" class="mdl-card__supporting-text">imagen</div>
+                        <div style="margin-top:-40px;margin-bottom:10px" align=center><img style="opacity:0.3" src="images/${categoria}-model1.png" width="192px"></div>
+                        
                         <div class="mdl-card__actions mdl-card--border">
                         <a  style="display:inline"  onclick="popupingredientesDespensa('${mostrar_comidas_categoria[i]}')" id="show-dialog" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         Ver ingredientes
@@ -836,6 +901,7 @@ class despensa {
                         
                         <dialog id="addfavoritosDialog" class="mdl-dialog">
                         <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
                         <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button align=center type="button" class="mdl-button close">Cerrar</button>
                         </div>
@@ -843,7 +909,7 @@ class despensa {
                     
                     <dialog id="addfavoritosDialogFail" class="mdl-dialog">
                     <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    
+                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
                     <div style="margin-right:90px" class="mdl-dialog__actions">
                         <button type="button" class="mdl-button close">Cerrar</button>
                     </div>

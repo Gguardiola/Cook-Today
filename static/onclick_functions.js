@@ -178,7 +178,7 @@ function popupingredientesFavoritos(ComidaClickIngredientes,indice){
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
     var dialog = document.querySelectorAll('#ingredientespopup_idFav').item(indice);
-    console.log(dialog)
+    
     var showDialogButton = document.querySelectorAll('#show-dialogFav').item(indice);
     if (! dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -238,7 +238,7 @@ function popupingredientesDia(ComidaClickIngredientes){
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
     var dialog = document.querySelectorAll('#ingredientespopup_idDia').item(0);
-    console.log(dialog)
+
     var showDialogButton = document.querySelectorAll('#show-dialogDia').item(0);
     if (! dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -298,7 +298,7 @@ function popupingredientesDespensa(ComidaClickIngredientes){
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
     var dialog = document.querySelectorAll('#ingredientespopup_idDespensa').item(0);
-    console.log(dialog)
+    
     var showDialogButton = document.querySelectorAll('#show-dialogDespensa').item(0);
     if (! dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -334,11 +334,11 @@ function addFavoritos(indice){
     console.log(comida_fav)
     
     favoritosParse = JSON.parse(l.getItem("favoritos"))
-    console.log(favoritosParse)
+    
     if(favoritosParse.includes(comida_fav)){
         //pass
         var dialog = document.querySelectorAll('#addfavoritosDialogFail').item(indice);
-        console.log(dialog)
+        
         
         if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -356,7 +356,7 @@ function addFavoritos(indice){
     
 
         var dialog = document.querySelectorAll('#addfavoritosDialog').item(indice);
-        console.log(dialog)
+       
         
         if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -380,7 +380,7 @@ function addFavoritosDia(){
     if(favoritosParse.includes(comida_fav)){
         //pass
         var dialog = document.querySelectorAll('#addfavoritosDialogFailDia').item(0);
-        console.log(dialog)
+       
         
         if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -398,7 +398,7 @@ function addFavoritosDia(){
     
 
         var dialog = document.querySelectorAll('#addfavoritosDialogDia').item(0);
-        console.log(dialog)
+       
         
         if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -422,7 +422,7 @@ function removeFavoritos(indice){
     console.log(favoritosParse)
 
     for(var i = 0;i <= favoritosParse.length -1;i++){
-        console.log("aaaa")
+   
         if(favoritosParse[i] == comida_fav){
             favoritosParse.splice(i,1)
         }
@@ -505,7 +505,8 @@ function ingredienteRepeatDialog() {
 
 }
 
-//botones categoria despensa
+//CAJON DE LOS BOTONES DE LA DESPENSA//
+//cuando se hace click en una categoria, la manda aqui, limpia el cajon y llama a la clase para montar las fichas
 function mostrarCategoria(categoria){
     
     const contenedorDespensaClean = document.getElementById("despensa-list");
@@ -523,9 +524,65 @@ function mostrarCategoria(categoria){
 
 }
 
+//BOTONES DEL APARTADO FINAL (TEMAS LEGALES VERSION ETC)
+//cada funcion de estas he llamada por un click en el nombre correspondiente
+
+function eclecnas() {
+    var eclecnas = JSON.parse(l.getItem("eclecnas"))
+
+    if (eclecnas == null){
+        l.setItem("eclecnas",JSON.stringify(0))
+        eclecnas = JSON.parse(l.getItem("eclecnas"))
+    }
+    
+    else{
+    
+        if(eclecnas < 19){
+            eclecnas = eclecnas + 1
+            l.setItem("eclecnas",JSON.stringify(eclecnas))
+
+        }
+        else if (eclecnas == 19){
+            var dialog = document.querySelectorAll('#eclecnasContainerDialog').item(0);  
+
+            if (! dialog.showModal) {
+                dialogPolyfill.registerDialog(dialog);
+            }
+            dialog.showModal();
+        
+            dialog.querySelector('.close').addEventListener('click', function(e) {
+                l.setItem("eclecnas",JSON.stringify(0))
+                dialog.close();
+                e.preventDefault()
+            });
+
+        }
+
+
+    }
+
+
+}
+
 function acercadeDialog() {
 
     var dialog = document.querySelectorAll('#acercadeContainerDialog').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
+
+function creditosDialog() {
+
+    var dialog = document.querySelectorAll('#creditosContainerDialog').item(0);  
 
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -587,4 +644,46 @@ function tosDialog() {
 
 }
 
+//funcion para retrasar la ocultacion del spinner de carga
+function sleep(ms) {
+    return new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
+}
 
+
+async function hideSpinner() {
+
+    await sleep(1000);
+    document.getElementById("loadspinner").style.visibility = "hidden"
+}
+
+
+
+function clearIndexOf(){
+    //vaciamos los resultados del HTML
+
+
+    const contenedorSelectores = document.getElementById("selectores");
+    contenedorSelectores.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
+
+    //borramos el contenido del input de la busqueda en tiempo real
+    const contenedorBuscador = document.getElementById("indexof");
+    contenedorBuscador.value = ""
+
+    const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+
+
+    l.setItem("selectores_load",JSON.stringify(0))
+
+
+    //llamamos al metodo selectores para que vuelva a generar las etiquetas con ingredientes
+    ui.selectores(ingredientes_list_const);
+
+    //evitamos que el evento submit se comporte por defecto (es decir, que haga reload de la pagina)
+
+
+}

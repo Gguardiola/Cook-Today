@@ -20,7 +20,7 @@ l.setItem("selectores_load",JSON.stringify(0))
 l.setItem("despensa_load",JSON.stringify(0))
 l.setItem("despensa_break",false)
 l.setItem("categoriaActual","startup")
-
+l.setItem("eclecnas",JSON.stringify(0))
 //al iniciar el programa genera la variable con lista vacia donde van a ir los ingredientes.
 //esta lista la va a rellenar a partir del JSON dentro de comidas.js
 //realmente diria que mas que JSON simplemente es un objeto con listas pero vamos a llamarlo JSON
@@ -41,7 +41,7 @@ for (var i = 0;i <= comidas.length -1;i++){
         }
         else if(ingredientes_append[x] == undefined){
             console.log("undefined!")
-            console.log(ingredientes_append[x])
+            //console.log(ingredientes_append[x])
             //pass
             
         }
@@ -95,6 +95,34 @@ const des = new despensa();
 //mas detalles en app_classes.ks minevera.mostrar_comidas
 var ingredientes_checked = [];
 
+document.getElementById("mineveraTab").addEventListener("click",function(e){
+
+    const contenedorDespensaClean = document.getElementById("despensa-list");
+    contenedorDespensaClean.innerHTML = ""
+    document.getElementById("despensa-list").scrollTop = 0    
+
+    const volverBeacon = document.createElement("div")  
+    volverBeacon.setAttribute("id", "volverBeacon");
+    contenedorDespensaClean.appendChild(volverBeacon)
+
+    const contenedorComidaCat = document.getElementById("despensa-list");         
+    const ComidaFichaCat = document.createElement('div');
+
+    ComidaFichaCat.innerHTML = `
+    
+    <br><br><br>
+    <div align=center><img style="opacity:0.5" src="images/startup-despensa.png" width="192px"></div><br>
+    <div align=center><a style="opacity:0.6;text-decoration:none;color:#616161">Selecciona una categoría.</a></div>
+    
+    `
+    contenedorComidaCat.appendChild(ComidaFichaCat)
+    //l.setItem("categoriaActual",categoria)
+    l.setItem("despensa_load",JSON.stringify(0))
+    l.setItem("despensa_break",false)
+
+
+
+})
 
 document.getElementById("favoritosTab").addEventListener("click",function(e){
 
@@ -103,7 +131,47 @@ document.getElementById("favoritosTab").addEventListener("click",function(e){
 
 })
 
+document.getElementById("despensaTab").addEventListener('click',function(e){
 
+    //vaciamos los resultados del HTML
+    document.getElementById('resultado').innerHTML = "";
+    ingredientes_checked = []
+    const contenedorSelectores = document.getElementById("selectores");
+    contenedorSelectores.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
+
+    //borramos el contenido del input de la busqueda en tiempo real
+    const contenedorBuscador = document.getElementById("indexof");
+    contenedorBuscador.value = ""
+
+    const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+    const contenedorResultadoComidas = document.getElementById("resultado-comida");
+    contenedorResultadoComidas.innerHTML = ""
+    contenedorResultadoComidas.style.marginTop = "0px"
+    
+
+    //vaciamos las keys del localstorage que se han usado para mostrar las comidas
+    l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
+    l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
+    l.setItem("selectores_load",JSON.stringify(0))
+    //escondemos el boton de cargar más
+    document.getElementById("loadMore").style.visibility = "hidden"
+    //contenedorResultadoComidas.style.marginTop = "0px"
+    document.getElementById("loadMore").style.height = "0px"
+    document.getElementById("loadMoreContainer").style.height = "0px"
+
+    //volvemos a duplicar ingredientes_list de la lista original
+    ingredientes_list = ingredientes_list_const.slice()
+
+    //llamamos al metodo selectores para que vuelva a generar las etiquetas con ingredientes
+    ui.selectores(ingredientes_list_const);
+    e.preventDefault(); 
+    //evitamos que el evento submit se comporte por defecto (es decir, que haga reload de la pagina)
+
+
+})
 
 
 ////BUSCADOR EN TIEMPO REAL////
@@ -125,6 +193,8 @@ indexof en html:
 //sobre buscador(elemento html con el id indexof) va a escuchar el evento "keyup", es decir, cada vez que el usuario introduzca una tecla en el input text
 //al cual va a ejecutar una funcion.
 buscador.addEventListener('keyup',function(e){
+    document.getElementById("loadspinner").style.visibility = "visible"
+
     //declara la constante contenedorSelectores con el elemento con id form-selector.
     //que es el elemento html con todas las checksbox de los ingredientes generados por ui.selectores.
     const contenedorSelectoresClean = document.getElementById("selectores");
@@ -132,6 +202,8 @@ buscador.addEventListener('keyup',function(e){
     document.getElementById("selectores").scrollTop = 0
     l.setItem("selectores_load",JSON.stringify(0))
     ui.selectores(ingredientes_list_const);
+
+    
 
     const contenedorSelectores = document.getElementById("form-selector");
     /*
@@ -155,9 +227,20 @@ buscador.addEventListener('keyup',function(e){
     const ingrediente_buscado = buscador.value.toLowerCase();
 
     //recorremos la lista de ingredientes que habiamos duplicado de ingredientes_list_const en busca de ingredientes que coincidan
-    console.log(buscador.value.length)
+    
     if(buscador.value.length > 0){
-        for (var i = 0; i <= ingredientes_list.length -1; i++){
+        var listaIngredientes = ingredientes_list.filter(ingrediente => ingrediente.indexOf(ingrediente_buscado) !== -1)
+        //contenedorSelectores.innerHTML = '';
+        listaIngredientes.forEach(function(ingrediente) {
+            contenedorSelectores.innerHTML += `
+            <label id="ingrediente_check" class="mdl-chip" onclick="ingrediente_click('${ingrediente}')"; name="ingrediente_checkbox" for="${ingrediente}">            
+                <input style="visibility: hidden" type="checkbox" id="${ingrediente}" class="mdl-checkbox__input">
+                <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text" class="mdl-chip__text">${ingrediente}</span>
+            </label>
+        
+            `;
+        });        
+        /*for (var i = 0; i <= ingredientes_list.length -1; i++){
             //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
             ingrediente_select = ingredientes_list[i].toLowerCase();
             //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
@@ -176,7 +259,7 @@ buscador.addEventListener('keyup',function(e){
 
             }
 
-        }
+        }*/
     }
     else{
         for (var i = 0; i <= 49; i++){
@@ -201,8 +284,8 @@ buscador.addEventListener('keyup',function(e){
         }       
 
     }
-
-
+    hideSpinner()
+    
 })
 
 /////BOTON AÑADIR/////
@@ -295,6 +378,9 @@ containerEtiquetas.addEventListener('scroll', function() {
     ui.selectores(ingredientes_list_const)
   }
 });
+
+
+
 
 var containerDespensa = document.querySelector('#despensa-list');
 

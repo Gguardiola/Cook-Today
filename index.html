@@ -21,6 +21,32 @@
 
 
     <style>
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #8bc34a;
+      width: 50px;
+      height: 50px;
+      -webkit-animation: spin 1.5s linear infinite; /* Safari */
+      animation: spin 1.5s linear infinite;
+      top: 28%;
+      left: 39%;
+      transform: translate(-50%, -50%);
+
+      position:absolute;
+      z-index:1000
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }    
     #view-source {
       position: fixed;
       display: block;
@@ -45,7 +71,31 @@
               user-select: auto;
 
     } 
-    
+
+    #copiarFormFav {
+      -webkit-user-select: auto;
+        -moz-user-select: -moz-auto;
+          -ms-user-select: auto;
+              user-select: auto;
+
+    }
+
+    #copiarFormDespensa {
+      -webkit-user-select: auto;
+        -moz-user-select: -moz-auto;
+          -ms-user-select: auto;
+              user-select: auto;
+
+    }    
+
+    #copiarFormAcercade {
+      -webkit-user-select: auto;
+        -moz-user-select: -moz-auto;
+          -ms-user-select: auto;
+              user-select: auto;
+
+    }    
+
     html,body {
       text-size-adjust: none;
       -webkit-text-size-adjust: none;
@@ -66,10 +116,10 @@
             <p style="font-family:'Roboto','Helvetica','Arial',sans-serif; font-size: 21px;color: #586841;margin-top:20px;margin-left:-15px;font-weight: bold">CookToday</p>
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#comidadeldia" class="mdl-layout__tab is-active">Comida del día</a>
-          <a href="#minevera" class="mdl-layout__tab">Mi nevera</a>
+          <a id="comidadiaTab" href="#comidadeldia" class="mdl-layout__tab is-active">Comida del día</a>
+          <a id="mineveraTab" href="#minevera" class="mdl-layout__tab">Mi nevera</a>
           <a id ="favoritosTab" href="#favoritos" class="mdl-layout__tab">Favoritos</a>
-          <a href="#despensa" class="mdl-layout__tab">Despensa</a>
+          <a id ="despensaTab" href="#despensa" class="mdl-layout__tab">Despensa</a>
           <a href="#acercade" class="mdl-layout__tab"><i style="margin-top:18px" class="material-icons">help_outline</i></a>
         
         </div>
@@ -94,7 +144,6 @@
 
 
         <div class="mdl-layout__tab-panel" id="minevera">
-
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div style="margin-top:-35px" id="minevera-container" class="mdl-cell mdl-cell--12-col">
               
@@ -103,12 +152,14 @@
                     <input class="mdl-textfield__input" type="text" id="indexof">
                     <label class="mdl-textfield__label" for="sample1">Ingrediente</label>
                   </div>
+                  <div style="margin-left:20px;display:inline-block"><button class="mdl-button mdl-button--icon mdl-js-button" onclick = "clearIndexOf()" type="button"><i class='material-icons'>clear</i></button></div>
                   <br>          
                 </form>
 
 
-                <div class="mdl-grid">  
 
+                <div class="mdl-grid">  
+                  <div id="loadspinner" style="visibility:hidden" class="loader"></div>
                   <div id ="container_ingredientes" style="padding:10px;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:2000px;height:100px;" class="mdl-cell mdl-cell--6-col demo-card-wide mdl-card mdl-shadow--2dp">
                       <div id="selectores">
                       </div>
@@ -191,7 +242,7 @@
               <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
               <p>
               Copia el enlace inferior y después pegalo en tu navegador:<br>
-              </p><p id="copiarFormFav" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+              </p><p id="copiarFormFav" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
               <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
               <p></p>
               </strong></strong></div><strong><strong>
@@ -240,7 +291,11 @@
               </div>
 
               
-              <div style="margin-top:55px;border-top:2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;height:475px;" id="despensa-list"></div>
+              <div style="margin-top:55px;border-top:2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;height:475px;" id="despensa-list">
+              <br><br><br>
+              <div align=center><img style="opacity:0.5" src="images/startup-despensa.png" width="192px"></div><br>
+              <div align=center><a style="opacity:0.6;text-decoration:none;color:#616161">Selecciona una categoría.</a></div>
+              </div>
                       
             </div>
             <div style="opacity: 0.6" class="mdl-cell mdl-cell--6-col" id="feedbackButtonContainerDespensa">
@@ -252,7 +307,7 @@
                 <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
                 <p>
                 Copia el enlace inferior y después pegalo en tu navegador:<br>
-                </p><p id="copiarFormDespensa" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+                </p><p id="copiarFormDespensa" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
                 <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
                 <p></p>
                 </strong></strong></div><strong><strong>
@@ -277,7 +332,22 @@
             <div align=center style="height:325px;margin-top:-35px;background-color:#cfde47;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;" id="comidadia-container" class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">
               <strong><h4>CookToday<h4></strong>
               <strong><p>Versión beta-1.1.0</p></strong>
-              <div><img  src="images/android-desktop-beta.png" width="120px" height="120px"></div><br>
+              <div onclick="eclecnas()" ><img  src="images/android-desktop-beta.png" width="120px" height="120px"></div><br>
+              <dialog  id="eclecnasContainerDialog" class="mdl-dialog">
+                <h5 align="center" style="color:#616161"></h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                <img src="images/logo3.png" width="150px"><br><br>                 
+                <p id="copiarForm" style="text-align: justify;text-justify: inter-word;">
+                46656c69636964616465732c2068617320656e636f6e747261646f20612065636c65636e617321
+                </p>
+
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+                
+                
+              </dialog>                  
               <strong><p>2020 Gx3 Studios - Gabriel Guardiola.</p></strong>
             </div>
             <div style="margin-top:20px" class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -317,7 +387,32 @@
                     </dialog>    
 
                   </tr>
-                  
+                  <tr>
+                    <td onclick="creditosDialog()" style="text-align:center">Créditos</td>
+
+                    <dialog style="width:350px" id="creditosContainerDialog" class="mdl-dialog">
+                      <h5 align="center" style="color:#616161">Créditos</h5>
+                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                  
+                      <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
+                      <strong>Betatesters:</strong><br><br>
+                      Laura Calero<br>
+                      Jordi Román<br>
+                      Damia Silva<br>
+                      Mario Periago<br>
+                      Jaime Lozano<br>
+
+                      </p>
+
+                      </div>
+                      <div class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button close">Cerrar</button>
+                      </div>
+                      
+                      
+                    </dialog>    
+
+                  </tr>                  
                   <tr>
                     <td onclick="licenciasDialog()" style="text-align:center">Licencias</td>
 
@@ -856,7 +951,7 @@ LA APP pueden incluir contenido incrustado (por ejemplo, vídeos, imágenes, art
 Este contenido de terceros pueden recopilar datos sobre ti, utilizar cookies, incrustar un código de seguimiento adicional de terceros, y supervisar tu interacción usando este código.<br><br>
 <strong>Legitimación para el tratamiento de datos</strong><br><br>
 La base legal para el tratamiento de tus datos es: <strong>el consentimiento.</strong><br>
-Para contactar con <strong>COOK TODAY</strong>, envia un correo electrónico o contacta a través del <strong>formulario de Google ()</strong>.<br><br>
+Para contactar con <strong>COOK TODAY</strong>, envia un correo electrónico o contacta a través del <strong>formulario de Google (https://forms.gle/2ipbHmHH53yzd8Tp8)</strong>.<br><br>
 <strong>Categorías de datos personales</strong><br><br>
 Las categorías de datos personales que trata <strong>COOK TODAY</strong> son:<br>
     • <strong>Datos identificativos.</strong><br><br>
@@ -952,7 +1047,7 @@ Usted no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros 
                       <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
                       <p>
                       Copia el enlace inferior y después pegalo en tu navegador:<br>
-                      </p><p id="copiarFormAcercade" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://docs.google.com/forms/d/1uTtiUiml_r8vMcRZYrVeU-EawoaueVtsiCV-XqSLMVc</p><br><br>            
+                      </p><p id="copiarFormAcercade" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
                       <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
                       <p></p>
                       </strong></strong></div><strong><strong>
@@ -977,6 +1072,7 @@ Usted no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros 
     <script src="static/onclick_functions.js"></script>  
     <script src="static/app_classes.js"></script> 
     <script src="static/app.js"></script>
+
 
   </body>
 </html>
