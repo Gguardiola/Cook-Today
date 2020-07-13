@@ -1,4 +1,22 @@
 
+//aceptar politica por primera vez
+function privacyDialogFIRST() {
+
+    var dialog = document.querySelectorAll('#privacyContainerDialogFIRST').item(0);  
+
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function(e) {
+        l.setItem("firstTimeCheck",JSON.stringify(false))
+        dialog.close();
+        e.preventDefault()
+    });
+
+}
+
 //Esta funcion recoge el ingrediente seleccionado, lo añade a ingredientes checked y pasa la lista para mostrar la etiqueta borrable del ingrediente
 
 function ingrediente_click(id_ingrediente_check){
@@ -663,7 +681,10 @@ async function hideSpinner() {
 function clearIndexOf(){
     //vaciamos los resultados del HTML
 
+    var borrarBoton = document.getElementById("clearIndex")
 
+    borrarBoton.style.visibility = "hidden"
+    
     const contenedorSelectores = document.getElementById("selectores");
     contenedorSelectores.innerHTML = ""
     document.getElementById("selectores").scrollTop = 0
@@ -678,7 +699,7 @@ function clearIndexOf(){
 
 
     l.setItem("selectores_load",JSON.stringify(0))
-
+    l.setItem("bloquearScroll",true)
 
     //llamamos al metodo selectores para que vuelva a generar las etiquetas con ingredientes
     ui.selectores(ingredientes_list_const);

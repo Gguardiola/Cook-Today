@@ -13,6 +13,9 @@ var consejos = [
 {'consejo':'Evita que el pepino se vuelva amargo al cortarlo','desc':'Corta primero los extremos y frótalos con el interior del pepino. De este modo evitarás que el resto del pepino se vuelva amargo.'},
 {'consejo':'Si vas a hacer mayonesa, saca antes el huevo de la nevera','desc':'Para evitar que se corte la mayonesa, será necesario que el huevo este a temperatura ambiente. Saca el huevo antes de hacer nada hasta que notes que ha perdido el frío de la nevera.'},
 {'consejo':'Guarda los huesos y carcasas','desc':'Si has acabado una pata de jamón o has cortado en partes un pollo o un pescado puedes guardarlo para hacer caldos o fondos para sopa.'},
-{'consejo':'Haz un pequeño corte alrededor de la patata antes de hervirla','desc':'Para evitar cortar con cuchillo la piel de la patata (perdiendo parte de la patata en el proceso), si cortas un poco rodeando la patata y la hierves, después podrás retirar la piel deslizandola con los dedos.'},
+{'consejo':'Haz un pequeño corte alrededor de la patata antes de hervirla','desc':'Para evitar cortar con cuchillo la piel de la patata (perdiendo parte de la patata en el proceso), si cortas un poco la piel rodeando la patata y la hierves, después podrás retirar la piel deslizandola con los dedos.'},
+{'consejo':'Utiliza un rallador de queso para cortar la cebolla','desc':'Si quieres evitar perder el tiempo cortando cebolla con el cuchillo en fragmentos muy pequeños, puede usar un rallador de queso para hacerlo lo más rápido posible. Esta opción es perfecta para sofritos y salsas.'},
+
+
 //{'consejo':'','desc':''},
 ]

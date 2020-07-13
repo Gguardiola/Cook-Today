@@ -247,7 +247,7 @@ class minevera {
             }
             
             autoSelector.innerHTML += `
-            <label id="ingrediente_check" style="margin:2px" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
+            <label id="ingrediente_check" class="mdl-chip"  onclick="ingrediente_click('${ingredientes_list_const[i]}')"; name="ingrediente_checkbox" for="${ingredientes_list_const[i]}">
                 <input style="visibility: hidden" type="checkbox" id="${ingredientes_list_const[i]}" class="mdl-checkbox__input">
                 <span style="font-size:17px;font-family:roboto;margin-left:-23px;margin-top:-5px" class="mdl-chip__text">${ingredientes_list_const[i]}</span>
             </label>
@@ -332,9 +332,24 @@ class minevera {
             
             //generamos la variable con la lista de las comidas que se van a mostrar
             var mostrar_comidas_final = []
+
+            var mostrar_comidas_incompletas3 = []
+            var mostrar_comidas_incompletas4 = []
+            var mostrar_comidas_incompletas5 = []
+            var mostrar_comidas_incompletas6 = []
+            var mostrar_comidas_incompletas7 = []
+            var mostrar_comidas_incompletas8 = []
+
+            var mostrar_comidas_completas = []
             //generamos la variable con la lista con la que se va a saber si faltan ingredientes o no
             //esta variable sirve para la busqueda avanzada, si el elemento de esta lista que corresponde al la comida esta en false, mostrará una exclamación en su ficha!
             var faltanIngredientesCheck = []
+            var faltanIngredientesCheck4 = []
+            var faltanIngredientesCheck5 = []
+            var faltanIngredientesCheck6 = []
+            var faltanIngredientesCheck7 = []
+            var faltanIngredientesCheck8 = []
+            var faltanIngredientesCheckCOMPLETAS = []
             //esta variable se pone en true cuando no hay mas elementos para cargar. Hace que el boton de "cargar mas" se ponga en hidden
             //si de entrada no hay resultados hace que no se muestre el boton
             var hiddenLoadMore = false
@@ -359,19 +374,19 @@ class minevera {
             
                 //if (cont_coincidencias >= comidas[i].ingredientes.length / 2){
                 if (cont_coincidencias == comidas[i].ingredientes.length){
-                    mostrar_comidas_final.unshift(comidas[i].nombre)
+                    mostrar_comidas_completas.unshift(comidas[i].nombre)
 
                     if (cont_coincidencias  == comidas[i].ingredientes.length){
-                        faltanIngredientesCheck.unshift(true)
+                        faltanIngredientesCheckCOMPLETAS.unshift(true)
     
                     }
                     else {
-                        faltanIngredientesCheck.unshift(false)
+                        faltanIngredientesCheckCOMPLETAS.unshift(false)
     
                     }
                 }                        
-                else if (cont_coincidencias >= 3){
-                    mostrar_comidas_final.push(comidas[i].nombre)
+                else if (cont_coincidencias == 3){
+                    mostrar_comidas_incompletas3.push(comidas[i].nombre)
 
                     if (cont_coincidencias  == comidas[i].ingredientes.length){
                         faltanIngredientesCheck.push(true)
@@ -383,10 +398,77 @@ class minevera {
                     }
                 }
                 
+                else if (cont_coincidencias == 4){
+                    mostrar_comidas_incompletas4.unshift(comidas[i].nombre)
 
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck4.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck4.unshift(false)
+    
+                    }
+                }                
+
+                else if (cont_coincidencias == 5){
+                    mostrar_comidas_incompletas5.unshift(comidas[i].nombre)
+
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck5.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck5.unshift(false)
+    
+                    }
+                }  
+                
+                else if (cont_coincidencias == 6){
+                    mostrar_comidas_incompletas6.unshift(comidas[i].nombre)
+
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck6.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck6.unshift(false)
+    
+                    }
+                }  
+                
+                else if (cont_coincidencias == 7){
+                    mostrar_comidas_incompletas7.unshift(comidas[i].nombre)
+
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck7.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck7.unshift(false)
+    
+                    }
+                } 
+
+                else if (cont_coincidencias >= 8){
+                    mostrar_comidas_incompletas8.unshift(comidas[i].nombre)
+
+                    if (cont_coincidencias  == comidas[i].ingredientes.length){
+                        faltanIngredientesCheck8.unshift(true)
+    
+                    }
+                    else {
+                        faltanIngredientesCheck8.unshift(false)
+    
+                    }
+                } 
                 var cont_coincidencias = 0
             }
+            var faltanIngredientesCheck_final = []
+            mostrar_comidas_final = mostrar_comidas_completas.concat(mostrar_comidas_incompletas8);mostrar_comidas_final = mostrar_comidas_final.concat(mostrar_comidas_incompletas7);mostrar_comidas_final = mostrar_comidas_final.concat(mostrar_comidas_incompletas6);mostrar_comidas_final = mostrar_comidas_final.concat(mostrar_comidas_incompletas5);mostrar_comidas_final = mostrar_comidas_final.concat(mostrar_comidas_incompletas4);mostrar_comidas_final = mostrar_comidas_final.concat(mostrar_comidas_incompletas3);
+            faltanIngredientesCheck_final = faltanIngredientesCheckCOMPLETAS.concat(faltanIngredientesCheck8);faltanIngredientesCheck_final = faltanIngredientesCheck_final.concat(faltanIngredientesCheck7);faltanIngredientesCheck_final = faltanIngredientesCheck_final.concat(faltanIngredientesCheck6);faltanIngredientesCheck_final = faltanIngredientesCheck_final.concat(faltanIngredientesCheck5);faltanIngredientesCheck_final = faltanIngredientesCheck_final.concat(faltanIngredientesCheck4);faltanIngredientesCheck_final = faltanIngredientesCheck_final.concat(faltanIngredientesCheck);
 
+            faltanIngredientesCheck = faltanIngredientesCheck_final
             //ESTA PARTE GENERA LA CABECERA DE LAS FICHAS//
             //aqui simplemente va a mostrar la cantidad de resultados que se han encontrado o si no se han encontrado ninguno
             //tambien genera el boton para volver arriba

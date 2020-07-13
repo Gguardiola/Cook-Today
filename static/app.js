@@ -2,6 +2,17 @@
 
 //declaramos l como localStorage para acceder a el mas facil (escribir l es mejor que localStorage todo el rato)
 var l = localStorage
+
+//l.setItem("firstTimeCheck",JSON.stringify(true))
+
+var firstTimeCheck = JSON.parse(l.getItem("firstTimeCheck"))
+if (firstTimeCheck == null){
+
+    privacyDialogFIRST()
+
+
+}
+
 //declaramos favoritosCheck y recogemos como valor la lista de favoritos guardada en local
 var favoritosCheck = l.getItem("favoritos")
 
@@ -133,6 +144,10 @@ document.getElementById("favoritosTab").addEventListener("click",function(e){
 
 document.getElementById("despensaTab").addEventListener('click',function(e){
 
+
+    var borrarBoton = document.getElementById("clearIndex")
+
+    borrarBoton.style.visibility = "hidden"
     //vaciamos los resultados del HTML
     document.getElementById('resultado').innerHTML = "";
     ingredientes_checked = []
@@ -178,6 +193,19 @@ document.getElementById("despensaTab").addEventListener('click',function(e){
 //declara constante buscador que contiene el elemento con el id=indexof.
 // recogemos el elemento #indexof que es el input donde el usuario va a introducir los ingredientes
 const buscador = document.querySelector('#indexof');
+
+buscador.addEventListener('keyup',function(e){
+    var borrarBoton = document.getElementById("clearIndex")
+
+    borrarBoton.style.visibility = "visible"
+    console.log(buscador.value.length)
+    if(buscador.value.length == 0){
+        var borrarBoton = document.getElementById("clearIndex")
+
+        borrarBoton.style.visibility = "hidden"
+    }
+
+})
 /*
 indexof en html:
 
@@ -192,8 +220,10 @@ indexof en html:
 
 //sobre buscador(elemento html con el id indexof) va a escuchar el evento "keyup", es decir, cada vez que el usuario introduzca una tecla en el input text
 //al cual va a ejecutar una funcion.
-buscador.addEventListener('keyup',function(e){
-    document.getElementById("loadspinner").style.visibility = "visible"
+
+document.getElementById("ingredienteSearch").addEventListener("click",function(e){
+    l.setItem("bloquearScroll",false)
+    //document.getElementById("loadspinner").style.visibility = "visible"
 
     //declara la constante contenedorSelectores con el elemento con id form-selector.
     //que es el elemento html con todas las checksbox de los ingredientes generados por ui.selectores.
@@ -229,6 +259,8 @@ buscador.addEventListener('keyup',function(e){
     //recorremos la lista de ingredientes que habiamos duplicado de ingredientes_list_const en busca de ingredientes que coincidan
     
     if(buscador.value.length > 0){
+
+    
         var listaIngredientes = ingredientes_list.filter(ingrediente => ingrediente.indexOf(ingrediente_buscado) !== -1)
         //contenedorSelectores.innerHTML = '';
         listaIngredientes.forEach(function(ingrediente) {
@@ -263,6 +295,7 @@ buscador.addEventListener('keyup',function(e){
     }
     else{
         for (var i = 0; i <= 49; i++){
+            l.setItem("bloquearScroll",true)
             //comprobamos por cada ingrediente de la lista si contiene una letra o una combinacion de letras con lo introducido por el usuario. si coincide devuelve -1
             ingrediente_select = ingredientes_list[i].toLowerCase();
             //indexOf devuelve -1 si algo no coincide, se puede decir que es como un False. Por lo tanto si no da -1 significa que hay coincidencias
@@ -284,7 +317,7 @@ buscador.addEventListener('keyup',function(e){
         }       
 
     }
-    hideSpinner()
+    //hideSpinner()
     
 })
 
@@ -319,6 +352,10 @@ document.getElementById('buscar').addEventListener('click',function(e){
 
 document.getElementById('borrador').addEventListener('click',function(e){
 
+
+    var borrarBoton = document.getElementById("clearIndex")
+
+    borrarBoton.style.visibility = "hidden"
     //vaciamos los resultados del HTML
     document.getElementById('resultado').innerHTML = "";
     ingredientes_checked = []
@@ -342,6 +379,7 @@ document.getElementById('borrador').addEventListener('click',function(e){
     l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
     l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
     l.setItem("selectores_load",JSON.stringify(0))
+    l.setItem("bloquearScroll",true)
     //escondemos el boton de cargar más
     document.getElementById("loadMore").style.visibility = "hidden"
     //contenedorResultadoComidas.style.marginTop = "0px"
@@ -375,7 +413,14 @@ var containerEtiquetas = document.querySelector('#container_ingredientes');
 // Detect when scrolled to bottom.
 containerEtiquetas.addEventListener('scroll', function() {
   if (containerEtiquetas.scrollTop + containerEtiquetas.clientHeight >= containerEtiquetas.scrollHeight) {
-    ui.selectores(ingredientes_list_const)
+    var bloquearScroll = JSON.parse(l.getItem("bloquearScroll"))
+    console.log(bloquearScroll)
+    if(bloquearScroll == true){
+        console.log("aa")
+        ui.selectores(ingredientes_list_const)
+
+    }
+
   }
 });
 
