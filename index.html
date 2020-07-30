@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="static/styles.css">
 
 
-
     <style>
     .loader {
       border: 16px solid #f3f3f3;
@@ -106,13 +105,17 @@
     </style>
 
   </head>
-  <body class="mdl-demo mdl-color--white-100 mdl-color-text--grey-700 mdl-base">
 
-          <dialog style="width:350px;" id="privacyContainerDialogFIRST" class="mdl-dialog">
+  <body class="mdl-demo mdl-color--white-100 mdl-color-text--grey-700 mdl-base">
+            <div id="privacyContainerDialogFIRST" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
               <h5 align="center" style="color:#616161">Política de privacidad</h5>
               <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
                 
-                <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
+                <p style="height:400px; width:auto; overflow:scroll;text-align: left;text-justify: inter-word;">
 
 
 
@@ -213,12 +216,12 @@
                 </p>
 
               </div>
-              <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close">ACEPTAR</button>
-              </div>
+            </div>
 
+          </div>      
 
-        </dialog>
+          
+        
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
@@ -228,10 +231,10 @@
             <p style="font-family:'Roboto','Helvetica','Arial',sans-serif; font-size: 21px;color: #586841;margin-top:20px;margin-left:-15px;font-weight: bold">CookToday</p>
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a id="comidadiaTab" href="#comidadeldia" class="mdl-layout__tab is-active">Comida del día</a>
-          <a id="mineveraTab" href="#minevera" class="mdl-layout__tab">Mi nevera</a>
-          <a id ="favoritosTab" href="#favoritos" class="mdl-layout__tab">Favoritos</a>
-          <a id ="despensaTab" href="#despensa" class="mdl-layout__tab">Despensa</a>
+          <a onclick="tabChange()" id="comidadiaTab" href="#comidadeldia" class="mdl-layout__tab is-active">Comida del día</a>
+          <a onclick="tabChange()" id="mineveraTab" href="#minevera" class="mdl-layout__tab">Mi nevera</a>
+          <a onclick="tabChange()" id ="favoritosTab" href="#favoritos" class="mdl-layout__tab">Favoritos</a>
+          <a onclick="tabChange()" id ="despensaTab" href="#despensa" class="mdl-layout__tab">Despensa</a>
           <a href="#acercade" class="mdl-layout__tab"><i style="margin-top:18px" class="material-icons">help_outline</i></a>
         
         </div>
@@ -241,7 +244,7 @@
       <main class="mdl-layout__content">
       
         <div class="mdl-layout__tab-panel is-active" id="comidadeldia">
-          
+    
                
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div style="margin-top:-35px;background-color:#cfde47;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;" id="comidadia-container" class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">
@@ -260,6 +263,21 @@
 
 
         <div class="mdl-layout__tab-panel" id="minevera">
+            <div id="feedbackContainer" class="modal">
+              <div class="modal-content">
+                <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                  
+              
+                Copia el enlace inferior y después pegalo en tu navegador:
+                <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p>
+                  </p>
+                </div>
+              </div>          
+            </div>
+
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div style="margin-top:-35px" id="minevera-container" class="mdl-cell mdl-cell--12-col">
               
@@ -357,7 +375,27 @@
             <br>
             <div align=center><a onclick="FeedbackAlert(false)" style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
             
-            <dialog id="feedbackContainerFav" class="mdl-dialog">
+
+          </div>              
+            <div id="feedbackContainerFav" class="modal">
+            
+              <div class="modal-content">
+                <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                  
+              
+                Copia el enlace inferior y después pegalo en tu navegador:
+                <p id="copiarFormFav" style="text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p>
+                  </p>
+                </div>
+              </div>          
+            </div>
+            </div>
+            <!--<dialog id="feedbackContainerFav" class="mdl-dialog">
               <h5 align="center" style="color:#616161">Feedback</h5>
               <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
               <p>
@@ -376,7 +414,7 @@
             
             </strong></strong>
           </div>          
-        </div>
+        </div>-->
 
         <div class="mdl-layout__tab-panel" id="despensa">
           
@@ -422,52 +460,727 @@
               <br>
               <div align=center><a onclick="FeedbackAlert('despensa')" style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
               
-              <dialog id="feedbackContainerDespensa" class="mdl-dialog">
-                <h5 align="center" style="color:#616161">Feedback</h5>
-                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                <p>
-                Copia el enlace inferior y después pegalo en tu navegador:<br>
-                </p><p id="copiarFormDespensa" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
-                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
-                <p></p>
-                </strong></strong></div><strong><strong>
-                <div style="margin-right:90px" class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close">Cerrar</button>
-                </div>
-                </strong></strong>
-                
-              </dialog><strong><strong>  
-              
-              
-              </strong></strong>
+
             </div>            
               
+            <div id="feedbackContainerDespensa" class="modal">
+              <div class="modal-content">
+                <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                  
+              
+                Copia el enlace inferior y después pegalo en tu navegador:
+                <p id="copiarFormDespensa" style="text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p>
+                  </p>
+                </div>
+              </div>          
+            </div>     
+
           </section>
         </div> 
 
         <div class="mdl-layout__tab-panel" id="acercade">
           
+
+                     <div id="privacyContainerDialog" class="modal">
+
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                        <h5 align="center" style="color:#616161">Política de privacidad</h5>
+                        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                          
+                          <p style="height:350px; width:auto; overflow:scroll;text-align: left;text-justify: inter-word;">
+
+
+
+                          <br><br>
+                          <strong>POR FAVOR LEE ATENTAMENTE NUESTRA POLÍTICA DE PRIVACIDAD. SI NO ESTAS DE ACUERDO ABANDONA LA APLICACIÓN O CONTACTA CON NOSOTROS. GRACIAS.</strong>
+                          <br><br>
+
+                          <strong>COOK TODAY</strong> te informa sobre su Política de Privacidad respecto del tratamiento y protección de los datos de carácter personal de los usuarios y clientes que puedan ser recabados por la APP
+                          En este sentido, <strong>COOK TODAY</strong> garantiza el cumplimiento de la normativa vigente en materia de protección de datos personales, reflejada en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y de Garantía de Derechos Digitales (LOPD GDD). Cumple también con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas (RGPD).
+                          El uso de LA APP implica la aceptación de esta Política de Privacidad así como los Términos y condiciones.
+                          <br><br>
+                          <strong>Identidad del responsable</strong>
+                          <br>
+                              • Titular: <strong>COOK TODAY – Gabriel Guardiola</strong><br>
+                              • Domicilio: <strong>Tarragona, España</strong><br>
+                              • Correo electrónico: <strong>gx3studios@gmail.com</strong><br>
+                              <br><br>
+                          <strong>Principios aplicados en el tratamiento de datos</strong><br><br>
+                          En el tratamiento de tus datos personales, <strong>COOK TODAY</strong> aplicará los siguientes principios que se ajustan a las exigencias del nuevo reglamento europeo de protección de datos:<br>
+                              • <strong>Principio de licitud, lealtad y transparencia:</strong> <strong>COOK TODAY</strong> siempre requerirá el consentimiento para el tratamiento de tus datos personales que puede ser para uno o varios fines específicos sobre los que te informará previamente con absoluta transparencia.<br>
+                              • <strong>Principio de minimización de datos:</strong> <strong>COOK TODAY</strong> te solicitará solo los datos estrictamente necesarios para el fin o los fines que los solicita.<br>
+                              • <strong>Principio de limitación del plazo de conservación:</strong> Los datos se mantendrán durante el tiempo estrictamente necesario para el fin o los fines del tratamiento.<br>
+                          <strong>COOK TODAY</strong> te informará del plazo de conservación correspondiente según la finalidad. En el caso de suscripciones, <strong>COOK TODAY</strong> revisará periódicamente las listas y eliminará aquellos registros inactivos durante un tiempo considerable.<br>
+                              • <strong>Principio de integridad y confidencialidad:</strong> Tus datos serán tratados de tal manera que su seguridad, confidencialidad e integridad esté garantizada. Debes saber que <strong>COOK TODAY</strong> toma las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de sus usuarios por parte de terceros.<br><br>
+                          <strong>Obtención de datos personales</strong><br><br>
+                          Para hacer uso de LA APP <strong>COOK TODAY</strong> no es necesario que facilites ningún dato personal. Los casos en los que sí proporcionas tus datos personales son los siguientes:<br>
+                              • Al contactar a través de los formularios de contacto o enviar un correo electrónico.<br>
+                          <br>
+                          <strong>Tus derechos</strong><br><br>
+                          <strong>COOK TODAY</strong> te informa que sobre tus datos personales tienes derecho a:<br>
+                              • <strong>Solicitar el acceso a los datos almacenados.</strong><br>
+                              • <strong>Solicitar una rectificación o la cancelación.</strong><br>
+                              • <strong>Solicitar la limitación de su tratamiento.</strong><br>
+                              • <strong>Oponerte al tratamiento.</strong><br>
+                              • <strong>Solicitar la portabilidad de tus datos.</strong><br><br>
+                          El ejercicio de estos derechos es personal y por tanto debe ser ejercido directamente por el interesado, solicitándolo directamente a <strong>COOK TODAY</strong> , lo que significa que cualquier cliente, suscriptor o colaborador que haya facilitado sus datos en algún momento puede dirigirse a <strong>COOK TODAY</strong>  y pedir información sobre los datos que tiene almacenados y cómo los ha obtenido, solicitar la rectificación de los mismos, solicitar la portabilidad de sus datos personales, oponerse al tratamiento, limitar su uso o solicitar la cancelación de esos datos en los ficheros de <strong>COOK TODAY</strong>.
+                          Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a <strong>gx3studios@gmail.com</strong>.<br>
+                          Tienes derecho a la tutela judicial efectiva y a presentar una reclamación ante la autoridad de control, en este caso, la Agencia Española de Protección de Datos, si consideras que el tratamiento de datos personales que te conciernen infringe el Reglamento.
+                          <br><br>
+                          <strong>Finalidad del tratamiento de datos personales</strong><br><br>
+                          Los datos personales y la finalidad del tratamiento por parte de <strong>COOK TODAY</strong> es diferente según el sistema de captura de información:<br>
+                              • <strong>Formularios de contacto:</strong> <strong>COOK TODAY</strong> solicita datos personales entre los que pueden estar: dirección de correo electrónico con la finalidad de responder a tus consultas.
+                          Por ejemplo,  <strong>COOK TODAY</strong> utiliza esos datos para dar respuesta a tus mensajes, dudas, quejas, comentarios o inquietudes que puedas tener relativas a la información incluida en LA APP, los servicios que se prestan a través de LA APP, el tratamiento de tus datos personales, cuestiones referentes a los textos legales incluidos en LA APP, así como cualquier otra consulta que puedas tener y que no esté sujeta a las condiciones de LA APP.
+                          <br><br>
+                          <strong>Seguridad de los datos personales</strong><br><br>
+                          Para proteger tus datos personales,  <strong>COOK TODAY</strong> toma todas las precauciones razonables y sigue las mejores prácticas de la industria para evitar su pérdida, mal uso, acceso indebido, divulgación, alteración o destrucción de los mismos.
+                          Tus datos serán almacenados en <strong>GOOGLE DRIVE</strong> a través del formulario de contacto.<br>
+                          La seguridad de tus datos está garantizada, ya que toman todas las medidas de seguridad necesarias para ello. Puedes consultar su política de privacidad para tener más información.<br><br>
+                          <strong>Contenido de terceros</strong><br><br>
+                          LA APP pueden incluir contenido incrustado (por ejemplo, vídeos, imágenes, artículos, anuncios, etc.).<br>
+                          Este contenido de terceros pueden recopilar datos sobre ti, utilizar cookies, incrustar un código de seguimiento adicional de terceros, y supervisar tu interacción usando este código.<br><br>
+                          <strong>Legitimación para el tratamiento de datos</strong><br><br>
+                          La base legal para el tratamiento de tus datos es: <strong>el consentimiento.</strong><br>
+                          Para contactar con <strong>COOK TODAY</strong>, envia un correo electrónico o contacta a través del <strong>formulario de Google (https://forms.gle/2ipbHmHH53yzd8Tp8)</strong>.<br><br>
+                          <strong>Categorías de datos personales</strong><br><br>
+                          Las categorías de datos personales que trata <strong>COOK TODAY</strong> son:<br>
+                              • <strong>Datos identificativos.</strong><br><br>
+                          <strong>Conservación de datos personales</strong><br><br>
+                          Los datos personales que proporciones <strong>COOK TODAY</strong> se conservarán hasta que solicites su supresión.<br>
+                              • Google Analytics es un servicio de analítica web prestado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”). Encontrarás más información en: https://analytics.google.com
+                          Google Analytics utiliza “cookies”, que son archivos de texto ubicados en tu ordenador, para ayudar al <strong>COOK TODAY</strong> a analizar el uso que hacen los usuarios del sitio Web. La información que genera la cookie acerca del uso del sitio Web (incluyendo tu dirección IP) será directamente transmitida y archivada por Google en los servidores de Estados Unidos.<br><br>
+                              • DoubleClick by Google es un conjunto de servicios publicitarios proporcionado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”).
+                          Encontrarás más información en: https://www.doubleclickbygoogle.com
+                          DoubleClick utiliza “cookies”, que son archivos de texto ubicados en tu ordenador y que sirven para aumentar la relevancia de los anuncios relacionados con tus búsquedas recientes. En la Política de privacidad de Google se explica cómo Google gestiona tu privacidad en lo que respecta al uso de las cookies y otra información.<br><br>
+                          También puedes ver una lista de los tipos de cookies que utiliza Google y sus colaboradores y toda la información relativa al uso que hacen de cookies publicitarias.<br><br>
+                          <strong>Navegación en la app</strong><br><br>
+                          Al navegar por <strong>COOK TODAY</strong> se pueden recoger datos no identificativos, que pueden incluir, la dirección IP, geolocalización, un registro de cómo se utilizan los servicios y sitios, hábitos de navegación y otros datos que no pueden ser utilizados para identificarte.<br>
+                          El sitio Web utiliza los siguientes servicios de análisis de terceros:<br><br>
+
+                              • <strong>Google Analytics</strong><br>
+                              • <strong>DoubleClick por Google</strong><br><br>
+                          <strong>COOK TODAY</strong> utiliza la información obtenida para obtener datos estadísticos, analizar tendencias, administrar el sitio, estudiar patrones de navegación y para recopilar información demográfica.<br><br>
+                          <strong>Exactitud y veracidad de los datos personales</strong><br><br>
+                          Te comprometes a que los datos facilitados a <strong>COOK TODAY</strong> sean correctos, completos, exactos y vigentes, así como a mantenerlos debidamente actualizados.<br>
+                          Como Usuario de la app eres el único responsable de la veracidad y corrección de los datos que remitas al sitio exonerando a <strong>COOK TODAY</strong> de cualquier responsabilidad al respecto.<br><br>
+                          <strong>Aceptación y consentimiento</strong><br><br>
+                          Como Usuario de <strong>COOK TODAY</strong> declaras haber sido informado de las condiciones sobre protección de datos de carácter personal, aceptas y consientes el tratamiento de los mismos por parte de <strong>COOK TODAY</strong> en la forma y para las finalidades indicadas en esta Política de Privacidad.<br><br>
+                          <strong>Revocabilidad</strong><br><br>
+                          Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a <strong>gx3studios@gmail.com</strong>.<br>
+                          El ejercicio de tus derechos no incluye ningún dato que <strong>COOK TODAY</strong> esté obligado a conservar con fines administrativos, legales o de seguridad.<br><br>
+                          <strong>Cambios en la Política de Privacidad</strong><br><br>
+                          <strong>COOK TODAY</strong> se reserva el derecho a modificar la presente Política de Privacidad para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la industria.
+                          Estas políticas estarán vigentes hasta que sean modificadas por otras debidamente publicadas.<br>
+
+
+
+
+                          </p>
+
+                        </div>
+                      </div>
+
+                    </div>      
+
+
+                    <div id="acercadeContainerDialog" class="modal">
+                      <div class="modal-content">
+                        <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                        <h5 align="center" style="color:#616161">Acerca De</h5>
+                        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                          
+                                <p style="height:360px; width:auto; overflow:scroll;text-align: justify;text-justify: inter-word;">
+                                <strong>COOK TODAY</strong> es un aplicación con el objetivo de dar ideas de comidas para el dia a dia.<br>
+                                Esta app da respuesta al típico comentario de: <strong>"hoy no sé qué hacer de comer!" o "que pereza pensar que hacer comer hoy!"</strong><br>
+                                
+                                El usuario puede poner desde la pestaña de <strong>Mi nevera</strong> los ingredientes que se encuentran en su cocina para que posteriormente la app filtre las comidas disponibles y las muestre al usuario para que le inspire.<br><br>
+
+                                Si el usuario no tiene tiempo para mirar que tiene en su nevera o bien quiere ir al supermercado con la idea ya en mente, siempre puede ver la <strong>Comida del dia</strong> o ver sus <strong>comidas favoritas</strong>...<br>
+
+                                Ya para cuando el usuario tenga más tiempo libre, puede explorar la <strong>Despensa</strong> en busca de comidas para agregar a favoritos o para hacer en otro momento.<br>
+
+                                Recuerda que si no quedas satisfecho/a, o ves algún error o echas en falta alguna comida, puedes comentarnolslo desde el botón de <strong>Feedback</strong> o por nuestro correo electrónico <strong>gx3studios@gmail.com</strong>.
+
+
+
+
+                                </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div id="creditosContainerDialog" class="modal">
+                      <div class="modal-content">
+                        <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                        <h5 align="center" style="color:#616161">Créditos</h5>
+                        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                          
+                          <p style="height:360px; width:auto; overflow:scroll;text-align: justify;text-justify: inter-word;">
+                            <strong>Betatesters:</strong><br><br>
+                            Laura Calero<br>
+                            Jordi Román<br>
+                            Damia Silva<br>
+                            Mario Periago<br>
+                            Jaime Lozano<br>
+                            AlexElDuque<br>
+                            Lucía Guardiola<br>
+                            Alba Orrego<br>
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div id="licenciasContainerDialog" class="modal">
+                      <div class="modal-content">
+                        <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                        <h5 align="center" style="color:#616161">Licencias</h5>
+                        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                          
+                          <p style="height:360px; width:auto; overflow:scroll;text-align: justify;text-justify: inter-word;">
+
+                                            <strong>Licencias de terceros</strong>
+
+                                            <br><br>
+                                            <strong>Material Design Lite - Apache License 2.0</strong>
+                                            <br><br>
+
+                                                                      Version 2.0, January 2004<br>
+                                                                    http://www.apache.org/licenses/<br>
+
+                                              TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION<br>
+
+                                              1. Definitions.
+
+                                                  "License" shall mean the terms and conditions for use, reproduction,
+                                                  and distribution as defined by Sections 1 through 9 of this document.
+
+                                                  "Licensor" shall mean the copyright owner or entity authorized by
+                                                  the copyright owner that is granting the License.
+
+                                                  "Legal Entity" shall mean the union of the acting entity and all
+                                                  other entities that control, are controlled by, or are under common
+                                                  control with that entity. For the purposes of this definition,
+                                                  "control" means (i) the power, direct or indirect, to cause the
+                                                  direction or management of such entity, whether by contract or
+                                                  otherwise, or (ii) ownership of fifty percent (50%) or more of the
+                                                  outstanding shares, or (iii) beneficial ownership of such entity.
+
+                                                  "You" (or "Your") shall mean an individual or Legal Entity
+                                                  exercising permissions granted by this License.
+
+                                                  "Source" form shall mean the preferred form for making modifications,
+                                                  including but not limited to software source code, documentation
+                                                  source, and configuration files.
+
+                                                  "Object" form shall mean any form resulting from mechanical
+                                                  transformation or translation of a Source form, including but
+                                                  not limited to compiled object code, generated documentation,
+                                                  and conversions to other media types.
+
+                                                  "Work" shall mean the work of authorship, whether in Source or
+                                                  Object form, made available under the License, as indicated by a
+                                                  copyright notice that is included in or attached to the work
+                                                  (an example is provided in the Appendix below).
+
+                                                  "Derivative Works" shall mean any work, whether in Source or Object
+                                                  form, that is based on (or derived from) the Work and for which the
+                                                  editorial revisions, annotations, elaborations, or other modifications
+                                                  represent, as a whole, an original work of authorship. For the purposes
+                                                  of this License, Derivative Works shall not include works that remain
+                                                  separable from, or merely link (or bind by name) to the interfaces of,
+                                                  the Work and Derivative Works thereof.
+
+                                                  "Contribution" shall mean any work of authorship, including
+                                                  the original version of the Work and any modifications or additions
+                                                  to that Work or Derivative Works thereof, that is intentionally
+                                                  submitted to Licensor for inclusion in the Work by the copyright owner
+                                                  or by an individual or Legal Entity authorized to submit on behalf of
+                                                  the copyright owner. For the purposes of this definition, "submitted"
+                                                  means any form of electronic, verbal, or written communication sent
+                                                  to the Licensor or its representatives, including but not limited to
+                                                  communication on electronic mailing lists, source code control systems,
+                                                  and issue tracking systems that are managed by, or on behalf of, the
+                                                  Licensor for the purpose of discussing and improving the Work, but
+                                                  excluding communication that is conspicuously marked or otherwise
+                                                  designated in writing by the copyright owner as "Not a Contribution."
+
+                                                  "Contributor" shall mean Licensor and any individual or Legal Entity
+                                                  on behalf of whom a Contribution has been received by Licensor and
+                                                  subsequently incorporated within the Work.
+
+                                              2. Grant of Copyright License. Subject to the terms and conditions of
+                                                  this License, each Contributor hereby grants to You a perpetual,
+                                                  worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+                                                  copyright license to reproduce, prepare Derivative Works of,
+                                                  publicly display, publicly perform, sublicense, and distribute the
+                                                  Work and such Derivative Works in Source or Object form.
+
+                                              3. Grant of Patent License. Subject to the terms and conditions of
+                                                  this License, each Contributor hereby grants to You a perpetual,
+                                                  worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+                                                  (except as stated in this section) patent license to make, have made,
+                                                  use, offer to sell, sell, import, and otherwise transfer the Work,
+                                                  where such license applies only to those patent claims licensable
+                                                  by such Contributor that are necessarily infringed by their
+                                                  Contribution(s) alone or by combination of their Contribution(s)
+                                                  with the Work to which such Contribution(s) was submitted. If You
+                                                  institute patent litigation against any entity (including a
+                                                  cross-claim or counterclaim in a lawsuit) alleging that the Work
+                                                  or a Contribution incorporated within the Work constitutes direct
+                                                  or contributory patent infringement, then any patent licenses
+                                                  granted to You under this License for that Work shall terminate
+                                                  as of the date such litigation is filed.
+
+                                              4. Redistribution. You may reproduce and distribute copies of the
+                                                  Work or Derivative Works thereof in any medium, with or without
+                                                  modifications, and in Source or Object form, provided that You
+                                                  meet the following conditions:
+
+                                                  (a) You must give any other recipients of the Work or
+                                                      Derivative Works a copy of this License; and
+
+                                                  (b) You must cause any modified files to carry prominent notices
+                                                      stating that You changed the files; and
+
+                                                  (c) You must retain, in the Source form of any Derivative Works
+                                                      that You distribute, all copyright, patent, trademark, and
+                                                      attribution notices from the Source form of the Work,
+                                                      excluding those notices that do not pertain to any part of
+                                                      the Derivative Works; and
+
+                                                  (d) If the Work includes a "NOTICE" text file as part of its
+                                                      distribution, then any Derivative Works that You distribute must
+                                                      include a readable copy of the attribution notices contained
+                                                      within such NOTICE file, excluding those notices that do not
+                                                      pertain to any part of the Derivative Works, in at least one
+                                                      of the following places: within a NOTICE text file distributed
+                                                      as part of the Derivative Works; within the Source form or
+                                                      documentation, if provided along with the Derivative Works; or,
+                                                      within a display generated by the Derivative Works, if and
+                                                      wherever such third-party notices normally appear. The contents
+                                                      of the NOTICE file are for informational purposes only and
+                                                      do not modify the License. You may add Your own attribution
+                                                      notices within Derivative Works that You distribute, alongside
+                                                      or as an addendum to the NOTICE text from the Work, provided
+                                                      that such additional attribution notices cannot be construed
+                                                      as modifying the License.
+
+                                                  You may add Your own copyright statement to Your modifications and
+                                                  may provide additional or different license terms and conditions
+                                                  for use, reproduction, or distribution of Your modifications, or
+                                                  for any such Derivative Works as a whole, provided Your use,
+                                                  reproduction, and distribution of the Work otherwise complies with
+                                                  the conditions stated in this License.
+
+                                              5. Submission of Contributions. Unless You explicitly state otherwise,
+                                                  any Contribution intentionally submitted for inclusion in the Work
+                                                  by You to the Licensor shall be under the terms and conditions of
+                                                  this License, without any additional terms or conditions.
+                                                  Notwithstanding the above, nothing herein shall supersede or modify
+                                                  the terms of any separate license agreement you may have executed
+                                                  with Licensor regarding such Contributions.
+
+                                              6. Trademarks. This License does not grant permission to use the trade
+                                                  names, trademarks, service marks, or product names of the Licensor,
+                                                  except as required for reasonable and customary use in describing the
+                                                  origin of the Work and reproducing the content of the NOTICE file.
+
+                                              7. Disclaimer of Warranty. Unless required by applicable law or
+                                                  agreed to in writing, Licensor provides the Work (and each
+                                                  Contributor provides its Contributions) on an "AS IS" BASIS,
+                                                  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+                                                  implied, including, without limitation, any warranties or conditions
+                                                  of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+                                                  PARTICULAR PURPOSE. You are solely responsible for determining the
+                                                  appropriateness of using or redistributing the Work and assume any
+                                                  risks associated with Your exercise of permissions under this License.
+
+                                              8. Limitation of Liability. In no event and under no legal theory,
+                                                  whether in tort (including negligence), contract, or otherwise,
+                                                  unless required by applicable law (such as deliberate and grossly
+                                                  negligent acts) or agreed to in writing, shall any Contributor be
+                                                  liable to You for damages, including any direct, indirect, special,
+                                                  incidental, or consequential damages of any character arising as a
+                                                  result of this License or out of the use or inability to use the
+                                                  Work (including but not limited to damages for loss of goodwill,
+                                                  work stoppage, computer failure or malfunction, or any and all
+                                                  other commercial damages or losses), even if such Contributor
+                                                  has been advised of the possibility of such damages.
+
+                                              9. Accepting Warranty or Additional Liability. While redistributing
+                                                  the Work or Derivative Works thereof, You may choose to offer,
+                                                  and charge a fee for, acceptance of support, warranty, indemnity,
+                                                  or other liability obligations and/or rights consistent with this
+                                                  License. However, in accepting such obligations, You may act only
+                                                  on Your own behalf and on Your sole responsibility, not on behalf
+                                                  of any other Contributor, and only if You agree to indemnify,
+                                                  defend, and hold each Contributor harmless for any liability
+                                                  incurred by, or claims asserted against, such Contributor by reason
+                                                  of your accepting any such warranty or additional liability.
+                                            <br>
+                                              END OF TERMS AND CONDITIONS<br>
+
+                                              APPENDIX: How to apply the Apache License to your work.<br>
+
+                                                  To apply the Apache License to your work, attach the following
+                                                  boilerplate notice, with the fields enclosed by brackets "[]"
+                                                  replaced with your own identifying information. (Don't include
+                                                  the brackets!)  The text should be enclosed in the appropriate
+                                                  comment syntax for the file format. We also recommend that a
+                                                  file or class name and description of purpose be included on the
+                                                  same "printed page" as the copyright notice for easier
+                                                  identification within third-party archives.
+                                            <br><br>
+                                              Copyright 2015 Google Inc
+                                            <br><br>
+                                              Licensed under the Apache License, Version 2.0 (the "License");
+                                              you may not use this file except in compliance with the License.
+                                              You may obtain a copy of the License at
+
+                                                  http://www.apache.org/licenses/LICENSE-2.0
+
+                                              Unless required by applicable law or agreed to in writing, software
+                                              distributed under the License is distributed on an "AS IS" BASIS,
+                                              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                              See the License for the specific language governing permissions and
+                                              limitations under the License.
+
+                                              All code in any directories or sub-directories that end with *.html or
+                                              *.css is licensed under the Creative Commons Attribution International
+                                              4.0 License, which full text can be found here:
+                                              https://creativecommons.org/licenses/by/4.0/legalcode.
+
+                                              As an exception to this license, all html or css that is generated by
+                                              the software at the direction of the user is copyright the user. The
+                                              user has full ownership and control over such content, including
+                                              whether and how they wish to license it.
+
+                                            <br><br>
+                                            <strong>Material Design Icons - Apache License 2.0</strong><br>
+                                            <br>
+                                                                      Version 2.0, January 2004<br>
+                                                                    http://www.apache.org/licenses/<br>
+
+                                              TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION<br>
+
+                                              1. Definitions.
+
+                                                  "License" shall mean the terms and conditions for use, reproduction,
+                                                  and distribution as defined by Sections 1 through 9 of this document.
+
+                                                  "Licensor" shall mean the copyright owner or entity authorized by
+                                                  the copyright owner that is granting the License.
+
+                                                  "Legal Entity" shall mean the union of the acting entity and all
+                                                  other entities that control, are controlled by, or are under common
+                                                  control with that entity. For the purposes of this definition,
+                                                  "control" means (i) the power, direct or indirect, to cause the
+                                                  direction or management of such entity, whether by contract or
+                                                  otherwise, or (ii) ownership of fifty percent (50%) or more of the
+                                                  outstanding shares, or (iii) beneficial ownership of such entity.
+
+                                                  "You" (or "Your") shall mean an individual or Legal Entity
+                                                  exercising permissions granted by this License.
+
+                                                  "Source" form shall mean the preferred form for making modifications,
+                                                  including but not limited to software source code, documentation
+                                                  source, and configuration files.
+
+                                                  "Object" form shall mean any form resulting from mechanical
+                                                  transformation or translation of a Source form, including but
+                                                  not limited to compiled object code, generated documentation,
+                                                  and conversions to other media types.
+
+                                                  "Work" shall mean the work of authorship, whether in Source or
+                                                  Object form, made available under the License, as indicated by a
+                                                  copyright notice that is included in or attached to the work
+                                                  (an example is provided in the Appendix below).
+
+                                                  "Derivative Works" shall mean any work, whether in Source or Object
+                                                  form, that is based on (or derived from) the Work and for which the
+                                                  editorial revisions, annotations, elaborations, or other modifications
+                                                  represent, as a whole, an original work of authorship. For the purposes
+                                                  of this License, Derivative Works shall not include works that remain
+                                                  separable from, or merely link (or bind by name) to the interfaces of,
+                                                  the Work and Derivative Works thereof.
+
+                                                  "Contribution" shall mean any work of authorship, including
+                                                  the original version of the Work and any modifications or additions
+                                                  to that Work or Derivative Works thereof, that is intentionally
+                                                  submitted to Licensor for inclusion in the Work by the copyright owner
+                                                  or by an individual or Legal Entity authorized to submit on behalf of
+                                                  the copyright owner. For the purposes of this definition, "submitted"
+                                                  means any form of electronic, verbal, or written communication sent
+                                                  to the Licensor or its representatives, including but not limited to
+                                                  communication on electronic mailing lists, source code control systems,
+                                                  and issue tracking systems that are managed by, or on behalf of, the
+                                                  Licensor for the purpose of discussing and improving the Work, but
+                                                  excluding communication that is conspicuously marked or otherwise
+                                                  designated in writing by the copyright owner as "Not a Contribution."
+
+                                                  "Contributor" shall mean Licensor and any individual or Legal Entity
+                                                  on behalf of whom a Contribution has been received by Licensor and
+                                                  subsequently incorporated within the Work.
+
+                                              2. Grant of Copyright License. Subject to the terms and conditions of
+                                                  this License, each Contributor hereby grants to You a perpetual,
+                                                  worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+                                                  copyright license to reproduce, prepare Derivative Works of,
+                                                  publicly display, publicly perform, sublicense, and distribute the
+                                                  Work and such Derivative Works in Source or Object form.
+
+                                              3. Grant of Patent License. Subject to the terms and conditions of
+                                                  this License, each Contributor hereby grants to You a perpetual,
+                                                  worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+                                                  (except as stated in this section) patent license to make, have made,
+                                                  use, offer to sell, sell, import, and otherwise transfer the Work,
+                                                  where such license applies only to those patent claims licensable
+                                                  by such Contributor that are necessarily infringed by their
+                                                  Contribution(s) alone or by combination of their Contribution(s)
+                                                  with the Work to which such Contribution(s) was submitted. If You
+                                                  institute patent litigation against any entity (including a
+                                                  cross-claim or counterclaim in a lawsuit) alleging that the Work
+                                                  or a Contribution incorporated within the Work constitutes direct
+                                                  or contributory patent infringement, then any patent licenses
+                                                  granted to You under this License for that Work shall terminate
+                                                  as of the date such litigation is filed.
+
+                                              4. Redistribution. You may reproduce and distribute copies of the
+                                                  Work or Derivative Works thereof in any medium, with or without
+                                                  modifications, and in Source or Object form, provided that You
+                                                  meet the following conditions:
+
+                                                  (a) You must give any other recipients of the Work or
+                                                      Derivative Works a copy of this License; and
+
+                                                  (b) You must cause any modified files to carry prominent notices
+                                                      stating that You changed the files; and
+
+                                                  (c) You must retain, in the Source form of any Derivative Works
+                                                      that You distribute, all copyright, patent, trademark, and
+                                                      attribution notices from the Source form of the Work,
+                                                      excluding those notices that do not pertain to any part of
+                                                      the Derivative Works; and
+
+                                                  (d) If the Work includes a "NOTICE" text file as part of its
+                                                      distribution, then any Derivative Works that You distribute must
+                                                      include a readable copy of the attribution notices contained
+                                                      within such NOTICE file, excluding those notices that do not
+                                                      pertain to any part of the Derivative Works, in at least one
+                                                      of the following places: within a NOTICE text file distributed
+                                                      as part of the Derivative Works; within the Source form or
+                                                      documentation, if provided along with the Derivative Works; or,
+                                                      within a display generated by the Derivative Works, if and
+                                                      wherever such third-party notices normally appear. The contents
+                                                      of the NOTICE file are for informational purposes only and
+                                                      do not modify the License. You may add Your own attribution
+                                                      notices within Derivative Works that You distribute, alongside
+                                                      or as an addendum to the NOTICE text from the Work, provided
+                                                      that such additional attribution notices cannot be construed
+                                                      as modifying the License.
+
+                                                  You may add Your own copyright statement to Your modifications and
+                                                  may provide additional or different license terms and conditions
+                                                  for use, reproduction, or distribution of Your modifications, or
+                                                  for any such Derivative Works as a whole, provided Your use,
+                                                  reproduction, and distribution of the Work otherwise complies with
+                                                  the conditions stated in this License.
+
+                                              5. Submission of Contributions. Unless You explicitly state otherwise,
+                                                  any Contribution intentionally submitted for inclusion in the Work
+                                                  by You to the Licensor shall be under the terms and conditions of
+                                                  this License, without any additional terms or conditions.
+                                                  Notwithstanding the above, nothing herein shall supersede or modify
+                                                  the terms of any separate license agreement you may have executed
+                                                  with Licensor regarding such Contributions.
+
+                                              6. Trademarks. This License does not grant permission to use the trade
+                                                  names, trademarks, service marks, or product names of the Licensor,
+                                                  except as required for reasonable and customary use in describing the
+                                                  origin of the Work and reproducing the content of the NOTICE file.
+
+                                              7. Disclaimer of Warranty. Unless required by applicable law or
+                                                  agreed to in writing, Licensor provides the Work (and each
+                                                  Contributor provides its Contributions) on an "AS IS" BASIS,
+                                                  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+                                                  implied, including, without limitation, any warranties or conditions
+                                                  of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+                                                  PARTICULAR PURPOSE. You are solely responsible for determining the
+                                                  appropriateness of using or redistributing the Work and assume any
+                                                  risks associated with Your exercise of permissions under this License.
+
+                                              8. Limitation of Liability. In no event and under no legal theory,
+                                                  whether in tort (including negligence), contract, or otherwise,
+                                                  unless required by applicable law (such as deliberate and grossly
+                                                  negligent acts) or agreed to in writing, shall any Contributor be
+                                                  liable to You for damages, including any direct, indirect, special,
+                                                  incidental, or consequential damages of any character arising as a
+                                                  result of this License or out of the use or inability to use the
+                                                  Work (including but not limited to damages for loss of goodwill,
+                                                  work stoppage, computer failure or malfunction, or any and all
+                                                  other commercial damages or losses), even if such Contributor
+                                                  has been advised of the possibility of such damages.
+
+                                              9. Accepting Warranty or Additional Liability. While redistributing
+                                                  the Work or Derivative Works thereof, You may choose to offer,
+                                                  and charge a fee for, acceptance of support, warranty, indemnity,
+                                                  or other liability obligations and/or rights consistent with this
+                                                  License. However, in accepting such obligations, You may act only
+                                                  on Your own behalf and on Your sole responsibility, not on behalf
+                                                  of any other Contributor, and only if You agree to indemnify,
+                                                  defend, and hold each Contributor harmless for any liability
+                                                  incurred by, or claims asserted against, such Contributor by reason
+                                                  of your accepting any such warranty or additional liability.
+                                            <br>
+                                              END OF TERMS AND CONDITIONS<br>
+
+                                              APPENDIX: How to apply the Apache License to your work.<br>
+
+                                                  To apply the Apache License to your work, attach the following
+                                                  boilerplate notice, with the fields enclosed by brackets "[]"
+                                                  replaced with your own identifying information. (Don't include
+                                                  the brackets!)  The text should be enclosed in the appropriate
+                                                  comment syntax for the file format. We also recommend that a
+                                                  file or class name and description of purpose be included on the
+                                                  same "printed page" as the copyright notice for easier
+                                                  identification within third-party archives.
+                                            <br><br>
+                                              Copyright [yyyy] [name of copyright owner]
+                                            <br><br>
+                                              Licensed under the Apache License, Version 2.0 (the "License");
+                                              you may not use this file except in compliance with the License.
+                                              You may obtain a copy of the License at
+
+                                                  http://www.apache.org/licenses/LICENSE-2.0
+
+                                              Unless required by applicable law or agreed to in writing, software
+                                              distributed under the License is distributed on an "AS IS" BASIS,
+                                              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                              See the License for the specific language governing permissions and
+                                              limitations under the License.
+                                            <br><br>
+                                            <strong>Font-Awesome - Free License</strong>
+                                            <br><br>
+                                            Font Awesome Free License<br><br>
+                                            -------------------------<br>
+
+                                            Font Awesome Free is free, open source, and GPL friendly. You can use it for
+                                            commercial projects, open source projects, or really almost whatever you want.
+                                            Full Font Awesome Free license: https://fontawesome.com/license/free.
+
+                                            # Icons: CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/)
+                                            In the Font Awesome Free download, the CC BY 4.0 license applies to all icons
+                                            packaged as SVG and JS file types.
+
+                                            # Fonts: SIL OFL 1.1 License (https://scripts.sil.org/OFL)
+                                            In the Font Awesome Free download, the SIL OFL license applies to all icons
+                                            packaged as web and desktop font files.
+
+                                            # Code: MIT License (https://opensource.org/licenses/MIT)
+                                            In the Font Awesome Free download, the MIT license applies to all non-font and
+                                            non-icon files.
+
+                                            # Attribution
+                                            Attribution is required by MIT, SIL OFL, and CC BY licenses. Downloaded Font
+                                            Awesome Free files already contain embedded comments with sufficient
+                                            attribution, so you shouldn't need to do anything additional when using these
+                                            files normally.
+
+                                            We've kept attribution comments terse, so we ask that you do not actively work
+                                            to remove them from files, especially code. They're a great way for folks to
+                                            learn about Font Awesome.
+
+                                            # Brand Icons
+                                            All brand icons are trademarks of their respective owners. The use of these
+                                            trademarks does not indicate endorsement of the trademark holder by Font
+                                            Awesome, nor vice versa. **Please do not use brand logos for any purpose except
+                                            to represent the company, product, or service to which they refer.**
+                                            <br>
+                                                              
+
+
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="tosContainerDialog" class="modal">
+                      <div class="modal-content">
+                        <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                        <h5 align="center" style="color:#616161">Términos y condiciones</h5>
+                        <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                          
+                          <p style="height:360px; width:auto; overflow:scroll;text-align: justify;text-justify: inter-word;">
+
+                              <strong>INFORMACIÓN RELEVANTE</strong><br><br>
+                              Es requisito necesario para la adquisición de los productos que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestros servicios implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente documento. Todas los productos que son ofrecidos por nuestra APP pudieran ser presentadas por una página web tercera y en tal caso estarían sujetas a sus propios Términos y Condiciones. <br><br>
+
+                              <strong>LICENCIA</strong><br><br>
+                              <strong>Gx3 STUDIOS</strong> a través de su APP concede una licencia para que los usuarios utilicen  los productos que son presentados en la APP de acuerdo a los Términos y Condiciones que se describen en este documento.<br><br>
+                              <strong>USO NO AUTORIZADO</strong><br><br>
+                              En caso de que aplique (para venta de software, templetes, u otro producto de diseño y programación) usted no puede colocar uno de nuestros productos, modificado o sin modificar, en un CD, sitio web o ningún otro medio y ofrecerlos para la redistribución o la reventa de ningún tipo.<br>
+                              <strong>PROPIEDAD</strong><br><br>
+                              Usted no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros productos, código... modificado o sin modificar. Todos los productos son propiedad de Gx3 STUDIOS. En ningún esta compañía será responsables de ningún daño incluyendo, pero no limitado a, daños directos, indirectos, especiales, fortuitos o consecuentes u otras pérdidas resultantes del uso o de la imposibilidad de utilizar nuestros productos.<br><br>
+
+                              <strong>PRIVACIDAD</strong><br><br>
+                              <strong>COOK TODAY</strong> garantiza que la información personal que usted envía cuenta con la seguridad necesaria. Los datos ingresados por usuario no serán entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o requerimientos legales.<br>
+                              <strong>Gx3 STUDIOS</strong> reserva los derechos de cambiar o de modificar estos términos sin previo aviso.<br>
+
+                                                    
+
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>                    
+
+            <div id="feedbackContainerAcercade" class="modal">
+              <div class="modal-content">
+                <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                  
+              
+                Copia el enlace inferior y después pegalo en tu navegador:
+                <p id="copiarFormAcercade" style="text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p>
+                  </p>
+                </div>
+              </div>          
+            </div>
+
+            <div id="eclecnasContainerDialog" class="modal">
+              <div class="modal-content">
+                <span style="float:right" class="close"><i class='material-icons'>close</i></span>  
+                <h5 align="center" style="color:#616161"></h5>
+                <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+
+                  <img src="images/logo3.png" width="150px"><br><br>                 
+                  <p id="copiarForm" style="text-align: justify;text-justify: inter-word;">
+                  46656c69636964616465732c2068617320656e636f6e747261646f20612065636c65636e617321
+                  </p>
+
+                </div>
+              </div>          
+            </div>            
+
           <section class="section--center mdl-grid mdl-grid--no-spacing">
+          
           
             <div align=center style="height:325px;margin-top:-35px;background-color:#cfde47;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;" id="comidadia-container" class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">
               <strong><h4>CookToday<h4></strong>
               <strong><p>Versión beta-1.1.0</p></strong>
               <div onclick="eclecnas()" ><img  src="images/android-desktop-beta.png" width="120px" height="120px"></div><br>
-              <dialog  id="eclecnasContainerDialog" class="mdl-dialog">
-                <h5 align="center" style="color:#616161"></h5>
-                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                <img src="images/logo3.png" width="150px"><br><br>                 
-                <p id="copiarForm" style="text-align: justify;text-justify: inter-word;">
-                46656c69636964616465732c2068617320656e636f6e747261646f20612065636c65636e617321
-                </p>
-
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close">Cerrar</button>
-                </div>
-                
-                
-              </dialog>                  
+              
               <strong><p>2020 Gx3 Studios - Gabriel Guardiola.</p></strong>
             </div>
             <div style="margin-top:20px" class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -477,706 +1190,30 @@
                   <tr>
                     <td onclick="acercadeDialog()" style="text-align:center">Acerca de</td>
 
-                    <dialog style="width:350px" id="acercadeContainerDialog" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Acerca de</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                                  
-                      <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
-                      <strong>COOK TODAY</strong> es un aplicación con el objetivo de dar ideas de comidas para el dia a dia.<br>
-                      Esta app da respuesta al típico comentario de: <strong>"hoy no sé qué hacer de comer!" o "que pereza pensar que hacer comer hoy!"</strong><br>
-                      
-                      El usuario puede poner desde la pestaña de <strong>Mi nevera</strong> los ingredientes que se encuentran en su cocina para que posteriormente la app filtre las comidas disponibles y las muestre al usuario para que le inspire.<br><br>
-
-                      Si el usuario no tiene tiempo para mirar que tiene en su nevera o bien quiere ir al supermercado con la idea ya en mente, siempre puede ver la <strong>Comida del dia</strong> o ver sus <strong>comidas favoritas</strong>...<br>
-
-                      Ya para cuando el usuario tenga más tiempo libre, puede explorar la <strong>Despensa</strong> en busca de comidas para agregar a favoritos o para hacer en otro momento.<br>
-
-                      Recuerda que si no quedas satisfecho/a, o ves algún error o echas en falta alguna comida, puedes comentarnolslo desde el botón de <strong>Feedback</strong> o por nuestro correo electrónico <strong>gx3studios@gmail.com</strong>.
-
-
-
-
-                      </p>
-
-                      </div>
-                      <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      
-                      
-                    </dialog>    
 
                   </tr>
                   <tr>
                     <td onclick="creditosDialog()" style="text-align:center">Créditos</td>
 
-                    <dialog style="width:350px" id="creditosContainerDialog" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Créditos</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                                  
-                      <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
-                      <strong>Betatesters:</strong><br><br>
-                      Laura Calero<br>
-                      Jordi Román<br>
-                      Damia Silva<br>
-                      Mario Periago<br>
-                      Jaime Lozano<br>
-
-                      </p>
-
-                      </div>
-                      <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      
-                      
-                    </dialog>    
-
                   </tr>                  
                   <tr>
                     <td onclick="licenciasDialog()" style="text-align:center">Licencias</td>
 
-                    <dialog style="width:350px" id="licenciasContainerDialog" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Licencias</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                                  
-                      <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
-<strong>Licencias de terceros</strong>
-
-<br><br>
-<strong>Material Design Lite - Apache License 2.0</strong>
-<br><br>
-
-                           Version 2.0, January 2004<br>
-                        http://www.apache.org/licenses/<br>
-
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION<br>
-
-   1. Definitions.
-
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
-
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
-
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
-
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
-
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
-
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
-
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
-
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
-
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
-
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
-
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
-
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
-
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
-
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
-
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
-
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
-
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
-
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
-
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
-
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
-
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
-
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
-
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
-<br>
-   END OF TERMS AND CONDITIONS<br>
-
-   APPENDIX: How to apply the Apache License to your work.<br>
-
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
-<br><br>
-   Copyright 2015 Google Inc
-<br><br>
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
-   All code in any directories or sub-directories that end with *.html or
-   *.css is licensed under the Creative Commons Attribution International
-   4.0 License, which full text can be found here:
-   https://creativecommons.org/licenses/by/4.0/legalcode.
-
-   As an exception to this license, all html or css that is generated by
-   the software at the direction of the user is copyright the user. The
-   user has full ownership and control over such content, including
-   whether and how they wish to license it.
-
-<br><br>
-<strong>Material Design Icons - Apache License 2.0</strong><br>
-<br>
-                           Version 2.0, January 2004<br>
-                        http://www.apache.org/licenses/<br>
-
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION<br>
-
-   1. Definitions.
-
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
-
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
-
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
-
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
-
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
-
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
-
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
-
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
-
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
-
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
-
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
-
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
-
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
-
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
-
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
-
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
-
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
-
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
-
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
-
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
-
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
-
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
-
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
-<br>
-   END OF TERMS AND CONDITIONS<br>
-
-   APPENDIX: How to apply the Apache License to your work.<br>
-
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
-<br><br>
-   Copyright [yyyy] [name of copyright owner]
-<br><br>
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-<br><br>
-<strong>Font-Awesome - Free License</strong>
-<br><br>
-Font Awesome Free License<br><br>
--------------------------<br>
-
-Font Awesome Free is free, open source, and GPL friendly. You can use it for
-commercial projects, open source projects, or really almost whatever you want.
-Full Font Awesome Free license: https://fontawesome.com/license/free.
-
-# Icons: CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/)
-In the Font Awesome Free download, the CC BY 4.0 license applies to all icons
-packaged as SVG and JS file types.
-
-# Fonts: SIL OFL 1.1 License (https://scripts.sil.org/OFL)
-In the Font Awesome Free download, the SIL OFL license applies to all icons
-packaged as web and desktop font files.
-
-# Code: MIT License (https://opensource.org/licenses/MIT)
-In the Font Awesome Free download, the MIT license applies to all non-font and
-non-icon files.
-
-# Attribution
-Attribution is required by MIT, SIL OFL, and CC BY licenses. Downloaded Font
-Awesome Free files already contain embedded comments with sufficient
-attribution, so you shouldn't need to do anything additional when using these
-files normally.
-
-We've kept attribution comments terse, so we ask that you do not actively work
-to remove them from files, especially code. They're a great way for folks to
-learn about Font Awesome.
-
-# Brand Icons
-All brand icons are trademarks of their respective owners. The use of these
-trademarks does not indicate endorsement of the trademark holder by Font
-Awesome, nor vice versa. **Please do not use brand logos for any purpose except
-to represent the company, product, or service to which they refer.**
-<br>
-                      
-                      </p>
-
-                      </div>
-                      <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      
-                      
-                    </dialog>                       
+                     
                   </tr>
                   <tr>
                     <td onclick="privacyDialog()" style="text-align:center">Política de privacidad</td>
 
-                    <dialog style="width:350px;" id="privacyContainerDialog" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Política de privacidad</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                                  
-                      <p style="height:500px; width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
-
-
-
-
-
-
-
-<strong>COOK TODAY</strong> te informa sobre su Política de Privacidad respecto del tratamiento y protección de los datos de carácter personal de los usuarios y clientes que puedan ser recabados por la APP
-En este sentido, <strong>COOK TODAY</strong> garantiza el cumplimiento de la normativa vigente en materia de protección de datos personales, reflejada en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y de Garantía de Derechos Digitales (LOPD GDD). Cumple también con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas (RGPD).
-El uso de LA APP implica la aceptación de esta Política de Privacidad así como los Términos y condiciones.
-<br><br>
-<strong>Identidad del responsable</strong>
-<br>
-    • Titular: <strong>COOK TODAY – Gabriel Guardiola</strong><br>
-    • Domicilio: <strong>Tarragona, España</strong><br>
-    • Correo electrónico: <strong>gx3studios@gmail.com</strong><br>
-    <br><br>
-<strong>Principios aplicados en el tratamiento de datos</strong><br><br>
-En el tratamiento de tus datos personales, <strong>COOK TODAY</strong> aplicará los siguientes principios que se ajustan a las exigencias del nuevo reglamento europeo de protección de datos:<br>
-    • <strong>Principio de licitud, lealtad y transparencia:</strong> <strong>COOK TODAY</strong> siempre requerirá el consentimiento para el tratamiento de tus datos personales que puede ser para uno o varios fines específicos sobre los que te informará previamente con absoluta transparencia.<br>
-    • <strong>Principio de minimización de datos:</strong> <strong>COOK TODAY</strong> te solicitará solo los datos estrictamente necesarios para el fin o los fines que los solicita.<br>
-    • <strong>Principio de limitación del plazo de conservación:</strong> Los datos se mantendrán durante el tiempo estrictamente necesario para el fin o los fines del tratamiento.<br>
-<strong>COOK TODAY</strong> te informará del plazo de conservación correspondiente según la finalidad. En el caso de suscripciones, <strong>COOK TODAY</strong> revisará periódicamente las listas y eliminará aquellos registros inactivos durante un tiempo considerable.<br>
-    • <strong>Principio de integridad y confidencialidad:</strong> Tus datos serán tratados de tal manera que su seguridad, confidencialidad e integridad esté garantizada. Debes saber que <strong>COOK TODAY</strong> toma las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de sus usuarios por parte de terceros.<br><br>
-<strong>Obtención de datos personales</strong><br><br>
-Para hacer uso de LA APP <strong>COOK TODAY</strong> no es necesario que facilites ningún dato personal. Los casos en los que sí proporcionas tus datos personales son los siguientes:<br>
-    • Al contactar a través de los formularios de contacto o enviar un correo electrónico.<br>
-<br>
-<strong>Tus derechos</strong><br><br>
-<strong>COOK TODAY</strong> te informa que sobre tus datos personales tienes derecho a:<br>
-    • <strong>Solicitar el acceso a los datos almacenados.</strong><br>
-    • <strong>Solicitar una rectificación o la cancelación.</strong><br>
-    • <strong>Solicitar la limitación de su tratamiento.</strong><br>
-    • <strong>Oponerte al tratamiento.</strong><br>
-    • <strong>Solicitar la portabilidad de tus datos.</strong><br><br>
-El ejercicio de estos derechos es personal y por tanto debe ser ejercido directamente por el interesado, solicitándolo directamente a <strong>COOK TODAY</strong> , lo que significa que cualquier cliente, suscriptor o colaborador que haya facilitado sus datos en algún momento puede dirigirse a <strong>COOK TODAY</strong>  y pedir información sobre los datos que tiene almacenados y cómo los ha obtenido, solicitar la rectificación de los mismos, solicitar la portabilidad de sus datos personales, oponerse al tratamiento, limitar su uso o solicitar la cancelación de esos datos en los ficheros de <strong>COOK TODAY</strong>.
-Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a <strong>gx3studios@gmail.com</strong>.<br>
-Tienes derecho a la tutela judicial efectiva y a presentar una reclamación ante la autoridad de control, en este caso, la Agencia Española de Protección de Datos, si consideras que el tratamiento de datos personales que te conciernen infringe el Reglamento.
-<br><br>
-<strong>Finalidad del tratamiento de datos personales</strong><br><br>
-Los datos personales y la finalidad del tratamiento por parte de <strong>COOK TODAY</strong> es diferente según el sistema de captura de información:<br>
-    • <strong>Formularios de contacto:</strong> <strong>COOK TODAY</strong> solicita datos personales entre los que pueden estar: dirección de correo electrónico con la finalidad de responder a tus consultas.
-Por ejemplo,  <strong>COOK TODAY</strong> utiliza esos datos para dar respuesta a tus mensajes, dudas, quejas, comentarios o inquietudes que puedas tener relativas a la información incluida en LA APP, los servicios que se prestan a través de LA APP, el tratamiento de tus datos personales, cuestiones referentes a los textos legales incluidos en LA APP, así como cualquier otra consulta que puedas tener y que no esté sujeta a las condiciones de LA APP.
-<br><br>
-<strong>Seguridad de los datos personales</strong><br><br>
-Para proteger tus datos personales,  <strong>COOK TODAY</strong> toma todas las precauciones razonables y sigue las mejores prácticas de la industria para evitar su pérdida, mal uso, acceso indebido, divulgación, alteración o destrucción de los mismos.
-Tus datos serán almacenados en <strong>GOOGLE DRIVE</strong> a través del formulario de contacto.<br>
- La seguridad de tus datos está garantizada, ya que toman todas las medidas de seguridad necesarias para ello. Puedes consultar su política de privacidad para tener más información.<br><br>
-<strong>Contenido de terceros</strong><br><br>
-LA APP pueden incluir contenido incrustado (por ejemplo, vídeos, imágenes, artículos, anuncios, etc.).<br>
-Este contenido de terceros pueden recopilar datos sobre ti, utilizar cookies, incrustar un código de seguimiento adicional de terceros, y supervisar tu interacción usando este código.<br><br>
-<strong>Legitimación para el tratamiento de datos</strong><br><br>
-La base legal para el tratamiento de tus datos es: <strong>el consentimiento.</strong><br>
-Para contactar con <strong>COOK TODAY</strong>, envia un correo electrónico o contacta a través del <strong>formulario de Google (https://forms.gle/2ipbHmHH53yzd8Tp8)</strong>.<br><br>
-<strong>Categorías de datos personales</strong><br><br>
-Las categorías de datos personales que trata <strong>COOK TODAY</strong> son:<br>
-    • <strong>Datos identificativos.</strong><br><br>
-<strong>Conservación de datos personales</strong><br><br>
-Los datos personales que proporciones <strong>COOK TODAY</strong> se conservarán hasta que solicites su supresión.<br>
-    • Google Analytics es un servicio de analítica web prestado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”). Encontrarás más información en: https://analytics.google.com
-Google Analytics utiliza “cookies”, que son archivos de texto ubicados en tu ordenador, para ayudar al <strong>COOK TODAY</strong> a analizar el uso que hacen los usuarios del sitio Web. La información que genera la cookie acerca del uso del sitio Web (incluyendo tu dirección IP) será directamente transmitida y archivada por Google en los servidores de Estados Unidos.<br><br>
-    • DoubleClick by Google es un conjunto de servicios publicitarios proporcionado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”).
-Encontrarás más información en: https://www.doubleclickbygoogle.com
-DoubleClick utiliza “cookies”, que son archivos de texto ubicados en tu ordenador y que sirven para aumentar la relevancia de los anuncios relacionados con tus búsquedas recientes. En la Política de privacidad de Google se explica cómo Google gestiona tu privacidad en lo que respecta al uso de las cookies y otra información.<br><br>
-También puedes ver una lista de los tipos de cookies que utiliza Google y sus colaboradores y toda la información relativa al uso que hacen de cookies publicitarias.<br><br>
-<strong>Navegación en la app</strong><br><br>
-Al navegar por <strong>COOK TODAY</strong> se pueden recoger datos no identificativos, que pueden incluir, la dirección IP, geolocalización, un registro de cómo se utilizan los servicios y sitios, hábitos de navegación y otros datos que no pueden ser utilizados para identificarte.<br>
-El sitio Web utiliza los siguientes servicios de análisis de terceros:<br><br>
-
-    • <strong>Google Analytics</strong><br>
-    • <strong>DoubleClick por Google</strong><br><br>
-<strong>COOK TODAY</strong> utiliza la información obtenida para obtener datos estadísticos, analizar tendencias, administrar el sitio, estudiar patrones de navegación y para recopilar información demográfica.<br><br>
-<strong>Exactitud y veracidad de los datos personales</strong><br><br>
-Te comprometes a que los datos facilitados a <strong>COOK TODAY</strong> sean correctos, completos, exactos y vigentes, así como a mantenerlos debidamente actualizados.<br>
-Como Usuario de la app eres el único responsable de la veracidad y corrección de los datos que remitas al sitio exonerando a <strong>COOK TODAY</strong> de cualquier responsabilidad al respecto.<br><br>
-<strong>Aceptación y consentimiento</strong><br><br>
-Como Usuario de <strong>COOK TODAY</strong> declaras haber sido informado de las condiciones sobre protección de datos de carácter personal, aceptas y consientes el tratamiento de los mismos por parte de <strong>COOK TODAY</strong> en la forma y para las finalidades indicadas en esta Política de Privacidad.<br><br>
-<strong>Revocabilidad</strong><br><br>
-Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a <strong>gx3studios@gmail.com</strong>.<br>
-El ejercicio de tus derechos no incluye ningún dato que <strong>COOK TODAY</strong> esté obligado a conservar con fines administrativos, legales o de seguridad.<br><br>
-<strong>Cambios en la Política de Privacidad</strong><br><br>
-<strong>COOK TODAY</strong> se reserva el derecho a modificar la presente Política de Privacidad para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la industria.
-Estas políticas estarán vigentes hasta que sean modificadas por otras debidamente publicadas.<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      </p>
-
-                      </div>
-                      <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      
-                      
-                    </dialog>                       
+ 
                   </tr>
                   <tr>
                     <td onclick="tosDialog()" style="text-align:center">Términos y condiciones</td>
-
-                    <dialog style="width:350px" id="tosContainerDialog" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Términos y condiciones</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                                  
-                      <p style="height:500px;width:300px; overflow:scroll;text-align: justify;text-justify: inter-word;">
-
-<strong>INFORMACIÓN RELEVANTE</strong><br><br>
-Es requisito necesario para la adquisición de los productos que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestros servicios implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente documento. Todas los productos que son ofrecidos por nuestra APP pudieran ser presentadas por una página web tercera y en tal caso estarían sujetas a sus propios Términos y Condiciones. <br><br>
-
-<strong>LICENCIA</strong><br><br>
-<strong>Gx3 STUDIOS</strong> a través de su APP concede una licencia para que los usuarios utilicen  los productos que son presentados en la APP de acuerdo a los Términos y Condiciones que se describen en este documento.<br><br>
-<strong>USO NO AUTORIZADO</strong><br><br>
-En caso de que aplique (para venta de software, templetes, u otro producto de diseño y programación) usted no puede colocar uno de nuestros productos, modificado o sin modificar, en un CD, sitio web o ningún otro medio y ofrecerlos para la redistribución o la reventa de ningún tipo.<br>
-<strong>PROPIEDAD</strong><br><br>
-Usted no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros productos, código... modificado o sin modificar. Todos los productos son propiedad de Gx3 STUDIOS. En ningún esta compañía será responsables de ningún daño incluyendo, pero no limitado a, daños directos, indirectos, especiales, fortuitos o consecuentes u otras pérdidas resultantes del uso o de la imposibilidad de utilizar nuestros productos.<br><br>
-
-<strong>PRIVACIDAD</strong><br><br>
-<strong>COOK TODAY</strong> garantiza que la información personal que usted envía cuenta con la seguridad necesaria. Los datos ingresados por usuario no serán entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o requerimientos legales.<br>
-<strong>Gx3 STUDIOS</strong> reserva los derechos de cambiar o de modificar estos términos sin previo aviso.<br>
-
                       
-                      </p>
-
-                      </div>
-                      <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      
-                      
-                    </dialog>                       
                   </tr>
                   <tr>
                     <td onclick="FeedbackAlert('acercade')" style="text-align:center">Feedback</td>
 
-                    <dialog id="feedbackContainerAcercade" class="mdl-dialog">
-                      <h5 align="center" style="color:#616161">Feedback</h5>
-                      <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-                      <p>
-                      Copia el enlace inferior y después pegalo en tu navegador:<br>
-                      </p><p id="copiarFormAcercade" style="width:230px;text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
-                      <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p><strong><strong>
-                      <p></p>
-                      </strong></strong></div><strong><strong>
-                      <div style="margin-right:90px" class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button close">Cerrar</button>
-                      </div>
-                      </strong></strong>
-                      
-                    </dialog><strong><strong>  
+
                     
                   </tr>
                 </tbody>

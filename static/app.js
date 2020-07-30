@@ -8,7 +8,7 @@ var l = localStorage
 var firstTimeCheck = JSON.parse(l.getItem("firstTimeCheck"))
 if (firstTimeCheck == null){
 
-    privacyDialogFIRST()
+        privacyDialogFIRST()
 
 
 }
@@ -60,7 +60,7 @@ for (var i = 0;i <= comidas.length -1;i++){
             ingredientes_list_const.push(ingredientes_append[x])
         }
     }
-    console.log(ingredientes_list_const)
+    //console.log(ingredientes_list_const)
 }
 
 
@@ -78,16 +78,16 @@ const ui = new minevera();
 ui.selectores(ingredientes_list_const);
 
 
-const fav = new favoritos(false);
+const fav = new favoritos;
 
-fav.mostrar_favoritos()
+fav.mostrar_favoritos(true)
 
-const comdia = new comidaDia();
+const comdia = new comidaDia;
 
 comdia.generarFicha()
 comdia.generarConsejos()
 
-const des = new despensa();
+const des = new despensa;
 
 
 ////APARTADO DOM////
@@ -106,87 +106,6 @@ const des = new despensa();
 //mas detalles en app_classes.ks minevera.mostrar_comidas
 var ingredientes_checked = [];
 
-document.getElementById("mineveraTab").addEventListener("click",function(e){
-
-    const contenedorDespensaClean = document.getElementById("despensa-list");
-    contenedorDespensaClean.innerHTML = ""
-    document.getElementById("despensa-list").scrollTop = 0    
-
-    const volverBeacon = document.createElement("div")  
-    volverBeacon.setAttribute("id", "volverBeacon");
-    contenedorDespensaClean.appendChild(volverBeacon)
-
-    const contenedorComidaCat = document.getElementById("despensa-list");         
-    const ComidaFichaCat = document.createElement('div');
-
-    ComidaFichaCat.innerHTML = `
-    
-    <br><br><br>
-    <div align=center><img style="opacity:0.5" src="images/startup-despensa.png" width="192px"></div><br>
-    <div align=center><a style="opacity:0.6;text-decoration:none;color:#616161">Selecciona una categoría.</a></div>
-    
-    `
-    contenedorComidaCat.appendChild(ComidaFichaCat)
-    //l.setItem("categoriaActual",categoria)
-    l.setItem("despensa_load",JSON.stringify(0))
-    l.setItem("despensa_break",false)
-
-
-
-})
-
-document.getElementById("favoritosTab").addEventListener("click",function(e){
-
-    fav.mostrar_favoritos(true)
-
-
-})
-
-document.getElementById("despensaTab").addEventListener('click',function(e){
-
-
-    var borrarBoton = document.getElementById("clearIndex")
-
-    borrarBoton.style.visibility = "hidden"
-    //vaciamos los resultados del HTML
-    document.getElementById('resultado').innerHTML = "";
-    ingredientes_checked = []
-    const contenedorSelectores = document.getElementById("selectores");
-    contenedorSelectores.innerHTML = ""
-    document.getElementById("selectores").scrollTop = 0
-
-    //borramos el contenido del input de la busqueda en tiempo real
-    const contenedorBuscador = document.getElementById("indexof");
-    contenedorBuscador.value = ""
-
-    const contenedorBuscadorDiv = document.getElementById("container-buscador");
-    contenedorBuscadorDiv.classList.remove("is-dirty")
-
-    const contenedorResultadoComidas = document.getElementById("resultado-comida");
-    contenedorResultadoComidas.innerHTML = ""
-    contenedorResultadoComidas.style.marginTop = "0px"
-    
-
-    //vaciamos las keys del localstorage que se han usado para mostrar las comidas
-    l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
-    l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
-    l.setItem("selectores_load",JSON.stringify(0))
-    //escondemos el boton de cargar más
-    document.getElementById("loadMore").style.visibility = "hidden"
-    //contenedorResultadoComidas.style.marginTop = "0px"
-    document.getElementById("loadMore").style.height = "0px"
-    document.getElementById("loadMoreContainer").style.height = "0px"
-
-    //volvemos a duplicar ingredientes_list de la lista original
-    ingredientes_list = ingredientes_list_const.slice()
-
-    //llamamos al metodo selectores para que vuelva a generar las etiquetas con ingredientes
-    ui.selectores(ingredientes_list_const);
-    e.preventDefault(); 
-    //evitamos que el evento submit se comporte por defecto (es decir, que haga reload de la pagina)
-
-
-})
 
 
 ////BUSCADOR EN TIEMPO REAL////
@@ -222,6 +141,7 @@ indexof en html:
 //al cual va a ejecutar una funcion.
 
 document.getElementById("ingredienteSearch").addEventListener("click",function(e){
+    
     l.setItem("bloquearScroll",false)
     //document.getElementById("loadspinner").style.visibility = "visible"
 

@@ -7,7 +7,7 @@
         xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CookToday</name>
     <description>
-        App para decidir que comer hoy
+        Ideas de comidas basándose en los ingredientes que tienes a mano.
     </description>
     <author email="EMAIL" href="gx3studios@gmail.com">
    

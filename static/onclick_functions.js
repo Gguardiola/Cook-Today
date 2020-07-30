@@ -1,8 +1,18 @@
 
 //aceptar politica por primera vez
 function privacyDialogFIRST() {
+    var modal = document.getElementById("privacyContainerDialogFIRST");
+    modal.style.display = "block";
 
-    var dialog = document.querySelectorAll('#privacyContainerDialogFIRST').item(0);  
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        l.setItem("firstTimeCheck",JSON.stringify(false))
+        modal.style.display = "none";
+        
+
+    })
+    /*var dialog = document.querySelectorAll('#privacyContainerDialogFIRST').item(0);  
 
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -13,9 +23,95 @@ function privacyDialogFIRST() {
         l.setItem("firstTimeCheck",JSON.stringify(false))
         dialog.close();
         e.preventDefault()
-    });
+    });*/
 
 }
+//cada vez que el usuario hace click en una pestaña, se resetea la nevera y la despensa
+function tabChange(){
+
+
+    const contenedorDespensaClean = document.getElementById("despensa-list");
+    contenedorDespensaClean.innerHTML = ""
+    document.getElementById("despensa-list").scrollTop = 0    
+
+    const volverBeacon = document.createElement("div")  
+    volverBeacon.setAttribute("id", "volverBeacon");
+    contenedorDespensaClean.appendChild(volverBeacon)
+
+    const contenedorComidaCat = document.getElementById("despensa-list");         
+    const ComidaFichaCat = document.createElement('div');
+
+    ComidaFichaCat.innerHTML = `
+    
+    <br><br><br>
+    <div align=center><img style="opacity:0.5" src="images/startup-despensa.png" width="192px"></div><br>
+    <div align=center><a style="opacity:0.6;text-decoration:none;color:#616161">Selecciona una categoría.</a></div>
+    
+    `
+    contenedorComidaCat.appendChild(ComidaFichaCat)
+    //l.setItem("categoriaActual",categoria)
+    l.setItem("despensa_load",JSON.stringify(0))
+    l.setItem("despensa_break",false)
+
+    var borrarBoton = document.getElementById("clearIndex")
+
+    borrarBoton.style.visibility = "hidden"
+    //vaciamos los resultados del HTML
+    document.getElementById('resultado').innerHTML = "";
+    ingredientes_checked = []
+    const contenedorSelectores = document.getElementById("selectores");
+    contenedorSelectores.innerHTML = ""
+    document.getElementById("selectores").scrollTop = 0
+
+    //borramos el contenido del input de la busqueda en tiempo real
+    const contenedorBuscador = document.getElementById("indexof");
+    contenedorBuscador.value = ""
+
+    const contenedorBuscadorDiv = document.getElementById("container-buscador");
+    contenedorBuscadorDiv.classList.remove("is-dirty")
+
+    const contenedorResultadoComidas = document.getElementById("resultado-comida");
+    contenedorResultadoComidas.innerHTML = ""
+    contenedorResultadoComidas.style.marginTop = "0px"
+    
+
+    //vaciamos las keys del localstorage que se han usado para mostrar las comidas
+    l.setItem("mostrar_comidas_finalSave",JSON.stringify([]))
+    l.setItem("faltanIngredientesCheckSave",JSON.stringify([]))
+    l.setItem("selectores_load",JSON.stringify(0))
+    //escondemos el boton de cargar más
+    document.getElementById("loadMore").style.visibility = "hidden"
+    //contenedorResultadoComidas.style.marginTop = "0px"
+    document.getElementById("loadMore").style.height = "0px"
+    document.getElementById("loadMoreContainer").style.height = "0px"
+
+    //volvemos a duplicar ingredientes_list de la lista original
+    ingredientes_list = ingredientes_list_const.slice()
+
+    //llamamos al metodo selectores para que vuelva a generar las etiquetas con ingredientes
+    ui.selectores(ingredientes_list_const);
+
+    //evitamos que el evento submit se comporte por defecto (es decir, que haga reload de la pagina)
+  
+
+
+
+
+
+
+
+
+}
+//a parte, cuando haga click en favoritos tambien refrescara la lista.
+document.getElementById("favoritosTab").addEventListener("click",function(e){
+
+    fav.mostrar_favoritos(true)
+
+
+
+    e.preventDefault()
+})
+
 
 //Esta funcion recoge el ingrediente seleccionado, lo añade a ingredientes checked y pasa la lista para mostrar la etiqueta borrable del ingrediente
 
@@ -135,15 +231,14 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
     
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
-    var dialog = document.querySelectorAll('#ingredientespopup_id').item(indice);
-    console.log(dialog)
-    var showDialogButton = document.querySelectorAll('#show-dialog').item(indice);
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
-    
-    dialog.querySelector('.close').addEventListener('click', function(e) {
+    var modal = document.querySelectorAll('#ingredientespopup_id').item(indice);
+
+
+    modal.style.display = "block";
+
+
+    modal.querySelector(".close").addEventListener('click',function(e){    
+      
         try{
             var borrarIngredientesActual = document.getElementById("ingredientesMostrados")
             borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
@@ -151,10 +246,11 @@ function popupingredientes(ingredientes_checked,mostrar_comidas_final,ComidaClic
             //pass
 
         }
+        
+        modal.style.display = "none";
+        
 
-        dialog.close();
-        e.preventDefault()
-    });
+    })        
 
 
 }
@@ -195,15 +291,14 @@ function popupingredientesFavoritos(ComidaClickIngredientes,indice){
     
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
-    var dialog = document.querySelectorAll('#ingredientespopup_idFav').item(indice);
+    var modal = document.querySelectorAll('#ingredientespopup_idFav').item(indice);
     
-    var showDialogButton = document.querySelectorAll('#show-dialogFav').item(indice);
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
-    
-    dialog.querySelector('.close').addEventListener('click', function(e) {
+
+    modal.style.display = "block";
+
+
+    modal.querySelector(".close").addEventListener('click',function(e){    
+      
         try{
             var borrarIngredientesActual = document.getElementById("ingredientesMostradosFav")
             borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
@@ -211,10 +306,11 @@ function popupingredientesFavoritos(ComidaClickIngredientes,indice){
             //pass
 
         }
+        
+        modal.style.display = "none";
+        
 
-        dialog.close();
-        e.preventDefault()
-    });
+    })    
 
 
 }
@@ -255,27 +351,26 @@ function popupingredientesDia(ComidaClickIngredientes){
     
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
-    var dialog = document.querySelectorAll('#ingredientespopup_idDia').item(0);
+    var modal = document.querySelectorAll('#ingredientespopup_idDia').item(0);
 
-    var showDialogButton = document.querySelectorAll('#show-dialogDia').item(0);
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
-    
-    dialog.querySelector('.close').addEventListener('click', function(e) {
+    modal.style.display = "block";
+
+
+    modal.querySelector(".close").addEventListener('click',function(e){    
+      
         try{
             var borrarIngredientesActual = document.getElementById("ingredientesMostradosDia")
             borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
         } catch (TypeError){
             //pass
 
-        }
+        }    
+        
+        modal.style.display = "none";
+        
 
-        dialog.close();
-        e.preventDefault()
-    });
-
+    })
+    
 
 }
 
@@ -315,26 +410,26 @@ function popupingredientesDespensa(ComidaClickIngredientes){
     
     ingredientesContainer.appendChild(ingredientesActualMostrar)        
 
-    var dialog = document.querySelectorAll('#ingredientespopup_idDespensa').item(0);
-    
-    var showDialogButton = document.querySelectorAll('#show-dialogDespensa').item(0);
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
-    
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        try{
-            var borrarIngredientesActual = document.getElementById("ingredientesMostradosDespensa")
-            borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
-        } catch (TypeError){
-            //pass
+    var modal = document.querySelectorAll('#ingredientespopup_idDespensa').item(0);
 
-        }
 
-        dialog.close();
-        e.preventDefault()
-    });
+        modal.style.display = "block";
+
+
+        modal.querySelector(".close").addEventListener('click',function(e){    
+
+            try{
+                var borrarIngredientesActual = document.getElementById("ingredientesMostradosDespensa")
+                borrarIngredientesActual.parentNode.removeChild(borrarIngredientesActual)
+            } catch (TypeError){
+                //pass
+    
+            }
+            modal.style.display = "none";
+            
+    
+        })        
+
 
 
 }
@@ -355,36 +450,36 @@ function addFavoritos(indice){
     
     if(favoritosParse.includes(comida_fav)){
         //pass
-        var dialog = document.querySelectorAll('#addfavoritosDialogFail').item(indice);
+        var modal = document.querySelectorAll('#addfavoritosDialogFail').item(indice);
         
-        
-        if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-        }
-        dialog.showModal();
-        
-        dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-        });
+
+        modal.style.display = "block";
+
+
+        modal.querySelector(".close").addEventListener('click',function(e){    
+            
+            modal.style.display = "none";
+            
+    
+        })
     }
     else{
         favoritosParse.unshift(comida_fav)
         l.setItem("favoritos", JSON.stringify(favoritosParse))   
     
 
-        var dialog = document.querySelectorAll('#addfavoritosDialog').item(indice);
+        var modal = document.querySelectorAll('#addfavoritosDialog').item(indice);
        
-        
-        if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-        }
-        dialog.showModal();
-        
-        dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-        });
+
+        modal.style.display = "block";
+
+
+        modal.querySelector(".close").addEventListener('click',function(e){    
+            
+            modal.style.display = "none";
+            
+    
+        })
     }
 } 
 
@@ -397,42 +492,42 @@ function addFavoritosDia(){
     console.log(favoritosParse)
     if(favoritosParse.includes(comida_fav)){
         //pass
-        var dialog = document.querySelectorAll('#addfavoritosDialogFailDia').item(0);
+        var modal = document.querySelectorAll('#addfavoritosDialogFailDia').item(0);
        
-        
-        if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-        }
-        dialog.showModal();
-        
-        dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-        });
+
+        modal.style.display = "block";
+
+
+        modal.querySelector(".close").addEventListener('click',function(e){    
+            
+            modal.style.display = "none";
+            
+    
+        })
     }
     else{
         favoritosParse.unshift(comida_fav)
         l.setItem("favoritos", JSON.stringify(favoritosParse))   
     
 
-        var dialog = document.querySelectorAll('#addfavoritosDialogDia').item(0);
-       
-        
-        if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-        }
-        dialog.showModal();
-        
-        dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-        });
+        var modal = document.querySelectorAll('#addfavoritosDialogDia').item(0);
+
+
+        modal.style.display = "block";
+
+
+        modal.querySelector(".close").addEventListener('click',function(e){    
+            
+            modal.style.display = "none";
+            
+    
+        })
     }
 } 
 
 function removeFavoritos(indice){
 
-    var favoritosParseNew = []
+
     var comida_fav = document.querySelectorAll("#removefavoritosLabel").item(indice).innerHTML
     console.log(comida_fav)
     
@@ -449,7 +544,7 @@ function removeFavoritos(indice){
 
         }
     }
-    console.log(favoritosParseNew)
+    
     l.setItem("favoritos",JSON.stringify(favoritosParse))
 
 
@@ -459,28 +554,32 @@ function removeFavoritos(indice){
 function FeedbackAlert(origenNevera) {
 
     if(origenNevera == true){
-        var dialog = document.querySelectorAll('#feedbackContainer').item(0);
+        var modal = document.querySelectorAll("#feedbackContainer").item(0);
     }
 
     else if(origenNevera == false){
-        var dialog = document.querySelectorAll('#feedbackContainerFav').item(0);
+        var modal = document.querySelectorAll("#feedbackContainerFav").item(0);
     }
     else if(origenNevera == "despensa"){
-        var dialog = document.querySelectorAll('#feedbackContainerDespensa').item(0);  
+        var modal = document.querySelectorAll("#feedbackContainerDespensa").item(0);
+
     }
     else if(origenNevera == "acercade"){
-        var dialog = document.querySelectorAll('#feedbackContainerAcercade').item(0); 
+        var modal = document.querySelectorAll("#feedbackContainerAcercade").item(0);
+
 
     }
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+    
+    modal.style.display = "block";
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+        
+
+    })
 
 }
 //esta funcion se llama cuando se hace click en eo enlace al formulario de feedback
@@ -561,18 +660,19 @@ function eclecnas() {
 
         }
         else if (eclecnas == 19){
-            var dialog = document.querySelectorAll('#eclecnasContainerDialog').item(0);  
+            var modal = document.querySelectorAll('#eclecnasContainerDialog').item(0);  
 
-            if (! dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }
-            dialog.showModal();
+
+            modal.style.display = "block";
+
+
+            modal.querySelector(".close").addEventListener('click',function(e){
+                l.setItem("eclecnas",JSON.stringify(0))        
+                
+                modal.style.display = "none";
+                
         
-            dialog.querySelector('.close').addEventListener('click', function(e) {
-                l.setItem("eclecnas",JSON.stringify(0))
-                dialog.close();
-                e.preventDefault()
-            });
+            })
 
         }
 
@@ -584,81 +684,80 @@ function eclecnas() {
 
 function acercadeDialog() {
 
-    var dialog = document.querySelectorAll('#acercadeContainerDialog').item(0);  
+    var modal = document.querySelectorAll('#acercadeContainerDialog').item(0);  
 
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+    modal.style.display = "block";
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+        
+
+    })
 
 }
 
 function creditosDialog() {
 
-    var dialog = document.querySelectorAll('#creditosContainerDialog').item(0);  
+    var modal = document.querySelectorAll('#creditosContainerDialog').item(0);  
 
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+    modal.style.display = "block";
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+    })
+
 
 }
 
 function licenciasDialog() {
 
-    var dialog = document.querySelectorAll('#licenciasContainerDialog').item(0);  
+    var modal = document.querySelectorAll('#licenciasContainerDialog').item(0);  
 
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+    modal.style.display = "block";
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+    })
 
 }
 
 function privacyDialog() {
 
-    var dialog = document.querySelectorAll('#privacyContainerDialog').item(0);  
+    var modal = document.querySelectorAll('#privacyContainerDialog').item(0);  
 
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+    modal.style.display = "block";
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+        
+
+    })
 
 }
 
 function tosDialog() {
 
-    var dialog = document.querySelectorAll('#tosContainerDialog').item(0);  
+    var modal = document.querySelectorAll('#tosContainerDialog').item(0);  
+    modal.style.display = "block";
 
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
 
-    dialog.querySelector('.close').addEventListener('click', function(e) {
-        dialog.close();
-        e.preventDefault()
-    });
+    modal.querySelector(".close").addEventListener('click',function(e){
+
+        
+        modal.style.display = "none";
+    })
 
 }
 

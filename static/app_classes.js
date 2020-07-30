@@ -27,7 +27,8 @@ class comidaDia {
         }
         
         else{
-            var nuevaComidadeldiaRandom = Math.floor((Math.random() * mostrar_comidas_final.length) + 1);
+
+            var nuevaComidadeldiaRandom = Math.floor((Math.random() * mostrar_comidas_final.length));
 
             var ComidaDeldia = comidas[nuevaComidadeldiaRandom].nombre
             console.log(ComidaDeldia)
@@ -74,35 +75,61 @@ class comidaDia {
         </div>             
         </div> 
 
-        <dialog id="ingredientespopup_idDia" class="mdl-dialog">
-        <h4 id ="ingredientesDialogTitleDia" style="color:#616161" align=center>Ingredientes</h4>
-        <div id="dialogContainerDia" class="mdl-dialog__content">
-        <p id="ingredientesFichaContainerDia" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-        </div>
-        <div align=center class="mdl-dialog__actions">
-            <button type="button" class="mdl-button close">Cerrar</button>
-        </div>
-    </dialog>            
+        <div id="ingredientespopup_idDia" class="modal">
+            <div class="modal-content">
+            
+                <h4 id ="ingredientesDialogTitleDia" style="color:#616161" align=center>Ingredientes</h4>
+                <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                    
+                    <div id="dialogContainerDia" class="mdl-dialog__content">
+                        <p id="ingredientesFichaContainerDia" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:auto;height:110px;margin-left:-5%"></p>
+                    </div>
+
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+            </div>
+        </div>        
+          
 
 
         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabelDia" name="${ComidaDelDiaDefinitiva}" style="color:#cfde47">${ComidaDelDiaDefinitiva}</p></div>
         
-        <dialog id="addfavoritosDialogDia" class="mdl-dialog">
+
+
+            <div id="addfavoritosDialogDia" class="modal">
+                <div class="modal-content">
+                
+                <h5 align="center" style="color:#616161"></h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                    
+                    <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                    <div align=center><img src="images/star-model1fav.png" width="192px"></div>
+
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+                </div>
+            </div>
         
-        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
-        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
-        <div style="margin-right:90px" class="mdl-dialog__actions">
-        <button align=center type="button" class="mdl-button close">Cerrar</button>
-        </div>
-    </dialog> 
-    
-    <dialog id="addfavoritosDialogFailDia" class="mdl-dialog">
-    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
-    <div style="margin-right:90px" class="mdl-dialog__actions">
-        <button type="button" class="mdl-button close">Cerrar</button>
-    </div>
-    </dialog>            
+            <div id="addfavoritosDialogFailDia" class="modal">
+                <div class="modal-content">
+                
+                <h5 align="center" style="color:#616161"></h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                    
+                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
+
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+                </div>
+            </div>        
+            
 
         </div>
         `;
@@ -137,8 +164,19 @@ class comidaDia {
             var consejos_list = []
             for (var i=0; i <=2; i++){
 
-                var new_consejoRand = Math.floor((Math.random() * consejos_all.length) + 1);
-                var new_consejo = consejos[new_consejoRand].consejo
+                var new_consejoRand = Math.floor((Math.random() * consejos_all.length));
+                try{
+                    var new_consejo = consejos[new_consejoRand].consejo
+
+
+                }
+                catch{
+                    console.log("Primer intento ha petado. Volviendo a intentar")
+                    console.log("consejo:" + new_consejoRand)
+                    var new_consejo = consejos[new_consejoRand].consejo  
+
+                }
+                
                 console.log(new_consejo)
 
                 while(consejos_list.includes(new_consejo)){
@@ -597,34 +635,57 @@ class minevera {
                         </div>             
                         </div> 
 
-                        <dialog id="ingredientespopup_id" class="mdl-dialog">
-                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
-                        <div id="dialogContainer" class="mdl-dialog__content">
-                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-                        </div>
-                        <div align=center class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button close">Cerrar</button>
-                        </div>
-                    </dialog>            
+                        <div id="ingredientespopup_id" class="modal">
+                            <div class="modal-content">
+                            
+                                <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
+                                <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                                    
+                                    <div id="dialogContainer" class="mdl-dialog__content">
+                                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:auto;height:110px;margin-left:-5%"></p>
+                                    </div>
+            
+                                </div>
+                                <div class="mdl-dialog__actions">
+                                    <button type="button" class="mdl-button close">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>            
 
 
                         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
-                        
-                        <dialog id="addfavoritosDialog" class="mdl-dialog">
-                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
-                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
-                        <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                                    
+                        <div id="addfavoritosDialog" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                                <div align=center><img src="images/star-model1fav.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
                         </div>
-                    </dialog> 
                     
-                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
-                    <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button type="button" class="mdl-button close">Cerrar</button>
-                    </div>
-                    </dialog>            
+                        <div id="addfavoritosDialogFail" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                                <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
+                        </div>     
 
                         </div>
                         `;
@@ -652,34 +713,57 @@ class minevera {
                         </div>             
                         </div> 
 
-                        <dialog id="ingredientespopup_id" class="mdl-dialog">
-                        <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
-                        <div id="dialogContainer" class="mdl-dialog__content">
-                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-                        </div>
-                        <div align=center class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button close">Cerrar</button>
-                        </div>
-                    </dialog>            
+                        <div id="ingredientespopup_id" class="modal">
+                            <div class="modal-content">
+                            
+                                <h4 id ="ingredientesDialogTitle" style="color:#616161" align=center>Ingredientes</h4>
+                                <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                                    
+                                    <div id="dialogContainer" class="mdl-dialog__content">
+                                        <p id="ingredientesFichaContainer" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:auto;height:110px;margin-left:-5%"></p>
+                                    </div>
+            
+                                </div>
+                                <div class="mdl-dialog__actions">
+                                    <button type="button" class="mdl-button close">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>             
 
 
                         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_final[i]}" style="color:white;">${mostrar_comidas_final[i]}</p></div>
                         
-                        <dialog id="addfavoritosDialog" class="mdl-dialog">
-                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
-                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
-                        <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        <div id="addfavoritosDialog" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                                <div align=center><img src="images/star-model1fav.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
                         </div>
-                    </dialog> 
                     
-                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
-                    <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button type="button" class="mdl-button close">Cerrar</button>
-                    </div>
-                    </dialog>            
+                        <div id="addfavoritosDialogFail" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                                <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
+                        </div>               
 
                         </div>
                         `;
@@ -713,19 +797,7 @@ class minevera {
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
             feedbackbutton.innerHTML = `<br><div align=center><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
             
-            <dialog id="feedbackContainer" class="mdl-dialog">
-            <h5 align=center style="color:#616161" align=center>Feedback</h5>
-            <div align=left style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-            <p>
-            Copia el enlace inferior y después pegalo en tu navegador:<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" ">https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
-            <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
-            </p>
-            </div>
-            <div style="margin-right:90px" class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close">Cerrar</button>
-            </div>
-            </dialog>  
+
             
             
             `
@@ -763,19 +835,23 @@ class minevera {
             feedbackbutton.setAttribute("id","feedbackButtonContainer")
             feedbackbutton.innerHTML = `<br><div align=center><a onclick='FeedbackAlert(true)' style="text-decoration:none;color:#616161">¿Crees que faltan comidas o puede haber algún error?</a></div>
             
-            <dialog id="feedbackContainer" class="mdl-dialog">
-            <h5 align=center style="color:#616161" align=center>Feedback</h5>
-            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
-            <p>
-            Copia el enlace inferior y después pegalo en tu navegador:<br>
-            <p id="copiarForm" style="width:230px;text-decotartion:underline;color:#8bc34a" https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>            
-            <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></p>
-            </p>
-            </div>
-            <div style="margin-right:90px" class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close">Cerrar</button>
-            </div>
-            </dialog>  
+            <div id="feedbackContainer" class="modal">
+              <div class="modal-content">
+                
+                <h5 align="center" style="color:#616161">Feedback</h5>
+                <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                  
+              
+                Copia el enlace inferior y después pegalo en tu navegador:
+                <p id="copiarForm" style="text-decotartion:underline;color:#8bc34a" >https://forms.gle/2ipbHmHH53yzd8Tp8</p><br><br>
+                <p style="text-align: justify;text-justify: inter-word;">Desde este formulario, puedes sugerir comidas o bien reportar un error. También puedes contactarnos directamente a través de nuestro correo: <strong>gx3studios@gmail.com<strong></strong></strong></p>
+                  </p>
+                </div>
+                <div class="mdl-dialog__actions">
+                  <button type="button" class="mdl-button close">Cerrar</button>
+                </div>
+              </div>          
+            </div> 
             
             
             `
@@ -854,15 +930,23 @@ class favoritos {
             </div>   
             </div>             
             </div>    
-            <dialog id="ingredientespopup_idFav" class="mdl-dialog">
-                <h4 id ="ingredientesDialogTitleFav" style="color:#616161" align=center>Ingredientes</h4>
-                <div id="dialogContainerFav" class="mdl-dialog__content">
-                <p id="ingredientesFichaContainerFav" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
+
+            <div id="ingredientespopup_idFav" class="modal">
+                <div class="modal-content">
+                
+                    <h4 id ="ingredientesDialogTitleFav" style="color:#616161" align=center>Ingredientes</h4>
+                    <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                        
+                        <div id="dialogContainerFav" class="mdl-dialog__content">
+                            <p id="ingredientesFichaContainerFav" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:auto;height:110px;margin-left:-5%"></p>
+                        </div>
+
+                    </div>
+                    <div class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button close">Cerrar</button>
+                    </div>
                 </div>
-                <div align=center class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close">Cerrar</button>
-                </div>
-            </dialog>     
+            </div>       
             <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="removefavoritosLabel" name="${favoritos[i]}" style="color:white;">${favoritos[i]}</p></div>
 
             `
@@ -968,34 +1052,59 @@ class despensa {
                         </div>             
                         </div> 
 
-                        <dialog id="ingredientespopup_idDespensa" class="mdl-dialog">
-                        <h4 id ="ingredientesDialogTitleDespensa" style="color:#616161" align=center>Ingredientes</h4>
-                        <div id="dialogContainerDespensa" class="mdl-dialog__content">
-                        <p id="ingredientesFichaContainerDespensa" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:250px;height:110px;margin-left:-5%"></p>
-                        </div>
-                        <div align=center class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button close">Cerrar</button>
-                        </div>
-                    </dialog>            
+                        <div id="ingredientespopup_idDespensa" class="modal">
+                            <div class="modal-content">
+                            
+                                <h4 id ="ingredientesDialogTitleDespensa" style="color:#616161" align=center>Ingredientes</h4>
+                                <div align="center" style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                                    
+                                    <div id="dialogContainerDespensa" class="mdl-dialog__content">
+                                        <p id="ingredientesFichaContainerDespensa" class="mdl-cell mdl-cell--1-col demo-card-wide mdl-card mdl-shadow--2dp" style="border-top: 2px solid #8bc34a;border-bottom: 2px solid #8bc34a;overflow: hidden;overflow-y:scroll;overflow-x:hidden;width:auto;height:110px;margin-left:-5%"></p>
+                                    </div>
+                
+                                </div>
+                                <div class="mdl-dialog__actions">
+                                    <button type="button" class="mdl-button close">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>        
+
+          
                 
                 
                         <div style="margin-bottom:-20px" class="mdl-cell mdl-cell--6-col"><p id="addfavoritosLabel" name="${mostrar_comidas_categoria[i]}" style="color:white;">${mostrar_comidas_categoria[i]}</p></div>
                         
-                        <dialog id="addfavoritosDialog" class="mdl-dialog">
-                        <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
-                        <div align=center><img src="images/star-model1fav.png" width="192px"></div>
-                        <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button align=center type="button" class="mdl-button close">Cerrar</button>
+                        <div id="addfavoritosDialog" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Añadido a favoritos!</h5>
+                                <div align=center><img src="images/star-model1fav.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
                         </div>
-                    </dialog> 
                     
-                    <dialog id="addfavoritosDialogFail" class="mdl-dialog">
-                    <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
-                    <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
-                    <div style="margin-right:90px" class="mdl-dialog__actions">
-                        <button type="button" class="mdl-button close">Cerrar</button>
-                    </div>
-                    </dialog>          
+                        <div id="addfavoritosDialogFail" class="modal">
+                            <div class="modal-content">
+                            
+                            <h5 align="center" style="color:#616161"></h5>
+                            <div style="overflow-wrap: anywhere;" class="mdl-dialog__content">
+                                
+                                <h5 style="color:#616161" align=center>Ya está en favoritos!</h5>
+                                <div align=center><img src="images/star-model1favFAIL.png" width="192px"></div>
+
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button close">Cerrar</button>
+                            </div>
+                            </div>
+                        </div>                 
 
                     </div>
                     
